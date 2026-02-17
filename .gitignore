@@ -1,0 +1,55 @@
+# ===== Windows / general =====
+.DS_Store
+Thumbs.db
+*.log
+
+# ===== Visual Studio =====
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.cache
+*.pdb
+*.opendb
+*.VC.db
+
+# ===== Build output =====
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]rm/
+[Aa]rm64/
+
+# ===== NuGet =====
+packages/
+*.nupkg
+*.snupkg
+.nuget/
+
+# ===== .NET tooling =====
+project.lock.json
+*.tmp
+*.bak
+
+# ===== Publish =====
+publish/
+*.publishsettings
+
+# ===== Test =====
+TestResults/
+
+# ===== Secrets / config (no subir credenciales) =====
+appsettings.*.json
+secrets.json
+
+# ===== SQLite / local DB (no subir BD real) =====
+*.db
+*.sqlite
+*.sqlite3
+
+# Si en algún momento quieren subir una BD de ejemplo, pueden permitir solo una:
+# !data/seed.db

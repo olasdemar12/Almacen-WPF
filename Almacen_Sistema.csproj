@@ -14,4 +14,12 @@
     <PackageReference Include="MaterialDesignThemes" Version="5.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Assets\" />
+    <Folder Include="MVVM\" />
+    <Folder Include="Services\" />
+    <Folder Include="UI\" />
+    <Folder Include="Resources\" />
+  </ItemGroup>
+
 </Project>

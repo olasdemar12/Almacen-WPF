@@ -1,4 +1,6 @@
 ﻿using Almacen_Sistema.MVVM.ViewModels.Login;
+using Almacen_Sistema.UI.Window;
+using MaterialDesignThemes.Wpf;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,7 +25,12 @@ namespace Almacen_Sistema
             var loginViewModel = new LoginViewModel();
             if (loginViewModel.CloseLogin == null)
             {
-                loginViewModel.CloseLogin = new Action(() => this.Close());
+                loginViewModel.CloseLogin = new Action(() =>
+                {
+                    var stockMaster = new StockMasterWindow();
+                    stockMaster.Show();
+                    this.Close();
+                });
             }
             this.DataContext = loginViewModel;
         }

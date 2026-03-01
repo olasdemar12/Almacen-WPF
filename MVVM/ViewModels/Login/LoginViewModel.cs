@@ -44,11 +44,11 @@ namespace Almacen_Sistema.MVVM.ViewModels.Login
             await Task.Delay(2000);
             if (Username == "Admin" && Passworduser == "1234567890")
             {
-                MessageBox.Show("Inicio de Sesión Éxito");
                 CloseLogin?.Invoke();
             }
             else
             {
+                IsBusy = false;
                 var dialogData = new
                 {
                     Titulo = "Usuario o contraseña incorrecto",
@@ -59,7 +59,6 @@ namespace Almacen_Sistema.MVVM.ViewModels.Login
                 {
                     DataContext = dialogData
                 };
-
                 await DialogHost.Show(view, "RootDialog");
             }
                 IsBusy = false;

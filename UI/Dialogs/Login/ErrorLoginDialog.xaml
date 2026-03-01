@@ -14,7 +14,12 @@
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" Background="#152B4D" CornerRadius="8,8,0,0" Padding="15">
-            <TextBlock Text="{Binding Titulo}" Foreground="White" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding Titulo}" 
+                       Foreground="White" 
+                       FontWeight="Bold" 
+                       FontSize="16" 
+                       HorizontalAlignment="Left"
+                       Margin="10,0,0,0"/>
         </Border>
 
         <Border Grid.Row="1" Background="White" CornerRadius="0,0,8,8" Padding="20,30,20,20">
@@ -28,12 +33,13 @@
 
                 <Button Content="Aceptar" 
                         Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                        HorizontalAlignment="Stretch"
                         Background="#96D1F8" 
                         BorderBrush="#96D1F8" 
                         Foreground="#152B4D" 
                         FontWeight="Bold"
                         materialDesign:ButtonAssist.CornerRadius="8"
-                        Width="150"/>
+                        Width="auto"/>
             </StackPanel>
         </Border>
     </Grid>

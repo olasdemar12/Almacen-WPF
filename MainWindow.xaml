@@ -4,12 +4,48 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Almacen_Sistema"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        
         mc:Ignorable="d"
         Title="Login" Height="450" Width="800"  
         WindowState="Maximized"
         WindowStyle="ToolWindow"
         ResizeMode="CanResizeWithGrip"
         Topmost="True">
+
+    <Window.Resources>
+        
+        <Style x:Key="WhiteText" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontStyle" Value="Normal"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="35"/>
+        </Style>
+
+        <Style x:Key="WhiteTextNormal" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontStyle" Value="Normal"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="BlueText" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="Foreground" Value="#0F2854"/>
+        </Style>
+        
+    </Window.Resources>
     <!-- Contener principal -->
     <Grid>
         <Grid.ColumnDefinitions>
@@ -34,22 +70,10 @@
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 
                 <TextBlock Text="Stock Master"
-                           FontFamily="Segoe UI"
-                           FontStyle="Normal"
-                           Foreground="White"
-                           FontWeight="Bold"
-                           HorizontalAlignment="Center"
-                           FontSize="35"/>
+                           Style="{StaticResource WhiteText}"/>
 
                 <TextBlock Text="Control inteligente de Productos, Entradas y Salidas en tiempo real."
-                           TextWrapping="Wrap"
-                           TextAlignment="Center"
-                           FontFamily="Segoe UI"
-                           FontStyle="Normal"
-                           Foreground="White"
-                           FontWeight="Normal"
-                           FontSize="20"
-                           HorizontalAlignment="Center"/>
+                           Style="{StaticResource WhiteTextNormal}"/>
 
             </StackPanel>
         </Grid>
@@ -60,13 +84,8 @@
 
                 <!-- Titulo -->
                 <TextBlock Text="Login de Ingreso"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Top"
-                           FontSize="25"
                            Margin="10"
-                           FontWeight="Bold"
-                           FontFamily="Segoe UI"
-                           Foreground="#0F2854"/>
+                           Style="{StaticResource BlueText}"/>
 
                <!--Imagen de Usuario.png --> 
                 <Border Background="#0F2854" CornerRadius="100"
@@ -79,38 +98,66 @@
                 </Border>
                 
                 <!-- Campo de Texto: Usuario -->
-                <Label Content="Usuario:"
+                <Label 
                        HorizontalAlignment="Left"
-                       Margin="30,10,0,0"
-                           FontSize="25"
-                           FontWeight="Bold"
-                           FontFamily="Segoe UI"
-                           Foreground="#0F2854"/>
+                       Margin="30,10,0,0">
+                    <TextBlock Text="Usuario:"
+                               Style="{StaticResource BlueText}"/>
+                </Label>
 
-                <TextBox Width="auto" Height="50"
-                         Margin="30,10,30,10"/>
+                <TextBox Width="auto" Height="50"                       
+                         Margin="30,10,30,10"
+                         FontFamily="Segoe UI"
+                         FontSize="16"
+                         Padding="13"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         materialDesign:HintAssist.Hint="Ingrese el usuario asignado"
+                         materialDesign:HintAssist.IsFloating="False"
+                         />
 
                 <!-- Campo de Texto: Contraseña -->
-                <Label Content="Contraseña:"
-                       HorizontalAlignment="Left"
-                       Margin="30,10,0,0"
-                           FontSize="25"
-                           FontWeight="Bold"
-                           FontFamily="Segoe UI"
-                           Foreground="#0F2854"/>
+                <Label   HorizontalAlignment="Left"
+                         Margin="30,10,0,0"
+                         FontSize="25"
+                         FontWeight="Bold"
+                         FontFamily="Segoe UI"
+                         Foreground="#0F2854">
+                    <TextBlock Text="Contraseña:"
+                               Style="{StaticResource BlueText}"/>
+                </Label>
 
-                <TextBox Width="auto" Height="50"
-                         Margin="30,10,30,10"/>
+                <PasswordBox Width="auto" Height="50"
+                         Margin="30,10,30,10"
+                         FontFamily="Segoe UI"
+                         FontSize="16"
+                         Padding="13"
+                         Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}"
+                         materialDesign:HintAssist.Hint="Ingrese la contraseña asignada"
+                         materialDesign:HintAssist.IsFloating="False"/>
                 
                 <!-- Boton de Ingresar -->
-                <Button Content="Ingresar"
+                <Button 
                         Background="#0F2854"
                         Foreground="White"
-                        FontSize="20"
-                        FontWeight="Bold"
+                        FontSize="25"
+                        FontWeight="Normal"
                         FontFamily="Segoe UI"
                         Margin="30,30,30,10"
-                        Height="50"/>
+                        Height="50">
+
+                    <Grid>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Ingresar"/>
+                        </StackPanel>
+
+                        <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                 IsIndeterminate="True"
+                                 Width="24" Height="24"
+                                 Foreground="White"
+                                 Visibility="Collapsed"/>
+                    </Grid>
+                    
+                </Button>
 
             </StackPanel>  
         </Grid> 

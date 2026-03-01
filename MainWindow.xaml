@@ -5,8 +5,114 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Almacen_Sistema"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Login" Height="450" Width="800"  
+        WindowState="Maximized"
+        WindowStyle="ToolWindow"
+        ResizeMode="CanResizeWithGrip"
+        Topmost="True">
+    <!-- Contener principal -->
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
+      <!-- Lado izquierdo -->
+        <Grid>
+            <!-- Color de Fondo -->
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0.5, 0" EndPoint="0.5, 1">
+                    <GradientStop Color="#152B4D" Offset="0.0"/>
+
+                    <GradientStop Color="#4582B9" Offset="0.6"/>
+
+                    <GradientStop Color="#A2D6F5" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+
+            <!-- Texto e Imagenes -->
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                
+                <TextBlock Text="Stock Master"
+                           FontFamily="Segoe UI"
+                           FontStyle="Normal"
+                           Foreground="White"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"
+                           FontSize="35"/>
+
+                <TextBlock Text="Control inteligente de Productos, Entradas y Salidas en tiempo real."
+                           TextWrapping="Wrap"
+                           TextAlignment="Center"
+                           FontFamily="Segoe UI"
+                           FontStyle="Normal"
+                           Foreground="White"
+                           FontWeight="Normal"
+                           FontSize="20"
+                           HorizontalAlignment="Center"/>
+
+            </StackPanel>
+        </Grid>
+
+        <!-- Lado derecho -->
+        <Grid Grid.Column="1">
+            <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+                <!-- Titulo -->
+                <TextBlock Text="Login de Ingreso"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Top"
+                           FontSize="25"
+                           Margin="10"
+                           FontWeight="Bold"
+                           FontFamily="Segoe UI"
+                           Foreground="#0F2854"/>
+
+               <!--Imagen de Usuario.png --> 
+                <Border Background="#0F2854" CornerRadius="100"
+                        Width="200" Height="200" HorizontalAlignment="Center"
+                        VerticalAlignment="Top" Margin="10">
+                    <Image Source="/Assets/Window/LoginView/usuario.png"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Width="170" Height="170"/>
+                </Border>
+                
+                <!-- Campo de Texto: Usuario -->
+                <Label Content="Usuario:"
+                       HorizontalAlignment="Left"
+                       Margin="30,10,0,0"
+                           FontSize="25"
+                           FontWeight="Bold"
+                           FontFamily="Segoe UI"
+                           Foreground="#0F2854"/>
+
+                <TextBox Width="auto" Height="50"
+                         Margin="30,10,30,10"/>
+
+                <!-- Campo de Texto: Contraseña -->
+                <Label Content="Contraseña:"
+                       HorizontalAlignment="Left"
+                       Margin="30,10,0,0"
+                           FontSize="25"
+                           FontWeight="Bold"
+                           FontFamily="Segoe UI"
+                           Foreground="#0F2854"/>
+
+                <TextBox Width="auto" Height="50"
+                         Margin="30,10,30,10"/>
+                
+                <!-- Boton de Ingresar -->
+                <Button Content="Ingresar"
+                        Background="#0F2854"
+                        Foreground="White"
+                        FontSize="20"
+                        FontWeight="Bold"
+                        FontFamily="Segoe UI"
+                        Margin="30,30,30,10"
+                        Height="50"/>
+
+            </StackPanel>  
+        </Grid> 
     </Grid>
 </Window>

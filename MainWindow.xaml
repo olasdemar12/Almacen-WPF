@@ -4,15 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Almacen_Sistema"
-        
+        xmlns:vm="clr-namespace:Almacen_Sistema.MVVM.ViewModels.Login"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        
+        xmlns:helper="clr-namespace:Almacen_Sistema.Resources.Helpers.PasswordBox_Control"
         mc:Ignorable="d"
         Title="Login" Height="450" Width="800"  
         WindowState="Maximized"
         WindowStyle="ToolWindow"
         ResizeMode="CanResizeWithGrip"
         Topmost="True">
+    <Window.DataContext>
+        <vm:LoginViewModel/>
+    </Window.DataContext>
 
     <Window.Resources>
         
@@ -46,120 +49,165 @@
         </Style>
         
     </Window.Resources>
+
+
+
     <!-- Contener principal -->
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
-      <!-- Lado izquierdo -->
+    <materialDesign:DialogHost Identifier="RootDialog" 
+                               DialogTheme="Inherit"
+                               OverlayBackground="#99000000"
+                               CloseOnClickAway="False">
         <Grid>
-            <!-- Color de Fondo -->
-            <Grid.Background>
-                <LinearGradientBrush StartPoint="0.5, 0" EndPoint="0.5, 1">
-                    <GradientStop Color="#152B4D" Offset="0.0"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-                    <GradientStop Color="#4582B9" Offset="0.6"/>
+            <!-- Lado izquierdo -->
+            <Grid>
+                <!-- Color de Fondo -->
+                <Grid.Background>
+                    <LinearGradientBrush StartPoint="0.5, 0" EndPoint="0.5, 1">
+                        <GradientStop Color="#152B4D" Offset="0.0"/>
 
-                    <GradientStop Color="#A2D6F5" Offset="1.0"/>
-                </LinearGradientBrush>
-            </Grid.Background>
+                        <GradientStop Color="#4582B9" Offset="0.6"/>
 
-            <!-- Texto e Imagenes -->
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                
-                <TextBlock Text="Stock Master"
+                        <GradientStop Color="#A2D6F5" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+
+                <!-- Texto e Imagenes -->
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                    <TextBlock Text="Stock Master"
                            Style="{StaticResource WhiteText}"/>
 
-                <TextBlock Text="Control inteligente de Productos, Entradas y Salidas en tiempo real."
+                    <TextBlock Text="Control inteligente de Productos, Entradas y Salidas en tiempo real."
                            Style="{StaticResource WhiteTextNormal}"/>
 
-            </StackPanel>
-        </Grid>
+                </StackPanel>
+            </Grid>
 
-        <!-- Lado derecho -->
-        <Grid Grid.Column="1">
-            <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <!-- Lado derecho -->
+            <Grid Grid.Column="1">
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <!-- Aplicamos validacion para no editar los campos mientras ocurre la validacion -->
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="IsEnabled" Value="True"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsBusy}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
 
-                <!-- Titulo -->
-                <TextBlock Text="Login de Ingreso"
+                    <!-- Titulo -->
+                    <TextBlock Text="Login de Ingreso"
                            Margin="10"
                            Style="{StaticResource BlueText}"/>
 
-               <!--Imagen de Usuario.png --> 
-                <Border Background="#0F2854" CornerRadius="100"
+                    <!--Imagen de Usuario.png -->
+                    <Border Background="#0F2854" CornerRadius="100"
                         Width="200" Height="200" HorizontalAlignment="Center"
                         VerticalAlignment="Top" Margin="10">
-                    <Image Source="/Assets/Window/LoginView/usuario.png"
+                        <Image Source="/Assets/Window/LoginView/usuario.png"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            Width="170" Height="170"/>
-                </Border>
-                
-                <!-- Campo de Texto: Usuario -->
-                <Label 
+                    </Border>
+
+                    <!-- Campo de Texto: Usuario -->
+                    <Label 
                        HorizontalAlignment="Left"
                        Margin="30,10,0,0">
-                    <TextBlock Text="Usuario:"
+                        <TextBlock Text="Usuario:"
                                Style="{StaticResource BlueText}"/>
-                </Label>
+                    </Label>
 
-                <TextBox Width="auto" Height="50"                       
+                    <TextBox Width="auto" Height="50"                       
                          Margin="30,10,30,10"
                          FontFamily="Segoe UI"
                          FontSize="16"
                          Padding="13"
+                         Text="{Binding Username,UpdateSourceTrigger=Default,ValidatesOnNotifyDataErrors=True}"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
                          materialDesign:HintAssist.Hint="Ingrese el usuario asignado"
                          materialDesign:HintAssist.IsFloating="False"
+                         materialDesign:ValidationAssist.Background="White"
                          />
 
-                <!-- Campo de Texto: Contraseña -->
-                <Label   HorizontalAlignment="Left"
+                    <!-- Campo de Texto: Contraseña -->
+                    <Label   HorizontalAlignment="Left"
                          Margin="30,10,0,0"
                          FontSize="25"
                          FontWeight="Bold"
                          FontFamily="Segoe UI"
                          Foreground="#0F2854">
-                    <TextBlock Text="Contraseña:"
+                        <TextBlock Text="Contraseña:"
                                Style="{StaticResource BlueText}"/>
-                </Label>
+                    </Label>
 
-                <PasswordBox Width="auto" Height="50"
+                    <PasswordBox x:Name="TxtPassword" Width="auto" Height="50"
                          Margin="30,10,30,10"
                          FontFamily="Segoe UI"
                          FontSize="16"
                          Padding="13"
                          Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}"
                          materialDesign:HintAssist.Hint="Ingrese la contraseña asignada"
-                         materialDesign:HintAssist.IsFloating="False"/>
-                
-                <!-- Boton de Ingresar -->
-                <Button 
+                         materialDesign:HintAssist.IsFloating="False" 
+                         materialDesign:ValidationAssist.Background="White"
+                         helper:PasswordHelper.Attach="True"
+                         helper:PasswordHelper.Password="{Binding Passworduser, UpdateSourceTrigger=Default,ValidatesOnNotifyDataErrors=True}"/>
+
+                    <!-- Boton de Ingresar -->
+                    <Button 
                         Background="#0F2854"
                         Foreground="White"
                         FontSize="25"
                         FontWeight="Normal"
                         FontFamily="Segoe UI"
                         Margin="30,30,30,10"
-                        Height="50">
+                        Height="50"
+                        Command="{Binding AuthenticationCommand}">
 
-                    <Grid>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <TextBlock Text="Ingresar"/>
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsBusy}" Value="True">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
 
-                        <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
-                                 IsIndeterminate="True"
-                                 Width="24" Height="24"
-                                 Foreground="White"
-                                 Visibility="Collapsed"/>
-                    </Grid>
-                    
-                </Button>
+                                <TextBlock Text="Ingresar" FontWeight="Bold" FontSize="16" VerticalAlignment="Center"/>
+                                <materialDesign:PackIcon Kind="Login" Margin="10,0,0,0" Width="24" Height="24" VerticalAlignment="Center"/>
+                            </StackPanel>
 
-            </StackPanel>  
-        </Grid> 
-    </Grid>
+                            <ProgressBar IsIndeterminate="True" Width="24" Height="24" Foreground="White">
+                                <ProgressBar.Style>
+                                    <Style TargetType="ProgressBar" BasedOn="{StaticResource MaterialDesignCircularProgressBar}">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsBusy}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ProgressBar.Style>
+                            </ProgressBar>
+                        </Grid>
+
+                    </Button>
+
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </materialDesign:DialogHost>
 </Window>
+    

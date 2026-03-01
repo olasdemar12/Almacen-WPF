@@ -20,10 +20,11 @@
 	</ItemGroup>
 
   <ItemGroup>
-    <Folder Include="MVVM\" />
+    <Folder Include="MVVM\Models\" />
     <Folder Include="Services\" />
-    <Folder Include="UI\" />
-    <Folder Include="Resources\" />
+    <Folder Include="UI\Forms\" />
+    <Folder Include="UI\Panels\" />
+    <Folder Include="UI\Views\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Almacen_Sistema.MVVM.ViewModels.Login;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,6 +20,12 @@ namespace Almacen_Sistema
         public MainWindow()
         {
             InitializeComponent();
+            var loginViewModel = new LoginViewModel();
+            if (loginViewModel.CloseLogin == null)
+            {
+                loginViewModel.CloseLogin = new Action(() => this.Close());
+            }
+            this.DataContext = loginViewModel;
         }
     }
 }

@@ -15,9 +15,9 @@ namespace Almacen_Sistema.Resources.Funcionamiento.NavItem
 
         public PackIconKind Icon { get; set; }
 
-        public string TargetView { get; set; }
+        public Page TargetView { get; set; }
 
-        public MenuNavItem(string title, PackIconKind icon, string targetView = "")
+        public MenuNavItem(string title, PackIconKind icon, Page targetView)
         {
             Title = title;
             Icon = icon;

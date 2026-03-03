@@ -1,4 +1,5 @@
 ﻿using Almacen_Sistema.Resources.Funcionamiento.NavItem;
+using Almacen_Sistema.UI.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using MaterialDesignThemes.Wpf;
 using System;
@@ -21,16 +22,19 @@ namespace Almacen_Sistema.MVVM.ViewModels.Window
         [ObservableProperty]
         private string _titlePage;
 
+        [ObservableProperty]
+        private object _contentPage;
+
         public StockMasterViewModel()
         {
             MenuItems = new ObservableCollection<MenuNavItem>
         {
-                new MenuNavItem("Inicio",PackIconKind.Home, "InicioView"),
-                new MenuNavItem("Productos",PackIconKind.PackageVariant,"ProductosView"),
-                new MenuNavItem("Movimientos",PackIconKind.SwapHorizontal,"MovimientosView"),
-                new MenuNavItem("Inventario",PackIconKind.Warehouse,"InventarioView"),
-                new MenuNavItem("Documentos",PackIconKind.FileDocumentOutline,"DocumentosView"),
-                new MenuNavItem("Configuración",PackIconKind.Settings,"ConfiguracionView")
+                new MenuNavItem("Inicio",PackIconKind.Home, new InicioView()),
+                new MenuNavItem("Productos",PackIconKind.PackageVariant,new ProductosView()),
+                new MenuNavItem("Movimientos",PackIconKind.SwapHorizontal, new MovimientosView()),
+                new MenuNavItem("Inventario",PackIconKind.Warehouse,new InvetarioView()),
+                new MenuNavItem("Documentos",PackIconKind.FileDocumentOutline,new DocumentosView()),
+                new MenuNavItem("Configuración",PackIconKind.Settings,new ConfiguracionView())
         };
 
 
@@ -43,8 +47,30 @@ namespace Almacen_Sistema.MVVM.ViewModels.Window
             if (value != null)
             {
                 TitlePage = value.Title;
+                switch (TitlePage)
+                {
+                    case "Inicio":
+                        ContentPage = Activator.CreateInstance(typeof(InicioView));
+                        break;
+                    case "Productos":
+                        ContentPage = Activator.CreateInstance(typeof(ProductosView));
+                        break;
+                    case "Movimientos":
+                        ContentPage = Activator.CreateInstance(typeof(MovimientosView));
+                        break;
+                    case "Inventario":
+                       ContentPage = Activator.CreateInstance(typeof(InvetarioView));
+                        break;
+                    case "Documentos":
+                        ContentPage = Activator.CreateInstance(typeof(DocumentosView));
+                        break;
+                    case "Configuración":
+                        ContentPage = Activator.CreateInstance(typeof(ConfiguracionView));
+                        break;
+                }
             }
         }
+        
 
     }
 }

@@ -24,7 +24,6 @@
     <Folder Include="Services\" />
     <Folder Include="UI\Forms\" />
     <Folder Include="UI\Panels\" />
-    <Folder Include="UI\Views\" />
   </ItemGroup>
 
   <ItemGroup>

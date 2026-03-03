@@ -35,6 +35,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Login
         [ObservableProperty]
         private bool _isBusy;
 
+
         [RelayCommand]
         private async Task Authentication(object parameter)
         {

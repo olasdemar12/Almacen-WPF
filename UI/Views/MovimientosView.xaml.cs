@@ -1,5 +1,4 @@
-﻿using Almacen_Sistema.MVVM.ViewModels.Window;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,20 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Almacen_Sistema.UI.Window
+namespace Almacen_Sistema.UI.Views
 {
     /// <summary>
-    /// Lógica de interacción para StockMasterWindow.xaml
+    /// Lógica de interacción para MovimientosView.xaml
     /// </summary>
-    public partial class StockMasterWindow : System.Windows.Window
+    public partial class MovimientosView : Page
     {
-        public StockMasterWindow()
+        public MovimientosView()
         {
             InitializeComponent();
-            var vm = new StockMasterViewModel();
-            this.DataContext = vm;
         }
     }
 }

@@ -20,8 +20,9 @@
 	</ItemGroup>
 
   <ItemGroup>
-    <Folder Include="MVVM\Models\" />
-    <Folder Include="Services\" />
+    <Folder Include="MVVM\Models\Login\" />
+    <Folder Include="Services\Login\Contracts\" />
+    <Folder Include="Services\Login\Implementations\" />
     <Folder Include="UI\Forms\" />
     <Folder Include="UI\Panels\" />
   </ItemGroup>

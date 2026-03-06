@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="StockMasterControls.IconTextButtonControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StockMasterControls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" x:Name="Root">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                Width="{Binding Width,ElementName=Root}" Height="{Binding Height,ElementName=Root}"
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                Background="{Binding ColorButton,ElementName=Root}" BorderBrush="{Binding ColorButton,ElementName=Root}"
+                materialDesign:ButtonAssist.CornerRadius="5"
+                Foreground="{Binding ContentColorButton,ElementName=Root}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                        Width="auto" Height="auto">
+
+                <materialDesign:PackIcon Kind="{Binding Icon, ElementName=Root}" 
+                                 Width="30" Height="30" 
+                                 VerticalAlignment="Center" 
+                                 Margin="0,0,8,0" />
+                <TextBlock Text="{Binding Text, ElementName=Root}" 
+                                       VerticalAlignment="Center" FontSize="20"
+                                       FontWeight="SemiBold"/>
+            </StackPanel>
+        </Button>
+    </Grid>
+</UserControl>

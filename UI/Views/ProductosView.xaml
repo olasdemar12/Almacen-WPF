@@ -4,46 +4,124 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Almacen_Sistema.UI.Views"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:controls="clr-namespace:StockMasterControls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ProductosView">
+      Background="Transparent">
 
     <Grid>
+        <Grid>
 
-        <!--Tabla para mostrar la lista de Productos-->
-        <DataGrid x:Name="ProductsGrid"
-          ItemsSource="{Binding Products}"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Barra de busqueda, filtros y botones de categoria y nuevo producto -->
+            <Border Background="White" Grid.Row="0"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                    Width="auto" Height="80" CornerRadius="0,0,5,5"
+                    Margin="0,0,0,10">
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" 
+                                      Direction="270" 
+                                      ShadowDepth="2" 
+                                      Opacity="0.5" 
+                                      BlurRadius="10" />
+                </Border.Effect>
+
+                <StackPanel Orientation="Horizontal" 
+                            HorizontalAlignment="Stretch" 
+                            VerticalAlignment="Stretch">
+                    
+                    <!-- Barra de Busqueda -->
+                    <controls:SearchBarControl 
+                        Width="300"
+                        Margin="10,15,10,15"
+                        HintText="Buscar Producto"/>
+
+                    <ComboBox Width="200"  FontSize="16" FontFamily="Segoe UI"
+                              BorderBrush="#bdbdbd" HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch" 
+                              Padding="15,10" Margin="10,15,10,15"
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                              materialDesign:HintAssist.Hint="Categorías"
+                              materialDesign:HintAssist.HintPaddingBrush="White"
+                              materialDesign:TextFieldAssist.HasClearButton="True">
+                        <ComboBoxItem Content="Categoria 1"/>
+                        <ComboBoxItem Content="Categoria 2"/>
+                        <ComboBoxItem Content="Categoria 3"/>
+                        <ComboBoxItem Content="Categoria 4"/>
+                        <ComboBoxItem Content="Categoria 5"/>
+                    </ComboBox>
+
+                    <ComboBox Width="200"  FontSize="16" FontFamily="Segoe UI"
+                              BorderBrush="#bdbdbd" HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch" 
+                              Padding="15,10" Margin="10,15,10,15"
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                              materialDesign:HintAssist.Hint="Tipo de Venta"
+                              materialDesign:HintAssist.HintPaddingBrush="White"
+                              materialDesign:TextFieldAssist.HasClearButton="True">
+                        <ComboBoxItem Content="Unidad"/>
+                        <ComboBoxItem Content="Peso(kg)"/>
+                        <ComboBoxItem Content="Pieza"/>
+                    </ComboBox>
+
+                    <controls:IconTextButtonControl 
+                        Width="130" Height="50" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                        Margin="10,15,0,15"
+                        Icon="Plus" Text="Nuevo"
+                        ColorButton="#1c4d8d" ContentColorButton="White"
+                        materialDesign:ButtonAssist.CornerRadius="10"/>
+
+                    <controls:IconTextButtonControl 
+                        Width="180" Height="50" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                        Margin="10,15,0,15"
+                        Icon="ViewGridOutline" Text="Categorias"
+                        ColorButton="#1c4d8d" ContentColorButton="White"
+                        materialDesign:ButtonAssist.CornerRadius="10"/>
+                </StackPanel>
+                
+            </Border>
+
+            <!--Tabla para mostrar la lista de Productos-->
+            <DataGrid x:Name="ProductsGrid" Grid.Row="1"
+          HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
           Style="{StaticResource DataGridStyleGeneral}"
           ColumnHeaderStyle="{StaticResource DataGridHead}"
           CellStyle="{StaticResource DataGridCellConfig}"
           RowStyle="{StaticResource DataGridRowConfig}">
 
 
-            <DataGrid.Columns>
+                <DataGrid.Columns>
 
-                <DataGridTextColumn Header="Nombre" 
+                    <DataGridTextColumn Header="Nombre" 
                             Binding="{Binding Nombre}" 
                             Width="*" />
 
-                <DataGridTextColumn Header="Categoría" 
+                    <DataGridTextColumn Header="Categoría" 
                             Binding="{Binding Categoria}" 
                             Width="*" />
 
-                <DataGridTextColumn Header="Código de Barras" 
+                    <DataGridTextColumn Header="Código de Barras" 
                             Binding="{Binding Codigo}" 
                             Width="*" />
 
-                <DataGridTextColumn Header="Precio de Venta" 
+                    <DataGridTextColumn Header="Precio de Venta" 
                             Binding="{Binding Precio, StringFormat={}{0:C}}" 
                             Width="*" />
 
-            </DataGrid.Columns>
+                </DataGrid.Columns>
 
-            <ComboBoxItem Content="Mostrar Todos" />
-            <ComboBoxItem Content="Mostrar Todos" />
-            <ComboBoxItem Content="Mostrar Todos" />
-            <ComboBoxItem Content="Mostrar Todos" />
-            
-        </DataGrid>
+                <ComboBoxItem Content="Mostrar Todos" />
+                <ComboBoxItem Content="Mostrar Todos" />
+                <ComboBoxItem Content="Mostrar Todos" />
+                <ComboBoxItem Content="Mostrar Todos" />
+
+            </DataGrid>
+        </Grid>
+
     </Grid>
 </Page>

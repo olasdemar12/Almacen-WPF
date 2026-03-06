@@ -6,10 +6,91 @@
       xmlns:local="clr-namespace:Almacen_Sistema.UI.Views"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ProductosView">
+      Title="ProductosView"
+      Background="White">
 
     <Grid>
-        <TextBlock Text="Modulo de Productos" FontSize="34"
-                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Panel izquierdo -->
+        <Border Grid.Column="0" Background="#0F2854" Padding="15" CornerRadius="0 20 20 0" Margin="0 0 5 0">
+            <StackPanel>
+                <TextBlock Text="MÓDULOS" FontWeight="Bold" FontSize="20" Margin="0,0,0,10" Foreground="White"/>
+                <ListBox Background="Transparent" BorderThickness="0">
+                    <ListBox.Resources>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Padding" Value="15"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                            <Setter Property="FontSize" Value="16"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#4988C4"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.Resources>
+                    <ListBoxItem Content="Inicio"/>
+                    <ListBoxItem Content="Productos" Background="#1A3A6F"/>
+                    <ListBoxItem Content="Movimientos"/>
+                    <ListBoxItem Content="Inventarios"/>
+                    <ListBoxItem Content="Documentos"/>
+                    <ListBoxItem Content="Configuración"/>
+                </ListBox>
+            </StackPanel>
+        </Border>
+
+        <!-- Panel derecho -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Título Productos con fondo azul -->
+            <Border Grid.Row="0" Background="#0F2854" Padding="15 10" CornerRadius="0 0 0 0">
+                <TextBlock Text="PRODUCTOS" FontSize="20" FontWeight="Bold" Foreground="White"/>
+            </Border>
+
+            <!-- Contenido -->
+            <Grid Grid.Row="1" Margin="5">
+                <StackPanel>
+                    <!-- Buscador con bordes redondeados -->
+                    <Border BorderBrush="#CCCCCC" BorderThickness="1" CornerRadius="20" Margin="0,0,0,15">
+                        <TextBox Text="Buscar un Producto..." Padding="10" BorderThickness="0" />
+                    </Border>
+
+                    <WrapPanel Margin="0,0,0,15">
+                        <!-- Categorías -->
+                        <Border BorderBrush="#CCCCCC" BorderThickness="1" CornerRadius="20" Margin="0,0,10,0">
+                            <ComboBox Text="Categorías" Padding="8" BorderThickness="0" Width="120" IsEditable="True"/>
+                        </Border>
+                        <!-- Tipo de Venta -->
+                        <Border BorderBrush="#CCCCCC" BorderThickness="1" CornerRadius="20" Margin="0,0,10,0">
+                            <ComboBox Text="Tipo de Venta" Padding="8" BorderThickness="0" Width="120" IsEditable="True"/>
+                        </Border>
+                        <!-- Botón Nuevo corregido (sin CornerRadius en el Button) -->
+                        <Border BorderBrush="#CCCCCC" BorderThickness="1" CornerRadius="20" Margin="0,0,10,0" Background="#0F2854">
+                            <Button Content="Nuevo" Width="80" Padding="5" Background="Transparent" Foreground="White" BorderThickness="0" />
+                        </Border>
+                        <!-- Categorías (segundo) -->
+                        <Border BorderBrush="#CCCCCC" BorderThickness="1" CornerRadius="20" Margin="0,0,0,0" Background="#0F2854">
+                            <Button Content="Categorías" Width="80" Padding="5" Background="Transparent" Foreground="White" BorderThickness="0" />
+                        </Border>
+                    </WrapPanel>
+
+                    <!-- Área de listado -->
+                    <Border Background="#F9F9F9" Height="200" BorderBrush="#CCCCCC" BorderThickness="1" CornerRadius="20" Padding="10">
+                        <TextBlock Text="Listado de productos aparecería aquí..." VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#888"/>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

@@ -16,7 +16,7 @@
                                              SecondaryColor="LightBlue" />
 
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
-
+                <ResourceDictionary Source="/Resources/Tables/DataGridStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

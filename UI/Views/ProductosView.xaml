@@ -9,7 +9,41 @@
       Title="ProductosView">
 
     <Grid>
-        <TextBlock Text="Modulo de Productos" FontSize="34"
-                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <!--Tabla para mostrar la lista de Productos-->
+        <DataGrid x:Name="ProductsGrid"
+          ItemsSource="{Binding Products}"
+          Style="{StaticResource DataGridStyleGeneral}"
+          ColumnHeaderStyle="{StaticResource DataGridHead}"
+          CellStyle="{StaticResource DataGridCellConfig}"
+          RowStyle="{StaticResource DataGridRowConfig}">
+
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Nombre" 
+                            Binding="{Binding Nombre}" 
+                            Width="*" />
+
+                <DataGridTextColumn Header="Categoría" 
+                            Binding="{Binding Categoria}" 
+                            Width="*" />
+
+                <DataGridTextColumn Header="Código de Barras" 
+                            Binding="{Binding Codigo}" 
+                            Width="*" />
+
+                <DataGridTextColumn Header="Precio de Venta" 
+                            Binding="{Binding Precio, StringFormat={}{0:C}}" 
+                            Width="*" />
+
+            </DataGrid.Columns>
+
+            <ComboBoxItem Content="Mostrar Todos" />
+            <ComboBoxItem Content="Mostrar Todos" />
+            <ComboBoxItem Content="Mostrar Todos" />
+            <ComboBoxItem Content="Mostrar Todos" />
+            
+        </DataGrid>
     </Grid>
 </Page>

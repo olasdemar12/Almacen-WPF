@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Almacen_Sistema.Services.Login.Contracts
 {
-    public interface AIAuthenticationService
+    public interface IAuthenticationService
     {
         UserAccess AuthenticateUser(string username, string password);
     }

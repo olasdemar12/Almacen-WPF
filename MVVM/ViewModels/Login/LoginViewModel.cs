@@ -1,4 +1,6 @@
-﻿using Almacen_Sistema.UI.Dialogs.Login;
+﻿using Almacen_Sistema.Services.Login.Contracts;
+using Almacen_Sistema.Services.Login.Implementations;
+using Almacen_Sistema.UI.Dialogs.Login;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MaterialDesignThemes.Wpf;
@@ -6,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -35,6 +38,8 @@ namespace Almacen_Sistema.MVVM.ViewModels.Login
         [ObservableProperty]
         private bool _isBusy;
 
+        private IAuthenticationService _login;
+
 
         [RelayCommand]
         private async Task Authentication(object parameter)
@@ -43,7 +48,8 @@ namespace Almacen_Sistema.MVVM.ViewModels.Login
             if (HasErrors) return;
             IsBusy = true;
             await Task.Delay(2000);
-            if (Username == "Admin" && Passworduser == "1234567890")
+            var result =  _login.AuthenticateUser(Username, Passworduser);
+            if (result != null)
             {
                 CloseLogin?.Invoke();
             }
@@ -65,6 +71,10 @@ namespace Almacen_Sistema.MVVM.ViewModels.Login
                 IsBusy = false;
         }
 
+        public LoginViewModel()
+        {
+            _login = new DatabaseAuthenticationService();
+        }
 
     }
 }

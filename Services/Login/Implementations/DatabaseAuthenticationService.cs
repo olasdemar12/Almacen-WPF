@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Almacen_Sistema.Services.Login.Implementations
 {
-    public class DatabaseAuthenticationService : AIAuthenticationService
+    public class DatabaseAuthenticationService : IAuthenticationService
     {
         public UserAccess AuthenticateUser(string username, string password)
         {

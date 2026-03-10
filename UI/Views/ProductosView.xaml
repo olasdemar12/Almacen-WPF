@@ -34,7 +34,7 @@
                 <StackPanel Orientation="Horizontal" 
                             HorizontalAlignment="Stretch" 
                             VerticalAlignment="Stretch">
-                    
+
                     <!-- Barra de Busqueda -->
                     <controls:SearchBarControl 
                         Width="300"
@@ -83,7 +83,7 @@
                         ColorButton="#1c4d8d" ContentColorButton="White"
                         materialDesign:ButtonAssist.CornerRadius="10"/>
                 </StackPanel>
-                
+
             </Border>
 
             <!--Tabla para mostrar la lista de Productos-->
@@ -122,6 +122,10 @@
 
             </DataGrid>
         </Grid>
-
+        <controls:PanelControl  Width="500" Height="400" Title="Gestión de Categorías"
+                                ShowBackButton="False" ShowCloseButton="False">
+            <TextBlock Text="Hola, soy contenido interno" HorizontalAlignment="Center"
+                       FontSize="22"/>
+        </controls:PanelControl>
     </Grid>
 </Page>

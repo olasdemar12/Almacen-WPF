@@ -22,6 +22,7 @@
   <ItemGroup>
     <Folder Include="MVVM\Models\Categroy\" />
     <Folder Include="MVVM\Models\Product\" />
+    <Folder Include="Docs\" />
     <Folder Include="Services\Product\Contracts\" />
     <Folder Include="UI\Forms\" />
     <Folder Include="UI\Panels\" />

@@ -122,10 +122,5 @@
 
             </DataGrid>
         </Grid>
-        <controls:PanelControl  Width="500" Height="400" Title="Gestión de Categorías"
-                                ShowBackButton="False" ShowCloseButton="False">
-            <TextBlock Text="Hola, soy contenido interno" HorizontalAlignment="Center"
-                       FontSize="22"/>
-        </controls:PanelControl>
     </Grid>
 </Page>

@@ -4,11 +4,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Almacen_Sistema.UI.Views"
+      xmlns:controls="clr-namespace:StockMasterControls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MovimientosView">
     <Grid>
-        <TextBlock Text="Modulo de Movimientos" FontSize="34"
-                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <!--<TextBlock Text="Modulo de Movimientos" FontSize="34"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
+        <controls:PanelControl Width="300" Height="300" Title="Gestion de Categorias"/>
+
     </Grid>
 </Page>

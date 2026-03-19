@@ -25,7 +25,6 @@
     <Folder Include="Docs\" />
     <Folder Include="Services\Product\Contracts\" />
     <Folder Include="UI\Forms\" />
-    <Folder Include="UI\Panels\" />
   </ItemGroup>
 
   <ItemGroup>

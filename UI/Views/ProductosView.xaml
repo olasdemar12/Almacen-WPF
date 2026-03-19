@@ -6,10 +6,14 @@
       xmlns:local="clr-namespace:Almacen_Sistema.UI.Views"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:controls="clr-namespace:StockMasterControls"
+      xmlns:vm="clr-namespace:Almacen_Sistema.MVVM.ViewModels.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Background="Transparent">
-
+    <Page.DataContext>
+        <vm:ProductViewModel/>
+    </Page.DataContext>
+    
     <Grid>
         <Grid>
 
@@ -74,14 +78,16 @@
                         Margin="10,15,0,15"
                         Icon="Plus" Text="Nuevo"
                         ColorButton="#1c4d8d" ContentColorButton="White"
-                        materialDesign:ButtonAssist.CornerRadius="10"/>
+                        materialDesign:ButtonAssist.CornerRadius="10"
+                        Command="{Binding ProductAddCommand}"/>
 
                     <controls:IconTextButtonControl 
                         Width="180" Height="50" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                         Margin="10,15,0,15"
                         Icon="ViewGridOutline" Text="Categorias"
                         ColorButton="#1c4d8d" ContentColorButton="White"
-                        materialDesign:ButtonAssist.CornerRadius="10"/>
+                        materialDesign:ButtonAssist.CornerRadius="10"
+                        Command="{Binding CategoryManagementCommand}"/>
                 </StackPanel>
 
             </Border>

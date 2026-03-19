@@ -1,5 +1,4 @@
-﻿using Almacen_Sistema.MVVM.ViewModels.Pages;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,19 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Almacen_Sistema.UI.Views
+namespace Almacen_Sistema.UI.Panels.Products
 {
     /// <summary>
-    /// Lógica de interacción para ProductosView.xaml
+    /// Lógica de interacción para CategorysManagementControl.xaml
     /// </summary>
-    public partial class ProductosView : Page
+    public partial class CategorysManagementControl : UserControl
     {
-        public ProductosView()
+        public CategorysManagementControl()
         {
             InitializeComponent();
-            //Implementacion del DataContext
-            var ViewModel = new ProductViewModel();
-            this.DataContext = ViewModel;
         }
     }
 }

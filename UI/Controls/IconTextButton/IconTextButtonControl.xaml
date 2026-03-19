@@ -12,7 +12,8 @@
                 Style="{StaticResource MaterialDesignRaisedButton}"
                 Background="{Binding ColorButton,ElementName=Root}" BorderBrush="{Binding ColorButton,ElementName=Root}"
                 materialDesign:ButtonAssist.CornerRadius="5"
-                Foreground="{Binding ContentColorButton,ElementName=Root}">
+                Foreground="{Binding ContentColorButton,ElementName=Root}"
+                Command="{Binding Command, ElementName=Root}">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                         Width="auto" Height="auto">
 

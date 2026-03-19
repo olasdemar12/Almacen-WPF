@@ -46,7 +46,8 @@
                         Style="{StaticResource MaterialDesignIconButton}"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
-                        Visibility="{Binding ShowCloseButton, ElementName=Root, Converter={StaticResource BoolToVisibilityConverter}}">
+                        Visibility="{Binding ShowCloseButton, ElementName=Root, Converter={StaticResource BoolToVisibilityConverter}}"
+                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
                     <materialDesign:PackIcon Kind="Close"
                                              Width="30"
                                              Height="30"

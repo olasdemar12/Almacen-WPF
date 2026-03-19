@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="Almacen_Sistema.UI.Forms.Category.CategoryFormView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Almacen_Sistema.UI.Forms.Category"
+             xmlns:controls="clr-namespace:StockMasterControls"
+             xmlns:vm="clr-namespace:Almacen_Sistema.MVVM.ViewModels.Forms"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DataContext="{d:DesignInstance Type=vm:CategoryFormViewModel,IsDesignTimeCreatable=False}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid>
+        <controls:PanelControl Title="{Binding Title}"
+            Width="600"
+            Height="230"
+            ShowBackButton="False"
+            ShowCloseButton="False"
+            IsEnabled="{Binding IsEnable}">
+
+            <StackPanel>
+                <!-- Campo para el nombre de la categoria -->
+                <TextBox  Style="{StaticResource MaterialDesignOutlinedTextBox}" 
+                          FontFamily="Segoe UI" FontSize="22" Padding="13"
+                          Margin="10,20,10,30"
+                          materialDesign:HintAssist.Hint="Nombre"
+                          materialDesign:HintAssist.HintPaddingBrush="White"
+                          materialDesign:TextFieldAssist.TextFieldCornerRadius="5"
+                          BorderBrush="#bdbdbd"/>
+                
+                <!--Botones para ejecutar las acciones del formulario-->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    
+                    <!-- Boton de Cancelar -->
+                    <Button Content="Cancelar" Width="auto" Height="50"
+                            Padding="20,0,20,0"
+                            Background="#BDBDBD"
+                            BorderBrush="#BDBDBD"
+                            Foreground="White"
+                            FontSize="22"
+                            FontWeight="Normal"
+                            materialDesign:ButtonAssist.CornerRadius="5"
+                            Command="{Binding CloseFormCommand}"
+                            />
+
+                    <!-- Boton de Agregar nueva Categoria o Editar una categoria existente -->
+                    <Button Content="{Binding ContentedButton}" Width="auto" Height="50"
+                            Margin="20,0,10,0"
+                            Padding="20,0,20,0"
+                            Background="#1976d2"
+                            BorderBrush="#1976d2"
+                            Foreground="White"
+                            FontSize="22"
+                            FontWeight="Normal"
+                            materialDesign:ButtonAssist.CornerRadius="5"
+                            />
+                    
+                </StackPanel>
+                
+            </StackPanel>
+            
+        </controls:PanelControl>
+    </Grid>
+</UserControl>

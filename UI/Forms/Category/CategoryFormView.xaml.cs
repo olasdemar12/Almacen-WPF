@@ -1,4 +1,5 @@
-﻿using Almacen_Sistema.MVVM.ViewModels.Panels;
+﻿using Almacen_Sistema.MVVM.ViewModels.Forms;
+using MVVM.Models.Category;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,18 +14,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CategoryModel = MVVM.Models.Category.Category;
 
-namespace Almacen_Sistema.UI.Panels.Products
+namespace Almacen_Sistema.UI.Forms.Category
 {
     /// <summary>
-    /// Lógica de interacción para CategorysManagementControl.xaml
+    /// Lógica de interacción para CategoryFormView.xaml
     /// </summary>
-    public partial class CategorysManagementControl : UserControl
+    public partial class CategoryFormView : UserControl
     {
-        public CategorysManagementControl()
+        public CategoryFormView(string title, CategoryModel category)
         {
             InitializeComponent();
-            var ViewModel = new CategorysManagementVM();
+            var ViewModel = new CategoryFormViewModel(title,category);
             this.DataContext = ViewModel;
         }
     }

@@ -9,13 +9,6 @@ namespace Almacen_Sistema.MVVM.Models.Login
 {
         public class UserAccess : ObservableObject
         {
-            // 🔹 Lista estática para almacenar usuarios
-            public static List<UserAccess> Users = new List<UserAccess>() 
-            { new UserAccess(1,"Jesus","000001"),
-              new UserAccess(2,"Maritza","felix0w0"),
-              new UserAccess(3,"Carlos","000003"),
-              new UserAccess(4,"Ignacio","000004"),
-              new UserAccess(5,"Jorge","24321071")};
 
             // 🔹 Campos privados
             private int idUser;
@@ -61,12 +54,5 @@ namespace Almacen_Sistema.MVVM.Models.Login
                 NameUser = user.NameUser;
                 PasswordUser = user.PasswordUser;
             }
-
-            // 🔹 Método para agregar usuarios a la lista
-            public static void AddUser(UserAccess user)
-            {
-                Users.Add(user);
-            }
         }
-    
 }

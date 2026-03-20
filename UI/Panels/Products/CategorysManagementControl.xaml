@@ -8,11 +8,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:vm="clr-namespace:Almacen_Sistema.MVVM.ViewModels.Panels"
              mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=vm:CategorysManagementVM,IsDesignTimeCreatable=False}"
              d:DesignHeight="1000" d:DesignWidth="800">
-    <UserControl.DataContext>
-        <vm:CategorysManagementVM/>
-    </UserControl.DataContext>
-    
     <Grid>
         <controls:PanelControl Title="Gestion de Categorías" 
                                    ShowBackButton="False"
@@ -34,7 +31,8 @@
                                                 Icon="Plus" Text="Nueva Categoría"
                                                 ColorButton="#1c4d8d" ContentColorButton="White"
                                                 materialDesign:ButtonAssist.CornerRadius="10"
-                                                Command="{Binding AddCategoryCommand}"/>
+                                                Command="{Binding FormCategoryActionCommand}"
+                                                CommandParameter="FormCategoryAction"/>
                 
                 <!--DataGrid de Categoria-->
                 <DataGrid Grid.Row="1"

@@ -1,4 +1,5 @@
-﻿using Almacen_Sistema.MVVM.ViewModels.Login;
+﻿using Almacen_Sistema.Composition;
+using Almacen_Sistema.MVVM.ViewModels.Login;
 using Almacen_Sistema.UI.Window;
 using MaterialDesignThemes.Wpf;
 using System.Text;
@@ -22,7 +23,7 @@ namespace Almacen_Sistema
         public MainWindow()
         {
             InitializeComponent();
-            var loginViewModel = new LoginViewModel();
+            var loginViewModel = Bootstrapper.CreateLoginViewModel();
             if (loginViewModel.CloseLogin == null)
             {
                 loginViewModel.CloseLogin = new Action(() =>

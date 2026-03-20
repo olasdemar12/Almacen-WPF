@@ -1,4 +1,7 @@
-﻿using Almacen_Sistema.UI.Forms.Category;
+﻿using Almacen_Sistema.Composition;
+using Almacen_Sistema.Services.Category.Contracts;
+using Almacen_Sistema.UI.Forms.Category;
+using Almacen_Sistema.UI.Panels.Products;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MaterialDesignThemes.Wpf;
@@ -14,17 +17,19 @@ namespace Almacen_Sistema.MVVM.ViewModels.Panels
 {
     public partial class CategorysManagementVM:ObservableObject
     {
+        public CategorysManagementVM(ICategoryService categoryService)
+        {
+            this._categoryService = categoryService;
+        }
 
+        private readonly ICategoryService _categoryService;
 
         [RelayCommand]
-        private async Task AddCategory()
+        private async Task FormCategoryAction()
         {
-            //Cerrarmos el dialogo actual abierto
-            DialogHost.CloseDialogCommand.Execute(null, null);
-            //Despues esperamos 200ms para que se cierre el dialogo y no se sobrepongan los dialogos.
+            DialogHost.Close("DialogsRoot", "FormCategoryAction");
             await Task.Delay(200);
-            //Creamos un Objeto para pasarlo al formulario.
-            await DialogHost.Show(new CategoryFormView("Agregar Nueva Categoría",new CategoryModel()), "DialogsRoot");
+            await DialogHost.Show(new CategoryFormView("Agregar Nueva Categoría", new CategoryModel(), _categoryService), "DialogsRoot");
         }
     }
 }

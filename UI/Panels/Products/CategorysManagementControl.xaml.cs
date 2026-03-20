@@ -1,4 +1,7 @@
-﻿using Almacen_Sistema.MVVM.ViewModels.Panels;
+﻿using Almacen_Sistema.Composition;
+using Almacen_Sistema.MVVM.ViewModels.Panels;
+using Almacen_Sistema.Services.Category.Contracts;
+using MahApps.Metro.IconPacks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,8 +27,9 @@ namespace Almacen_Sistema.UI.Panels.Products
         public CategorysManagementControl()
         {
             InitializeComponent();
-            var ViewModel = new CategorysManagementVM();
+            var ViewModel = Bootstrapper.CreateCategorysManagementVM();
             this.DataContext = ViewModel;
         }
+
     }
 }

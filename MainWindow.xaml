@@ -12,11 +12,8 @@
         WindowState="Maximized"
         WindowStyle="ToolWindow"
         ResizeMode="CanResizeWithGrip"
-        Topmost="True">
-    <Window.DataContext>
-        <vm:LoginViewModel/>
-    </Window.DataContext>
-
+        Topmost="True"
+        d:DataContext="{d:DesignInstance Type=vm:LoginViewModel,IsDesignTimeCreatable=False}">
     <Window.Resources>
         
         <Style x:Key="WhiteText" TargetType="TextBlock">

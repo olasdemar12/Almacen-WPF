@@ -21,11 +21,14 @@
 
             <StackPanel>
                 <!-- Campo para el nombre de la categoria -->
-                <TextBox  Style="{StaticResource MaterialDesignOutlinedTextBox}" 
+                <TextBox  Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                          Text="{Binding Name,UpdateSourceTrigger=Default,ValidatesOnNotifyDataErrors=True}"
                           FontFamily="Segoe UI" FontSize="22" Padding="13"
                           Margin="10,20,10,30"
                           materialDesign:HintAssist.Hint="Nombre"
                           materialDesign:HintAssist.HintPaddingBrush="White"
+                          materialDesign:ValidationAssist.Background="White"
+                          materialDesign:ValidationAssist.FontSize="16"
                           materialDesign:TextFieldAssist.TextFieldCornerRadius="5"
                           BorderBrush="#bdbdbd"/>
                 
@@ -42,19 +45,21 @@
                             FontWeight="Normal"
                             materialDesign:ButtonAssist.CornerRadius="5"
                             Command="{Binding CloseFormCommand}"
+                            CommandParameter="GoManagementCategory"
                             />
 
                     <!-- Boton de Agregar nueva Categoria o Editar una categoria existente -->
-                    <Button Content="{Binding ContentedButton}" Width="auto" Height="50"
+                    <controls:LoadingButtonControl Width="auto" Height="50"
+                            ButtonContent="{Binding ContentedButton}"  
+                            IsLoading="{Binding IsBusy}"
+                            Command="{Binding FormCategoryActionCommand}"
+                            CommandParameter="CategoryAction"
                             Margin="20,0,10,0"
                             Padding="20,0,20,0"
-                            Background="#1976d2"
-                            BorderBrush="#1976d2"
+                            ButtonColor="#1976d2"
                             Foreground="White"
                             FontSize="22"
-                            FontWeight="Normal"
-                            materialDesign:ButtonAssist.CornerRadius="5"
-                            />
+                            FontWeight="Normal"/>
                     
                 </StackPanel>
                 

@@ -38,7 +38,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Login
         [ObservableProperty]
         private bool _isBusy;
 
-        private IAuthenticationService _login;
+        private IAuthenticationService _authenticationService;
 
 
         [RelayCommand]
@@ -47,8 +47,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Login
             ValidateAllProperties();
             if (HasErrors) return;
             IsBusy = true;
-            await Task.Delay(2000);
-            var result =  _login.AuthenticateUser(Username, Passworduser);
+            var result = await _authenticationService.CredentialValidation(Username, Passworduser);
             if (result != null)
             {
                 CloseLogin?.Invoke();
@@ -71,9 +70,9 @@ namespace Almacen_Sistema.MVVM.ViewModels.Login
                 IsBusy = false;
         }
 
-        public LoginViewModel()
+        public LoginViewModel(IAuthenticationService authenticationService)
         {
-            _login = new DatabaseAuthenticationService();
+            _authenticationService = authenticationService;
         }
 
     }

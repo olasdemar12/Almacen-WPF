@@ -9,6 +9,6 @@ namespace Almacen_Sistema.Services.Login.Contracts
 {
     public interface IAuthenticationService
     {
-        UserAccess AuthenticateUser(string username, string password);
+        public Task<UserAccess> CredentialValidation(string username, string password);
     }
 }

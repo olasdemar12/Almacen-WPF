@@ -65,6 +65,19 @@ namespace StockMasterControls
             set => SetValue(CommandProperty, value);
         }
 
+        public static readonly DependencyProperty CommandParameterProperty =
+               DependencyProperty.Register(
+               nameof(CommandParameter),
+               typeof(object),
+               typeof(IconTextButtonControl),
+               new PropertyMetadata(null));
+
+        public object CommandParameter
+        {
+            get => GetValue(CommandParameterProperty);
+            set => SetValue(CommandParameterProperty, value);
+        }
+
         public static readonly DependencyProperty ColorButtonProperty =
         DependencyProperty.Register(
         nameof(ColorButton),

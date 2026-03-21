@@ -24,6 +24,11 @@ namespace Almacen_Sistema.MVVM.ViewModels.Panels
 
         private readonly ICategoryService _categoryService;
 
+
+
+        [ObservableProperty]
+        private bool _isBusy = false;
+
         [RelayCommand]
         private async Task FormCategoryAction()
         {

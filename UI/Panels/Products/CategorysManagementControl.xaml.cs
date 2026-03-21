@@ -27,9 +27,19 @@ namespace Almacen_Sistema.UI.Panels.Products
         public CategorysManagementControl()
         {
             InitializeComponent();
+            this.Loaded += OnLoaded;
+        }
+
+        private async void OnLoaded(object sender, RoutedEventArgs e)
+        {
             var ViewModel = Bootstrapper.CreateCategorysManagementVM();
             this.DataContext = ViewModel;
+            ViewModel.IsBusy = true;
+            await Task.Delay(5000);
+            ViewModel.IsBusy = false;
         }
+
+
 
     }
 }

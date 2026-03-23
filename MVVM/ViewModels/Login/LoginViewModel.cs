@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Media;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,7 +46,11 @@ namespace Almacen_Sistema.MVVM.ViewModels.Login
         private async Task Authentication(object parameter)
         {
             ValidateAllProperties();
-            if (HasErrors) return;
+            if (HasErrors)
+            {
+                SystemSounds.Asterisk.Play();
+                return;
+            }
             IsBusy = true;
             var result = await _authenticationService.CredentialValidation(Username, Passworduser);
             if (result != null)
@@ -54,6 +59,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Login
             }
             else
             {
+                SystemSounds.Hand.Play();
                 IsBusy = false;
                 var dialogData = new
                 {

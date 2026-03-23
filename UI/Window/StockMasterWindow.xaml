@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Almacen_Sistema.UI.Window"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:vm="clr-namespace:Almacen_Sistema.MVVM.ViewModels.Window"
+        xmlns:controls="clr-namespace:StockMasterControls"
         mc:Ignorable="d"
         Title="Stock Master" Height="450" Width="800"
         WindowState="Maximized"
@@ -16,87 +17,88 @@
         <vm:StockMasterViewModel/>
     </Window.DataContext>
 
-    <!-- Contenedor de Dialogos y Paneles -->
-    <materialDesign:DialogHost Identifier="DialogsRoot" 
+    <Grid>
+
+        <materialDesign:DialogHost Identifier="DialogsRoot" 
                                DialogTheme="Inherit"
                                OverlayBackground="#99000000"
                                CloseOnClickAway="False">
-        <Grid>
+            <Grid>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <!-- Menu Lateral para navegacion -->
-            <Border Grid.Column="0" Background="#0F2854"
+                <!-- Menu Lateral para navegacion -->
+                <Border Grid.Column="0" Background="#0F2854"
                 HorizontalAlignment="Stretch"
                 Height="auto" 
                 CornerRadius="0,15,15,0"
                 Margin="0,20,0,0">
-                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
-                    <!--Titulo de la Lista-->
-                    <TextBlock Text="Módulos"
+                        <!--Titulo de la Lista-->
+                        <TextBlock Text="Módulos"
                            Margin="10"
                            Foreground="White"
                            FontFamily="Segoe UI"
                            FontSize="25"/>
-                    <!-- Lista de elementos -->
-                    <ListBox
+                        <!-- Lista de elementos -->
+                        <ListBox
                     ItemsSource="{Binding MenuItems}"
                     SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}">
 
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#4988C4"/>
-                                    </Trigger>
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#4988C4"/>
+                                        </Trigger>
 
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter Property="Background" Value="#4988C4"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ListBox.ItemContainerStyle>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="#4988C4"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
 
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Margin="10">
-                                    <materialDesign:PackIcon 
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Margin="10">
+                                        <materialDesign:PackIcon 
                                     Kind="{Binding Icon}" 
                                     Width="35" Height="35"
                                     Foreground="White"/>
-                                    <TextBlock Text="{Binding Title}"
+                                        <TextBlock Text="{Binding Title}"
                                            Margin="15,0,0,0" VerticalAlignment="Center"
                                            FontSize="25"
                                            Foreground="White"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
 
 
-                </StackPanel>
+                    </StackPanel>
 
-            </Border>
+                </Border>
 
-            <!-- Frame y titulo de Pagina -->
-            <Grid Grid.Column="1" Margin="10,20,10,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="80"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                <!-- Frame y titulo de Pagina -->
+                <Grid Grid.Column="1" Margin="10,20,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <!-- Titulo de la ventana -->
-                <Border Grid.Row="0" HorizontalAlignment="Stretch"
+                    <!-- Titulo de la ventana -->
+                    <Border Grid.Row="0" HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch" Height="auto"
                     Background="#1C4D8D"
                     CornerRadius="10,10,0,0">
-                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
-                        <TextBlock Text="{Binding TitlePage}"
+                            <TextBlock Text="{Binding TitlePage}"
                                VerticalAlignment="Center"
                                Margin="10,0,0,0"
                                Foreground="White"
@@ -104,31 +106,37 @@
                                FontSize="25"/>
 
 
-                    </Grid>
-                </Border>
+                        </Grid>
+                    </Border>
 
-                <!-- Area para mostrar las paginas navegadas -->
-                <Border Grid.Row="1" Background="White" Width="auto" Height="auto"
+                    <!-- Area para mostrar las paginas navegadas -->
+                    <Border Grid.Row="1" Background="White" Width="auto" Height="auto"
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                     Margin="0,0,0,10" CornerRadius="0,0,10,10">
-                    <Border.Effect>
-                        <DropShadowEffect Color="Black" 
+                        <Border.Effect>
+                            <DropShadowEffect Color="Black" 
                           Direction="270" 
                           ShadowDepth="10" 
                           Opacity="0.3" 
                           BlurRadius="15" />
-                    </Border.Effect>
+                        </Border.Effect>
 
-                    <!-- Contenedor de vista de Paginas: -->
-                    <Frame Content="{Binding ContentPage}"
+                        <!-- Contenedor de vista de Paginas: -->
+                        <Frame Content="{Binding ContentPage}"
                        NavigationUIVisibility="Hidden"
                        BorderThickness="0"
                        />
-                </Border>
+                    </Border>
+                </Grid>
+
             </Grid>
+        </materialDesign:DialogHost>
 
-            <!-- Contenedor de Dialogos y Paneles -->
-
-        </Grid>
-    </materialDesign:DialogHost>
+        <!--Notificacion de Acciones-->
+        <controls:NotificationControl HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,20,0"
+                                      Type="{Binding Source={x:Static controls:NotificationServiceControl.Instance},  Path=Type}" 
+                                      ColorIcon="{Binding Source={x:Static controls:NotificationServiceControl.Instance}, Path=ColorIcon}" 
+                                      Message="{Binding Source={x:Static controls:NotificationServiceControl.Instance}, Path=Message}" 
+                                      ShowNotification="{Binding Source={x:Static controls:NotificationServiceControl.Instance}, Path=IsVisible}"/>
+    </Grid>
 </Window>

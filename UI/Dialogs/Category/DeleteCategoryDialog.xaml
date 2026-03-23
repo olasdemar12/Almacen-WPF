@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="Almacen_Sistema.UI.Dialogs.Category.DeleteCategoryDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Almacen_Sistema.UI.Dialogs.Category"
+             xmlns:controls="clr-namespace:StockMasterControls"
+             d:DataContext="{d:DesignInstance Type=vm:DeleteDialogViewModel,IsDesignTimeCreatable=False}"
+             xmlns:vm="clr-namespace:Almacen_Sistema.MVVM.ViewModels.Dialogs"
+             mc:Ignorable="d">
+    <Grid>
+        <controls:DeleteDialogControl Title="Eliminar Categoría" Subtitle="¿Deseas eliminar la siguiente Categoría?"
+                                      Normal1="Se eliminarán los datos de la categoría" Negrita1="{Binding CategoryObject.NombreCategoria}"
+                                      Normal2="pero los productos quedarán registrados."
+                                      IsEnable="{Binding IsEnable}"
+                                      IsLoading="{Binding IsLoading}"
+                                      DeleteCommand="{Binding DeleteCategoryCommand}"
+                                      CancelCommand="{Binding CloseDialogCommand}"/>
+    </Grid>
+</UserControl>

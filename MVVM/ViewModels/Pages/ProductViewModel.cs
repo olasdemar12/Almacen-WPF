@@ -4,6 +4,7 @@ using Almacen_Sistema.UI.Panels.Products;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MaterialDesignThemes.Wpf;
+using StockMasterControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,9 +26,9 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages
         }
 
         [RelayCommand]
-        private void ProductAdd()
+        private async Task ProductAdd()
         {
-            MessageBox.Show("Implementacion de comando **Productos** Funcionando");
+            await NotificationServiceControl.Instance.ShowNotification("Ocurrio un error al intentar agregar un producto", NotificationType.Error);
         }
     }
 }

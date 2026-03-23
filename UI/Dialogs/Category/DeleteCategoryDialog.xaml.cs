@@ -1,11 +1,9 @@
-﻿using Almacen_Sistema.MVVM.ViewModels.Forms;
+﻿using Almacen_Sistema.MVVM.ViewModels.Dialogs;
 using Almacen_Sistema.Services.Category.Contracts;
-using Almacen_Sistema.Services.Category.Implementations;
 using MVVM.Models.Category;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,21 +16,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CategoryModel = MVVM.Models.Category.Category;
-
-namespace Almacen_Sistema.UI.Forms.Category
+namespace Almacen_Sistema.UI.Dialogs.Category
 {
     /// <summary>
-    /// Lógica de interacción para CategoryFormView.xaml
+    /// Lógica de interacción para DeleteCategoryDialog.xaml
     /// </summary>
-    public partial class CategoryFormView : UserControl
+    public partial class DeleteCategoryDialog : UserControl
     {
-        public CategoryFormView(string title,CategoryModel category,ICategoryService categoryService)
+        public DeleteCategoryDialog(CategoryModel category, ICategoryService service)
         {
             InitializeComponent();
-            var ViewModel = new CategoryFormViewModel(title, category, categoryService);
+            var ViewModel = new DeleteDialogViewModel(category, service);
             this.DataContext = ViewModel;
         }
-
-
     }
 }

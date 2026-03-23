@@ -38,12 +38,23 @@ namespace Almacen_Sistema.Services.Category.Implementations
 
         public async Task<ServiceResult<object>> EditCategory(CategoryModel Category)
         {
-            throw new NotImplementedException();
+            if (await _categoryRepository.CategoryExists(Category.NombreCategoria))
+            {
+                return new ServiceResult<object>(false, "La Categoría ya existe. Intente con otro Nombre");
+            }
+            else if (await _categoryRepository.UpdateCategory(Category))
+            {
+                return new ServiceResult<object>(true, "Categoría editada exitosamente");
+            }
+            return new ServiceResult<object>(false, "Error al editar la categoría. Intente nuevamente");
         }
 
         public async Task<ServiceResult<bool>> RemoveCategory(int IdCategory)
         {
-            throw new NotImplementedException();
+            if(await _categoryRepository.DeleteCategory(IdCategory))
+                return new ServiceResult<bool>(true, "Categoría eliminada correctamente", true);
+            else
+                return new ServiceResult<bool>(false, "Error al eliminar la categoría. Intente nuevamente", false);
         }
     }
 }

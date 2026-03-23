@@ -34,9 +34,11 @@ namespace Almacen_Sistema.UI.Panels.Products
         {
             var ViewModel = Bootstrapper.CreateCategorysManagementVM();
             this.DataContext = ViewModel;
+            ViewModel.IsEnable = false;
             ViewModel.IsBusy = true;
-            await Task.Delay(5000);
+            await ViewModel.LoadingData();
             ViewModel.IsBusy = false;
+            ViewModel.IsEnable = true;
         }
 
 

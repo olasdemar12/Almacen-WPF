@@ -7,15 +7,15 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace MVVM.Models.Category
 {
-    public class Category : ObservableObject
+    public partial class Category : ObservableObject
     {
-        // Atributos
-        public int IdCategoria { get; set; }
-        public string NombreCategoria { get; set; }
-        public int TotalProductos { get; set; }
+        [ObservableProperty]
+        private int idCategoria;
+        [ObservableProperty]
+        private string nombreCategoria;
+        [ObservableProperty]
+        private int totalProductos;
 
-        // Lista de categorías
-        public List<Category> ListaCategorias { get; set; } = new List<Category>();
 
         // Constructor 
         public Category()

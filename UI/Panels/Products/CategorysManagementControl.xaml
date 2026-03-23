@@ -10,7 +10,7 @@
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=vm:CategorysManagementVM,IsDesignTimeCreatable=False}"
              d:DesignHeight="1000" d:DesignWidth="800">
-    <Grid>
+    <Grid IsEnabled="{Binding IsEnable}">
         <controls:PanelControl Title="Gestion de Categorías" 
                                    ShowBackButton="False"
                                    ShowCloseButton="True"
@@ -37,29 +37,86 @@
                                                 CommandParameter="FormCategoryAction"/>
 
                     <!--DataGrid de Categoria-->
-                    <DataGrid Grid.Row="1"
-                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                          Style="{StaticResource DataGridStyleGeneral}"
-                          ColumnHeaderStyle="{StaticResource DataGridHead}"
-                          CellStyle="{StaticResource DataGridCellConfig}"
-                          RowStyle="{StaticResource DataGridRowConfig}"
-                          Margin="5">
-                        <!--Declaracion de Columnas: Nombre, Total Productos y Acciones-->
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Nombre" Width="*"/>
-                            <DataGridTextColumn Header="Total Productos" Width="*"/>
-                            <DataGridTextColumn Header="Acciones" Width="*"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    <Grid  Grid.Row="1" Margin="5">
+                        <Border Height="42"
+                                VerticalAlignment="Top"
+                                Background="#4A80C0"
+                                Panel.ZIndex="0"/>
+                        <DataGrid
+                              HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                              Style="{StaticResource DataGridStyleGeneral}"
+                              ColumnHeaderStyle="{StaticResource DataGridHead}"
+                              CellStyle="{StaticResource DataGridCellConfig}"
+                              RowStyle="{StaticResource DataGridRowConfig}"
+                              ItemsSource="{Binding Categories}"
+                            
+                              ScrollViewer.CanContentScroll="True"
+                              VirtualizingPanel.ScrollUnit="Pixel"
+                              VirtualizingPanel.CacheLength="1,1"
+                              VirtualizingPanel.CacheLengthUnit="Page"
+                              VirtualizingPanel.IsVirtualizing="True"
+                              VirtualizingPanel.VirtualizationMode="Recycling"
+                            
+                              RowHeight="55"
+                              Panel.ZIndex="1"
+                              Background="Transparent">
+                            
+                            <!--Declaracion de Columnas: Nombre, Total Productos y Acciones-->
+                            <DataGrid.Columns>
+
+                                <DataGridTextColumn Header="Nombre" Width="*"
+                                                Binding="{Binding NombreCategoria}"
+                                                ElementStyle="{StaticResource TextFillDataGrid}"/>
+
+                                <DataGridTextColumn Header="Total Productos" Width="*"
+                                                Binding="{Binding TotalProductos}"
+                                                ElementStyle="{StaticResource TextFillDataGrid}"/>
+
+                                <DataGridTemplateColumn Header="Acciones" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                                                <!--Boton Editar-->
+                                                <Button Width="35" Height="35" Margin="0,0,5,0"
+                                                        Style="{StaticResource MaterialDesignIconButton}"
+                                                        materialDesign:ButtonAssist.CornerRadius="10"
+                                                        Foreground="#3F8CD9"
+                                                        Command="{Binding DataContext.EditCategoryActionCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                        CommandParameter="{Binding}">
+                                                    <materialDesign:PackIcon Kind="Pencil" Width="20" Height="20" Foreground="#3F8CD9"/>
+                                                </Button>
+
+                                                <!--Boton Eliminar-->
+                                                <Button Width="35" Height="35"
+                                                        Style="{StaticResource MaterialDesignIconButton}"
+                                                        materialDesign:ButtonAssist.CornerRadius="10"
+                                                        materialDesign:RippleAssist.Feedback="Red"
+                                                        Foreground="Red"
+                                                        Command="{Binding DataContext.DeleteCategoryActionCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                        CommandParameter="{Binding}">
+                                                    <materialDesign:PackIcon Kind="Delete" Width="20" Height="20" Foreground="Red"/>
+                                                </Button>
+                                                
+                                            </StackPanel>
+
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
                 </Grid>
                 
                 <!--Pantalla de "Cargando..."-->
-                <!--<controls:LoadingViewControl
+                <controls:LoadingViewControl
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                     Background="White" IsLoading="{Binding IsBusy}"
                     TextLoading="Cargando Categorías..."
                     TextColor="#BDBDBD"
-                    ProgressColor="#1C4D8D"/>-->
+                    ProgressColor="#1C4D8D"/>
             </Grid>
         </controls:PanelControl>
 

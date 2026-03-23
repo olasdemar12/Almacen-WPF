@@ -6,10 +6,12 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MaterialDesignThemes.Wpf;
 using MVVM.Models.Category;
+using StockMasterControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,6 +33,8 @@ namespace Almacen_Sistema.MVVM.ViewModels.Forms
                     break;
                 case "Editar Categoría":
                     ContentedButton = "Guardar Cambio";
+                    CategoryObject = category;
+                    Name = CategoryObject.NombreCategoria;
                     break;
             }
         }
@@ -59,6 +63,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Forms
         [ObservableProperty]
         private bool _isBusy;
 
+
         #region Commandos para el formulario
 
         [RelayCommand]
@@ -66,7 +71,6 @@ namespace Almacen_Sistema.MVVM.ViewModels.Forms
         {
             IsEnable = false;
             DialogHost.Close("DialogsRoot", "GoManagementCategory");
-            await Task.Delay(200);
             await DialogHost.Show(new CategorysManagementControl(), "DialogsRoot");
         }
 
@@ -75,7 +79,11 @@ namespace Almacen_Sistema.MVVM.ViewModels.Forms
         {
             _errorManualUsuario = string.Empty;
             ValidateAllProperties();
-            if (HasErrors) return;
+            if (HasErrors)
+            {
+                SystemSounds.Hand.Play();
+                return;
+            }
             IsEnable = false;
             IsBusy = true;
             switch (Title)
@@ -95,13 +103,14 @@ namespace Almacen_Sistema.MVVM.ViewModels.Forms
             var result = await _categoryService.AddCategory(Name);
             if(result.IsSuccess && result.Data != null)
             {
-                MessageBox.Show("Categoría Agregada", result.Message, MessageBoxButton.OK, MessageBoxImage.Information);
-                DialogHost.Close("DialogsRoot", "CategoryAction");
-                await Task.Delay(200);
-                await DialogHost.Show(new CategorysManagementControl(), "DialogsRoot");
+                var notificationTask = NotificationServiceControl.Instance.ShowNotification("Categoría Agregada Correctamente", NotificationType.Success);
+                var closeformTask = CloseForm();
+
+                await Task.WhenAll(notificationTask, closeformTask);
             }
             else
             {
+                SystemSounds.Hand.Play();
                 IsEnable = true;
                 IsBusy = false;
                 ClearErrors(nameof(Name));
@@ -112,7 +121,23 @@ namespace Almacen_Sistema.MVVM.ViewModels.Forms
 
         private async Task EditCategory()
         {
-
+            CategoryObject.NombreCategoria = Name;
+            var result = await _categoryService.EditCategory(CategoryObject);
+            if(result.IsSuccess)
+            {
+                var notificationTask = NotificationServiceControl.Instance.ShowNotification("Categoría Editada Correctamente", NotificationType.Success);
+                var closeformTask = CloseForm();
+                await Task.WhenAll(notificationTask, closeformTask);
+            }
+            else
+            {
+                SystemSounds.Hand.Play();
+                IsEnable = true;
+                IsBusy = false;
+                ClearErrors(nameof(Name));
+                _errorManualUsuario = result.Message;
+                ValidateProperty(Name, nameof(Name));
+            }
         }
 
         #endregion

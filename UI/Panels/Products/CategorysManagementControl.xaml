@@ -107,6 +107,32 @@
 
                             </DataGrid.Columns>
                         </DataGrid>
+
+                        <Border  Width="auto" Height="auto"
+                                Background="White">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Source="/Assets/Panel/Categorys/carpeta.png" Width="150" Height="150"
+                                       HorizontalAlignment="Center"/>
+                                <TextBlock Text="No hay categorías registradas" FontSize="26" 
+                                           Foreground="#1c4d8d" Margin="0,10,0,0"
+                                           FontWeight="Bold" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Registra tu primer categorías para organizar tus productos"
+                                           FontSize="16" Foreground="#1c4d8d"
+                                           Margin="0,10,0,0"
+                                           FontWeight="Normal" HorizontalAlignment="Center"/>
+                            </StackPanel>
+
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Categories.Count}" Value="0">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
                     </Grid>
                 </Grid>
                 

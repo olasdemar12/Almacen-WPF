@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Panel\Categorys\carpeta.png" />
     <None Remove="Assets\Window\LoginView\usuario.png" />
   </ItemGroup>
 
@@ -28,6 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Panel\Categorys\carpeta.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\Window\LoginView\usuario.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

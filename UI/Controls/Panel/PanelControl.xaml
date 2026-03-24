@@ -7,7 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:converters="clr-namespace:Converters"
              mc:Ignorable="d"
-             x:Name="Root">
+             >
     <UserControl.Resources>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     </UserControl.Resources>
@@ -26,14 +26,14 @@
                         Style="{StaticResource MaterialDesignIconButton}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Visibility="{Binding ShowBackButton, ElementName=Root, Converter={StaticResource BoolToVisibilityConverter}}">
+                        Visibility="{Binding ShowBackButton, RelativeSource={RelativeSource AncestorType=local:PanelControl}, Converter={StaticResource BoolToVisibilityConverter}}">
                     <materialDesign:PackIcon Kind="ArrowBack"
                                              Width="30"
                                              Height="30"
                                              Foreground="White"/>
                 </Button>
 
-                <TextBlock Text="{Binding Title, ElementName=Root}"
+                <TextBlock Text="{Binding Title, RelativeSource={RelativeSource AncestorType=local:PanelControl}}"
                            Margin="55,0,0,0"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Left"
@@ -46,7 +46,7 @@
                         Style="{StaticResource MaterialDesignIconButton}"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
-                        Visibility="{Binding ShowCloseButton, ElementName=Root, Converter={StaticResource BoolToVisibilityConverter}}"
+                        Visibility="{Binding ShowCloseButton,RelativeSource={RelativeSource AncestorType=local:PanelControl}, Converter={StaticResource BoolToVisibilityConverter}}"
                         Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
                     <materialDesign:PackIcon Kind="Close"
                                              Width="30"
@@ -60,7 +60,7 @@
         <Border Grid.Row="1"
                 Background="White"
                 CornerRadius="0,0,10,10">
-            <ContentPresenter Content="{Binding PanelContent, ElementName=Root}"/>
+            <ContentPresenter Content="{Binding PanelContent, RelativeSource={RelativeSource AncestorType=local:PanelControl}}"/>
             <Border.Effect>
                 <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="2" Opacity="0.2"/>
             </Border.Effect>

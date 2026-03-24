@@ -38,6 +38,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Panels
         [ObservableProperty]
         private bool _isEnable = false;
 
+
         //Definicion de comandos
         [RelayCommand]
         private async Task FormCategoryAction()

@@ -7,13 +7,9 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:controls="clr-namespace:StockMasterControls"
       xmlns:vm="clr-namespace:Almacen_Sistema.MVVM.ViewModels.Pages"
+      d:DataContext="{d:DesignInstance Type=vm:ProductViewModel,IsDesignTimeCreatable=False}"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
       Background="Transparent">
-    <Page.DataContext>
-        <vm:ProductViewModel/>
-    </Page.DataContext>
-    
     <Grid>
         <Grid>
 
@@ -45,6 +41,7 @@
                         Margin="10,15,10,15"
                         HintText="Buscar Producto"/>
 
+                    <!--Filtro para Categorias-->
                     <ComboBox Width="200"  FontSize="16" FontFamily="Segoe UI"
                               BorderBrush="#bdbdbd" HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch" 
@@ -53,13 +50,9 @@
                               materialDesign:HintAssist.Hint="Categorías"
                               materialDesign:HintAssist.HintPaddingBrush="White"
                               materialDesign:TextFieldAssist.HasClearButton="True">
-                        <ComboBoxItem Content="Categoria 1"/>
-                        <ComboBoxItem Content="Categoria 2"/>
-                        <ComboBoxItem Content="Categoria 3"/>
-                        <ComboBoxItem Content="Categoria 4"/>
-                        <ComboBoxItem Content="Categoria 5"/>
                     </ComboBox>
 
+                    <!--Filtro para tipo de venta-->
                     <ComboBox Width="200"  FontSize="16" FontFamily="Segoe UI"
                               BorderBrush="#bdbdbd" HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch" 
@@ -73,6 +66,7 @@
                         <ComboBoxItem Content="Pieza"/>
                     </ComboBox>
 
+                    <!--Boton para agregar un nuevo Producto-->
                     <controls:IconTextButtonControl 
                         Width="130" Height="50" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                         Margin="10,15,0,15"
@@ -81,6 +75,7 @@
                         materialDesign:ButtonAssist.CornerRadius="10"
                         Command="{Binding ProductAddCommand}"/>
 
+                    <!--Boton para abrir el panel de categorias-->
                     <controls:IconTextButtonControl 
                         Width="180" Height="50" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                         Margin="10,15,0,15"
@@ -119,12 +114,25 @@
                             Binding="{Binding Precio, StringFormat={}{0:C}}" 
                             Width="*" />
 
+                    <DataGridTemplateColumn Header="Acciones" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <!--<controls:IconTextButtonControl 
+                                        Width="40" Height="40" Margin="5"
+                                        Style="{StaticResource MaterialDesignIconButton}"
+                                        Icon="Pencil" ColorButton="#4A80C0" ContentColorButton="White"
+                                        Command="{Binding EditCommand}"/>
+                                    <controls:IconTextButtonControl 
+                                        Width="40" Height="40" Margin="5"
+                                        Style="{StaticResource MaterialDesignIconButton}"
+                                        Icon="Delete" ColorButton="#E53935" ContentColorButton="White"
+                                        Command="{Binding DeleteCommand}"/>-->
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
-
-                <ComboBoxItem Content="Mostrar Todos" />
-                <ComboBoxItem Content="Mostrar Todos" />
-                <ComboBoxItem Content="Mostrar Todos" />
-                <ComboBoxItem Content="Mostrar Todos" />
 
             </DataGrid>
         </Grid>

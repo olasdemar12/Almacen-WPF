@@ -8,16 +8,22 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace MVVM.Models.Product
 {
-    public class ProductRow : ObservableObject
+    public partial class ProductRow : ObservableObject
     {
-        // Atributos
-        public int IdProducto { get; set; }
-        public string NombreProducto { get; set; }
-        public string Categoria { get; set; }
-        public int IdCategoria { get; set; }
-        public string CodigoBarra { get; set; }
-        public string TipoVenta { get; set; }
-        public decimal PrecioVenta { get; set; }
+        [ObservableProperty]
+        private int idProduct;
+        [ObservableProperty]
+        private string productName;
+        [ObservableProperty]
+        private string category;
+        [ObservableProperty]
+        private int idcategory;
+        [ObservableProperty]
+        private string barCode;
+        [ObservableProperty]
+        private string saleType;
+        [ObservableProperty]
+        private decimal salePrice;
 
         // Constructor vacío
         public ProductRow()
@@ -27,24 +33,24 @@ namespace MVVM.Models.Product
         // Constructor con parámetros
         public ProductRow(int idProd, string nombre, string cat, int idCat, string codBarra, string tipoVenta, decimal precioVenta)
         {
-            IdProducto = idProd;
-            NombreProducto = nombre;
-            Categoria = cat;
-            IdCategoria = idCat;
-            CodigoBarra = codBarra;
-            TipoVenta = tipoVenta;
-            PrecioVenta = precioVenta;
+            IdProduct = idProd;
+            ProductName = nombre;
+            Category = cat;
+            Idcategory = idCat;
+            BarCode = codBarra;
+            SaleType = tipoVenta;
+            SalePrice = precioVenta;
         }
 
         // Constructor que recibe Product
         public ProductRow(Product product)
         {
-            IdProducto = product.IdProducto;
-            NombreProducto = product.NombreProducto;
-            IdCategoria = product.IdCategoria;
-            CodigoBarra = product.CodigoBarra;
-            TipoVenta = product.TipoVenta;
-            PrecioVenta = product.PrecioVenta;
+            IdProduct = product.IdProduct;
+            ProductName = product.ProductName;
+            Idcategory = product.IdCategory;
+            BarCode = product.BarCode;
+            SaleType = product.SaleType;
+            SalePrice = product.SalePrice;
         }
     }
 }

@@ -48,9 +48,10 @@
                               Padding="15,10" Margin="10,15,10,15"
                               Style="{StaticResource MaterialDesignOutlinedComboBox}"
                               materialDesign:HintAssist.Hint="Categorías"
+                              materialDesign:HintAssist.Foreground="#212121"
                               materialDesign:HintAssist.HintPaddingBrush="White"
-                              materialDesign:TextFieldAssist.HasClearButton="True">
-                    </ComboBox>
+                              materialDesign:TextFieldAssist.HasClearButton="True"/>
+
 
                     <!--Filtro para tipo de venta-->
                     <ComboBox Width="200"  FontSize="16" FontFamily="Segoe UI"
@@ -59,12 +60,10 @@
                               Padding="15,10" Margin="10,15,10,15"
                               Style="{StaticResource MaterialDesignOutlinedComboBox}"
                               materialDesign:HintAssist.Hint="Tipo de Venta"
+                              materialDesign:HintAssist.Foreground="#212121"
                               materialDesign:HintAssist.HintPaddingBrush="White"
-                              materialDesign:TextFieldAssist.HasClearButton="True">
-                        <ComboBoxItem Content="Unidad"/>
-                        <ComboBoxItem Content="Peso(kg)"/>
-                        <ComboBoxItem Content="Pieza"/>
-                    </ComboBox>
+                              materialDesign:TextFieldAssist.HasClearButton="True"
+                              ItemsSource="{Binding Source={x:Static controls:NotificationServiceControl.Instance}, Path=SaleType}"/>
 
                     <!--Boton para agregar un nuevo Producto-->
                     <controls:IconTextButtonControl 

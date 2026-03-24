@@ -1,5 +1,8 @@
 ﻿using Almacen_Sistema.Composition;
+using Almacen_Sistema.Services.Product.Contracts;
+using Almacen_Sistema.Services.Product.Implementations;
 using Almacen_Sistema.UI.Forms.Category;
+using Almacen_Sistema.UI.Forms.Product;
 using Almacen_Sistema.UI.Panels.Products;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -12,12 +15,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using CategoryModel = MVVM.Models.Category.Category;
+using ProductModel = MVVM.Models.Product.Product;
 
 namespace Almacen_Sistema.MVVM.ViewModels.Pages
 {
-    partial class ProductViewModel:ObservableObject
+    public partial class ProductViewModel:ObservableObject
     {
+        public ProductViewModel(IProductService productService)
+        {
+            this._productService = productService;
+        }
 
+        private readonly IProductService _productService;
 
         [RelayCommand]
         private async Task CategoryManagement()
@@ -28,7 +37,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages
         [RelayCommand]
         private async Task ProductAdd()
         {
-            await NotificationServiceControl.Instance.ShowNotification("Ocurrio un error al intentar agregar un producto", NotificationType.Error);
+            await DialogHost.Show(new ProductFormView("Agregar Nuevo Producto",new ProductModel(), _productService), "DialogsRoot");
         }
     }
 }

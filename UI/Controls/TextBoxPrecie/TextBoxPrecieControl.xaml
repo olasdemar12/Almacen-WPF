@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="StockMasterControls.TextBoxPrecieControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StockMasterControls"
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" x:Name="Root" Validation.ErrorTemplate="{x:Null}">
+    <Grid>
+        <TextBox x:Name="Txt" 
+                 FontFamily="Segoe UI" FontSize="22" Padding="13"
+                 materialDesign:HintAssist.Hint="{Binding Hint, ElementName=Root}"
+                 materialDesign:HintAssist.HintPaddingBrush="White"
+                 materialDesign:ValidationAssist.Background="White"
+                 materialDesign:ValidationAssist.FontSize="16"
+                 materialDesign:TextFieldAssist.TextFieldCornerRadius="5"
+                 GotFocus="PrecioTextBox_GotFocus"
+                 PreviewTextInput="PrecioTextBox_PreviewTextInput"
+                 PreviewKeyDown="PrecioTextBox_PreviewKeyDown">
+
+            <TextBox.Style>
+                <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+                    <Setter Property="BorderBrush" Value="#bdbdbd" />
+
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding (Validation.HasError), ElementName=Root}" Value="True">
+
+                            <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+
+                            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+
+                            <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+
+                            <Setter Property="BorderThickness" Value="2" />
+
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+    </Grid>
+</UserControl>

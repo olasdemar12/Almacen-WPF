@@ -1,4 +1,5 @@
-﻿using Almacen_Sistema.MVVM.ViewModels.Pages;
+﻿using Almacen_Sistema.Composition;
+using Almacen_Sistema.MVVM.ViewModels.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,8 +26,14 @@ namespace Almacen_Sistema.UI.Views
         {
             InitializeComponent();
             //Implementacion del DataContext
-            var ViewModel = new ProductViewModel();
+            this.Loaded += OnLoaded;
+        }
+
+        private async void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            var ViewModel = Bootstrapper.CreateProductosViewModel();
             this.DataContext = ViewModel;
         }
+
     }
 }

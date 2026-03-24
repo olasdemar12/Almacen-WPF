@@ -1,6 +1,7 @@
 ﻿using Almacen_Sistema.Composition;
 using Almacen_Sistema.Services.Category.Contracts;
 using Almacen_Sistema.Services.Data.CategoryDate;
+using Almacen_Sistema.Services.Product.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,6 @@ namespace Almacen_Sistema.Services.Category.Implementations
             this._categoryRepository = categoryRepository;
         }
         private readonly ICategoryRepository _categoryRepository;
-
 
         public async Task<List<CategoryModel>> GetAllCategorys()
         {

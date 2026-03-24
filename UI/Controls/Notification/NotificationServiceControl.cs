@@ -29,6 +29,8 @@ namespace StockMasterControls
         private string _message;
         [ObservableProperty]
         private bool _isVisible;
+        [ObservableProperty]
+        private List<string> _saleType = new List<string>() { "Unidad", "Pieza" ,"Peso(Kg)"};
 
         //Metodo para mostrar la notificacion
         public async Task ShowNotification(string message, NotificationType type, int duration = 1500)

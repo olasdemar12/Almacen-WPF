@@ -2,49 +2,66 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MVVM.Models.Product
 {
-    public class Product : ObservableObject
+    public partial class Product : ObservableObject
     {
-        // Atributos
-        public int IdProducto { get; set; }
-        public string NombreProducto { get; set; }
-        public string CodigoBarra { get; set; }
-        public string TipoVenta { get; set; }
-        public decimal PrecioCompra { get; set; }
-        public decimal PrecioVenta { get; set; }
-        public int IdCategoria { get; set; }
+        [ObservableProperty]
+        private int idProduct;
+        [ObservableProperty]
+        private string productName;
+        [ObservableProperty]
+        private string barCode;
+        [ObservableProperty]
+        private string saleType;
+        [ObservableProperty]
+        private decimal purchasePrice;
+        [ObservableProperty]
+        private decimal salePrice;
+        [ObservableProperty]
+        private int idCategory;
 
         // Constructor vacío
         public Product()
         {
         }
 
-        // Constructor con parámetros
-        public Product(int idProducto, string nombreProducto, string codigoBarra,
-                       string tipoVenta, decimal precioCompra, decimal precioVenta, int idCategoria)
+        //Cuando se Inserta:
+        public Product(string nombreProducto, string codigoBarra, string tipoVenta, decimal precioCompra, decimal precioVenta, int idCategoria)
         {
-            IdProducto = idProducto;
-            NombreProducto = nombreProducto;
-            CodigoBarra = codigoBarra;
-            TipoVenta = tipoVenta;
-            PrecioCompra = precioCompra;
-            PrecioVenta = precioVenta;
-            IdCategoria = idCategoria;
+            ProductName = nombreProducto;
+            BarCode = codigoBarra;
+            SaleType = tipoVenta;
+            PurchasePrice = precioCompra;
+            SalePrice = precioVenta;
+            IdCategory = idCategoria;
+        }
+
+        // Constructor con parámetros
+        public Product(int idProducto, string nombreProducto, string codigoBarra,string tipoVenta, decimal precioCompra, decimal precioVenta, int idCategoria)
+        {
+            IdProduct = idProducto;
+            ProductName = nombreProducto;
+            BarCode = codigoBarra;
+            SaleType = tipoVenta;
+            PurchasePrice = precioCompra;
+            SalePrice = precioVenta;
+            IdCategory = idCategoria;
         }
 
         // Constructor que recibe ProductRow
         public Product(ProductRow fila)
         {
-            IdProducto = fila.IdProducto;
-            NombreProducto = fila.NombreProducto;
-            CodigoBarra = fila.CodigoBarra;
-            TipoVenta = fila.TipoVenta;
-            PrecioVenta = fila.PrecioVenta;
-            IdCategoria = fila.IdCategoria;
+            IdProduct = fila.IdProduct;
+            ProductName = fila.ProductName;
+            BarCode = fila.BarCode;
+            SaleType = fila.SaleType;
+            SaleType = fila.SaleType;
+            IdCategory = fila.Idcategory;
         }
     }
 }

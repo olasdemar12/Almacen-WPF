@@ -1,11 +1,15 @@
 ﻿using Almacen_Sistema.MVVM.ViewModels.Login;
+using Almacen_Sistema.MVVM.ViewModels.Pages;
 using Almacen_Sistema.MVVM.ViewModels.Panels;
 using Almacen_Sistema.Services.Category.Contracts;
 using Almacen_Sistema.Services.Category.Implementations;
 using Almacen_Sistema.Services.Data.CategoryDate;
 using Almacen_Sistema.Services.Data.Login;
+using Almacen_Sistema.Services.Data.ProductDate;
 using Almacen_Sistema.Services.Login.Contracts;
 using Almacen_Sistema.Services.Login.Implementations;
+using Almacen_Sistema.Services.Product.Contracts;
+using Almacen_Sistema.Services.Product.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +38,16 @@ namespace Almacen_Sistema.Composition
             ICategoryService categoryService = new CategoryService(categoryRepository);
             return new CategorysManagementVM(categoryService);
 
+        }
+
+        public static ProductViewModel CreateProductosViewModel()
+        {
+            IProductRepository productRepository = new ProductRepository();
+            IProductReadCategoryService productReadCategoryService = new CategoryRepository();
+
+            IProductService productService = new ProductService(productRepository,productReadCategoryService);
+
+            return new ProductViewModel(productService);
         }
     }
 

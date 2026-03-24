@@ -32,7 +32,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Forms
                     ContentedButton = "Agregar Categoría";
                     break;
                 case "Editar Categoría":
-                    ContentedButton = "Guardar Cambio";
+                    ContentedButton = "Guardar Cambios";
                     CategoryObject = category;
                     Name = CategoryObject.NombreCategoria;
                     break;

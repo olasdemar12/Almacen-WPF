@@ -16,7 +16,51 @@ namespace Almacen_Sistema.Services.Data.ProductDate
     {
         public async Task<List<ProductModel>> GetAllProductsAsync()
         {
-            throw new NotImplementedException();
+            SqliteConnection connection = null;
+            List<ProductModel> products = new List<ProductModel>();
+            try
+            {
+                connection = DatabaseManager.Instance.CreateConnection();
+                await connection.OpenAsync();
+
+                using SqliteCommand command = connection.CreateCommand();
+                command.CommandText = @"
+SELECT P.IdProduct, P.ProductName, P.BarCode, P.TypeSale, P.PurchasePrice, 
+P.SalePrice,COALESCE(P.IdCategory,0) as IdCategory, COALESCE(C.CategoryName,'Sin Asignar') CategoryName 
+FROM Products as P 
+LEFT JOIN Categorys as C
+ON P.IdCategory = C.IdCategory
+";
+                command.ExecuteNonQuery();
+                using SqliteDataReader reader = await command.ExecuteReaderAsync();
+                while(await reader.ReadAsync())
+                {
+                    products.Add(new ProductModel() { 
+                    IdProduct = reader.GetInt32(0),
+                    ProductName = reader.GetString(1),
+                    BarCode = reader.GetString(2),
+                    SaleType = reader.GetString(3),
+                    PurchasePrice = reader.GetDecimal(4),
+                    SalePrice = reader.GetDecimal(5),
+                    IdCategory = reader.GetInt32(6),
+                    CategoryName = reader.GetString(7)
+                    });
+                }
+                await reader.CloseAsync();
+                return products;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Ocurio un Error al consultar las Categoría existentes", ex.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+                return products;
+            }
+            finally
+            {
+                if(connection != null)
+                {
+                    await connection.CloseAsync();
+                }
+            }
         }
 
         public async Task<bool> InsertProductAsync(ProductModel product)

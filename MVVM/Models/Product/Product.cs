@@ -24,6 +24,8 @@ namespace MVVM.Models.Product
         private decimal salePrice;
         [ObservableProperty]
         private int idCategory;
+        [ObservableProperty]
+        private string categoryName;
 
         // Constructor vacío
         public Product()
@@ -39,10 +41,11 @@ namespace MVVM.Models.Product
             PurchasePrice = precioCompra;
             SalePrice = precioVenta;
             IdCategory = idCategoria;
-        }
-
-        // Constructor con parámetros
-        public Product(int idProducto, string nombreProducto, string codigoBarra,string tipoVenta, decimal precioCompra, decimal precioVenta, int idCategoria)
+            CategoryName = categoryName;
+        }    
+        
+        //Constructor para consultar
+        public Product(int idProducto, string nombreProducto, string codigoBarra, string tipoVenta, decimal precioCompra, decimal precioVenta, int idCategoria,string CategoryName)
         {
             IdProduct = idProducto;
             ProductName = nombreProducto;
@@ -51,17 +54,7 @@ namespace MVVM.Models.Product
             PurchasePrice = precioCompra;
             SalePrice = precioVenta;
             IdCategory = idCategoria;
-        }
-
-        // Constructor que recibe ProductRow
-        public Product(ProductRow fila)
-        {
-            IdProduct = fila.IdProduct;
-            ProductName = fila.ProductName;
-            BarCode = fila.BarCode;
-            SaleType = fila.SaleType;
-            SaleType = fila.SaleType;
-            IdCategory = fila.Idcategory;
+            this.CategoryName = CategoryName;
         }
     }
 }

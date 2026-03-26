@@ -25,7 +25,6 @@ namespace Almacen_Sistema.UI.Forms.Product
     /// </summary>
     public partial class ProductFormView : UserControl
     {
-        private bool _isLoadedOnce;
         public ProductFormView(string title, ProductModel product, IProductService productService)
         {
             InitializeComponent();
@@ -36,15 +35,9 @@ namespace Almacen_Sistema.UI.Forms.Product
 
         private async void ProductFormView_Loaded(object sender, RoutedEventArgs e)
         {
-            if (_isLoadedOnce)
-                return;
-
-            _isLoadedOnce = true;
-
-            if (DataContext is ProductFormViewModel vm)
-            {
-                await vm.InitializeAsync();
-            }
+            var ViewModelForm = this.DataContext as ProductFormViewModel;
+            if(ViewModelForm != null)
+            await ViewModelForm.InitializeAsync();
         }
     }
 }

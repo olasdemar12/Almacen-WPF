@@ -108,10 +108,11 @@ namespace Almacen_Sistema.MVVM.ViewModels.Forms
         #endregion
 
         [RelayCommand]
-        private async Task CloseForm()
+        private Task CloseForm()
         {
             IsEnable = false;
-            DialogHost.Close("DialogsRoot", "GoProductosView");
+            DialogHost.Close("DialogsRoot", ProductObject);
+            return Task.CompletedTask;
         }
 
         [RelayCommand]

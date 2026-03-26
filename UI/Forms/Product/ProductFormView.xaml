@@ -7,7 +7,7 @@
              xmlns:controls="clr-namespace:StockMasterControls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:vm="clr-namespace:Almacen_Sistema.MVVM.ViewModels.Forms"
-              d:DataContext="{d:DesignInstance Type=vm:ProductFormViewModel,IsDesignTimeCreatable=False}"
+             d:DataContext="{d:DesignInstance Type=vm:ProductFormViewModel,IsDesignTimeCreatable=False}"
              mc:Ignorable="d">
     <Grid>
         <controls:PanelControl Title="Agregar Nuevo Producto"
@@ -131,7 +131,7 @@
                             FontWeight="Normal"
                             materialDesign:ButtonAssist.CornerRadius="5"
                             Command="{Binding CloseFormCommand}"
-                            CommandParameter="GoProductosView"/>
+                            />
 
                     <!--Boton para accionar eventos de guardar, editar u otros-->
                     <controls:LoadingButtonControl Width="auto" Height="50"

@@ -37,10 +37,6 @@ namespace Almacen_Sistema.UI.Panels.Products
             ViewModel.IsEnable = false;
             ViewModel.IsBusy = true;
             await ViewModel.LoadingData();
-            //if(ViewModel.Categories.Count == 0)
-            //{
-            //    CountItemsMessage.Visibility = Visibility.Visible;
-            //}
             ViewModel.IsBusy = false;
             ViewModel.IsEnable = true;
         }

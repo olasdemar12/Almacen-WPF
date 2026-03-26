@@ -85,44 +85,69 @@
                 </StackPanel>
 
             </Border>
+            <Border Grid.Row="1" Height="42"
+                    VerticalAlignment="Top"
+                    Background="#4A80C0"
+                    Panel.ZIndex="0"/>
 
             <!--Tabla para mostrar la lista de Productos-->
             <DataGrid x:Name="ProductsGrid" Grid.Row="1"
-          HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-          Style="{StaticResource DataGridStyleGeneral}"
-          ColumnHeaderStyle="{StaticResource DataGridHead}"
-          CellStyle="{StaticResource DataGridCellConfig}"
-          RowStyle="{StaticResource DataGridRowConfig}">
+                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                      Style="{StaticResource DataGridStyleGeneral}"
+                      ColumnHeaderStyle="{StaticResource DataGridHead}"
+                      CellStyle="{StaticResource DataGridCellConfig}"
+                      RowStyle="{StaticResource DataGridRowConfig}"
+                      ItemsSource="{Binding ProductsViewItems}"
+                      Padding="0,0,0,40"
+                      
+                      ScrollViewer.CanContentScroll="True"
+                      VirtualizingPanel.ScrollUnit="Pixel"
+                      VirtualizingPanel.CacheLength="1,1"
+                      VirtualizingPanel.CacheLengthUnit="Page"
+                      VirtualizingPanel.IsVirtualizing="True"
+                      VirtualizingPanel.VirtualizationMode="Recycling"
+                            
+                      RowHeight="60"
+                      Panel.ZIndex="1"
+                      Background="Transparent">
 
 
                 <DataGrid.Columns>
 
                     <DataGridTextColumn Header="Nombre" 
-                            Binding="{Binding Nombre}" 
-                            Width="*" />
+                                        Binding="{Binding ProductName}"
+                                        ElementStyle="{StaticResource TextFillDataGrid}"
+                                        Width="*" />
 
                     <DataGridTextColumn Header="Categoría" 
-                            Binding="{Binding Categoria}" 
-                            Width="*" />
+                                        ElementStyle="{StaticResource TextFillDataGrid}"
+                                        Binding="{Binding CategoryName}" 
+                                        Width="*" />
 
-                    <DataGridTextColumn Header="Código de Barras" 
-                            Binding="{Binding Codigo}" 
-                            Width="*" />
+                    <DataGridTextColumn Header="Código de Barras"
+                                        ElementStyle="{StaticResource TextFillDataGrid}"
+                                        Binding="{Binding BarCode}" 
+                                        Width="*" />
 
-                    <DataGridTextColumn Header="Precio de Venta" 
-                            Binding="{Binding Precio, StringFormat={}{0:C}}" 
-                            Width="*" />
+                    <DataGridTextColumn Header="Precio de Venta"
+                                        ElementStyle="{StaticResource TextFillDataGrid}"
+                                        Binding="{Binding SalePrice, StringFormat={}{0:C}}" 
+                                        Width="*" />
 
                     <DataGridTemplateColumn Header="Acciones" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button Width="40" Height="40" Margin="0,0,5,0"
+                                                        Style="{StaticResource MaterialDesignIconButton}"
+                                                        materialDesign:ButtonAssist.CornerRadius="10"
+                                                        Foreground="#3F8CD9"
+                                                        Command="{Binding DataContext.EditProductCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                        CommandParameter="{Binding}">
+                                        <materialDesign:PackIcon Kind="Pencil" Width="20" Height="20" Foreground="#3F8CD9"/>
+                                    </Button>
+
                                     <!--<controls:IconTextButtonControl 
-                                        Width="40" Height="40" Margin="5"
-                                        Style="{StaticResource MaterialDesignIconButton}"
-                                        Icon="Pencil" ColorButton="#4A80C0" ContentColorButton="White"
-                                        Command="{Binding EditCommand}"/>
-                                    <controls:IconTextButtonControl 
                                         Width="40" Height="40" Margin="5"
                                         Style="{StaticResource MaterialDesignIconButton}"
                                         Icon="Delete" ColorButton="#E53935" ContentColorButton="White"

@@ -1,8 +1,11 @@
-﻿using Almacen_Sistema.Composition;
+﻿using Almacen_Sistema.BaseDirectory;
+using Almacen_Sistema.Composition;
 using Almacen_Sistema.Services.Data.ProductDate;
 using Almacen_Sistema.Services.Product.Contracts;
 using Almacen_Sistema.UI.Forms.Category;
+using Microsoft.Data.Sqlite;
 using MVVM.Models.Product;
+using StockMasterControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +28,7 @@ namespace Almacen_Sistema.Services.Product.Implementations
 
         public async Task<ServiceResult<ProductRepositoryResult>> AddProductAsync(ProductModel product)
         {
-            var resulExist = await productRepository.ValidateProductAsync(ActionRegister.AddProduct,product);
+            var resulExist = await productRepository.ValidateProductAsync(ActionRegister.AddProduct, product);
             if (resulExist.IsSuccess)
                 return new ServiceResult<ProductRepositoryResult>(await productRepository.InsertProductAsync(product),
     "Producto agregado correctamente", resulExist);
@@ -33,24 +36,35 @@ namespace Almacen_Sistema.Services.Product.Implementations
                 return new ServiceResult<ProductRepositoryResult>(false, "Error o Datos invalidos", resulExist);
         }
 
-        public async Task<List<ProductModel>> GetAllProductsAsync()
+        public  List<ProductModel> GetAllProductsAsync()
         {
-            return await productRepository.GetAllProductsAsync();
+            return productRepository.GetAllProductsAsync();
         }
 
-        public Task<ServiceResult<ProductRepositoryResult>> EditProductAsync(ProductModel product)
+        public async Task<ServiceResult<ProductRepositoryResult>> EditProductAsync(ProductModel product)
         {
-            throw new NotImplementedException();
+            var resultExist = await productRepository.ValidateProductAsync(ActionRegister.UpddateProduct,product);
+            if (resultExist.IsSuccess)
+                return new ServiceResult<ProductRepositoryResult>(await productRepository.UpdateProductAsync(product),
+                    "Producto actulizado correctamente",resultExist);
+            else 
+                return new ServiceResult<ProductRepositoryResult>(false, "Error o Datos invalidos", resultExist);
         }
 
-        public Task<bool> RemoveProductAsync(int IdProduc)
+        public async Task<ServiceResult<bool>> RemoveProductAsync(int IdProduc)
         {
-            throw new NotImplementedException();
+            
+            if(await productRepository.DeleteProductAsync(IdProduc))
+            {
+                return new ServiceResult<bool>(true,"Producto eliminado correctamente",true);
+            }
+            else
+                return new ServiceResult<bool>(false, "Error al intentar eliminar el Producto. Intente nuevamente", false);
         }
 
         public async Task<List<CategoryModel>> GetCategoriesRegisterAsync()
         {
-            return await readCategorys.GetAllCategorysAsync();
-        }
+            return await readCategorys.GetAllCategory();
+        }      
     }
 }

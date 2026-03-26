@@ -1,5 +1,7 @@
-﻿using Almacen_Sistema.MVVM.ViewModels.Login;
+﻿using Almacen_Sistema.Composition;
+using Almacen_Sistema.MVVM.ViewModels.Login;
 using Almacen_Sistema.Services.Category.Contracts;
+using Almacen_Sistema.Services.Category.Implementations;
 using Almacen_Sistema.UI.Forms.Category;
 using Almacen_Sistema.UI.Panels.Products;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -70,7 +72,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Forms
         private async Task CloseForm()
         {
             IsEnable = false;
-            DialogHost.Close("DialogsRoot", "GoManagementCategory");
+            DialogHost.Close("DialogsRoot", true);
             await DialogHost.Show(new CategorysManagementControl(), "DialogsRoot");
         }
 
@@ -107,6 +109,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Forms
                 var closeformTask = CloseForm();
 
                 await Task.WhenAll(notificationTask, closeformTask);
+                StockMasterEvents.OnCategoryChanges(CategoryActionChanges.AddCategory,result.Data);
             }
             else
             {
@@ -128,6 +131,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Forms
                 var notificationTask = NotificationServiceControl.Instance.ShowNotification("Categoría Editada Correctamente", NotificationType.Success);
                 var closeformTask = CloseForm();
                 await Task.WhenAll(notificationTask, closeformTask);
+                StockMasterEvents.OnCategoryChanges(CategoryActionChanges.UpdateCategory, CategoryObject);
             }
             else
             {

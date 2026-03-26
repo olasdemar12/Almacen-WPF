@@ -31,9 +31,13 @@ namespace Almacen_Sistema.UI.Views
 
         private async void OnLoaded(object sender, RoutedEventArgs e)
         {
+            await Task.Yield();
             var ViewModel = Bootstrapper.CreateProductosViewModel();
-            await ViewModel.LoadingProducts();
             this.DataContext = ViewModel;
+            ViewModel.IsBusy = true;
+            await ViewModel.LoadingProducts();
+            ViewModel.IsBusy = false;
+            await Task.Yield();
         }
 
     }

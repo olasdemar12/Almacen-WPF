@@ -47,7 +47,8 @@
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Visibility="{Binding ShowCloseButton,RelativeSource={RelativeSource AncestorType=local:PanelControl}, Converter={StaticResource BoolToVisibilityConverter}}"
-                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                        CommandParameter="true">
                     <materialDesign:PackIcon Kind="Close"
                                              Width="30"
                                              Height="30"

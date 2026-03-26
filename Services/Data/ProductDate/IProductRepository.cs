@@ -16,11 +16,10 @@ namespace Almacen_Sistema.Services.Data.ProductDate
     }
     public interface IProductRepository
     {
-        Task<List<ProductModel>> GetAllProductsAsync();
+        List<ProductModel> GetAllProductsAsync();
         Task<bool> InsertProductAsync(ProductModel product);
         Task<bool> UpdateProductAsync(ProductModel product);
         Task<bool> DeleteProductAsync(int IdProduct);
-        Task<List<CategoryModel>> GetAllCategoryAsync();
         Task<ProductRepositoryResult> ValidateProductAsync(ActionRegister action, ProductModel product);
     }
 

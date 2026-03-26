@@ -26,7 +26,12 @@ namespace Almacen_Sistema.Services.Data.CategoryDate
                 await connection.OpenAsync();
 
                 using SqliteCommand command = connection.CreateCommand();
-                command.CommandText = @"SELECT * FROM Categorys";
+                command.CommandText = @"
+SELECT c.IdCategory,c.CategoryName,COUNT(p.IdCategory) as TotalProduct 
+FROM Categorys as c LEFT JOIN Products as p 
+ON c.IdCategory = p.IdCategory 
+GROUP BY c.IdCategory, c.CategoryName ORDER BY TotalProduct DESC
+";
                 using SqliteDataReader reader = await command.ExecuteReaderAsync();
 
                 while (reader.Read())
@@ -34,7 +39,7 @@ namespace Almacen_Sistema.Services.Data.CategoryDate
                     categories.Add(new CategoryModel(
                         reader.GetInt32(0),
                         reader.GetString(1),
-                        0
+                        reader.GetInt32(2)
                         ));
                 }
 
@@ -198,11 +203,6 @@ LIMIT 1
                 }
             }
             return ExistCategory;
-        }
-
-        public async Task<List<CategoryModel>> GetAllCategorysAsync()
-        {
-            return await GetAllCategory();
         }
     }
 }

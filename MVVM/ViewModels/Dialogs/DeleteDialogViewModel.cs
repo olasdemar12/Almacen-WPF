@@ -1,4 +1,6 @@
-﻿using Almacen_Sistema.Services.Category.Contracts;
+﻿using Almacen_Sistema.Composition;
+using Almacen_Sistema.Services.Category.Contracts;
+using Almacen_Sistema.Services.Category.Implementations;
 using Almacen_Sistema.UI.Panels.Products;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -19,6 +21,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Dialogs
         {
             this._categoryService = service;
             CategoryObject = category;
+            CategoryObject.NombreCategoria = $"{category.NombreCategoria}.";
         }
 
         private readonly ICategoryService _categoryService;
@@ -43,6 +46,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Dialogs
                 var NotificationTask = NotificationServiceControl.Instance.ShowNotification(result.Message, NotificationType.Success);
                 var CloseDialogTask = CloseDialog();
                 await Task.WhenAll(NotificationTask, CloseDialogTask);
+                StockMasterEvents.OnCategoryChanges(CategoryActionChanges.DeleteCategory, CategoryObject);
             }
             else
             {

@@ -10,7 +10,7 @@
              d:DataContext="{d:DesignInstance Type=vm:ProductFormViewModel,IsDesignTimeCreatable=False}"
              mc:Ignorable="d">
     <Grid>
-        <controls:PanelControl Title="Agregar Nuevo Producto"
+        <controls:PanelControl Title="{Binding Title}"
                                Width="600" Height="auto" ShowBackButton="False"
                                ShowCloseButton="False" IsEnabled="True">
             <StackPanel IsEnabled="{Binding IsEnable}">

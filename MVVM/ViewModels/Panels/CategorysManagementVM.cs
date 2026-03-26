@@ -43,21 +43,21 @@ namespace Almacen_Sistema.MVVM.ViewModels.Panels
         [RelayCommand]
         private async Task FormCategoryAction()
         {
-            DialogHost.Close("DialogsRoot", "FormCategoryAction");
+            DialogHost.Close("DialogsRoot", true);
             await DialogHost.Show(new CategoryFormView("Agregar Nueva Categoría", new CategoryModel(), _categoryService), "DialogsRoot");
         }
 
         [RelayCommand]
         private async Task EditCategoryAction(CategoryModel category)
         {
-            DialogHost.Close("DialogsRoot", "EditCategoryAction");
+            DialogHost.Close("DialogsRoot", true);
             await DialogHost.Show(new CategoryFormView("Editar Categoría", category, _categoryService), "DialogsRoot");
         }
 
         [RelayCommand]
         private async Task DeleteCategoryAction(CategoryModel category)
         {
-            DialogHost.Close("DialogsRoot", "DeleteCategoryAction");
+            DialogHost.Close("DialogsRoot", true);
             await DialogHost.Show(new DeleteCategoryDialog(category, _categoryService), "DialogsRoot");
         }
 

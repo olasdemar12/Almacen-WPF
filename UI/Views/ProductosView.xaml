@@ -50,7 +50,11 @@
                               materialDesign:HintAssist.Hint="Categorías"
                               materialDesign:HintAssist.Foreground="#212121"
                               materialDesign:HintAssist.HintPaddingBrush="White"
-                              materialDesign:TextFieldAssist.HasClearButton="True"/>
+                              materialDesign:TextFieldAssist.HasClearButton="True"
+                              ItemsSource="{Binding Categories}"
+                              SelectedValue="{Binding SelectedCategory,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                              SelectedValuePath="IdCategoria"
+                              DisplayMemberPath="NombreCategoria"/>
 
 
                     <!--Filtro para tipo de venta-->
@@ -63,7 +67,8 @@
                               materialDesign:HintAssist.Foreground="#212121"
                               materialDesign:HintAssist.HintPaddingBrush="White"
                               materialDesign:TextFieldAssist.HasClearButton="True"
-                              ItemsSource="{Binding Source={x:Static controls:NotificationServiceControl.Instance}, Path=SaleType}"/>
+                              ItemsSource="{Binding Source={x:Static controls:NotificationServiceControl.Instance}, Path=SaleType}"
+                              SelectedItem="{Binding SelectedTypeSale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <!--Boton para agregar un nuevo Producto-->
                     <controls:IconTextButtonControl 
@@ -98,7 +103,7 @@
                       CellStyle="{StaticResource DataGridCellConfig}"
                       RowStyle="{StaticResource DataGridRowConfig}"
                       ItemsSource="{Binding ProductsViewItems}"
-                      Padding="0,0,0,40"
+                      Padding="0,0,0,0"
                       
                       ScrollViewer.CanContentScroll="True"
                       VirtualizingPanel.ScrollUnit="Pixel"
@@ -147,11 +152,15 @@
                                         <materialDesign:PackIcon Kind="Pencil" Width="20" Height="20" Foreground="#3F8CD9"/>
                                     </Button>
 
-                                    <!--<controls:IconTextButtonControl 
-                                        Width="40" Height="40" Margin="5"
-                                        Style="{StaticResource MaterialDesignIconButton}"
-                                        Icon="Delete" ColorButton="#E53935" ContentColorButton="White"
-                                        Command="{Binding DeleteCommand}"/>-->
+                                    <Button Width="35" Height="35"
+                                                        Style="{StaticResource MaterialDesignIconButton}"
+                                                        materialDesign:ButtonAssist.CornerRadius="10"
+                                                        materialDesign:RippleAssist.Feedback="Red"
+                                                        Foreground="Red"
+                                                        Command="{Binding DataContext.RemoveProductCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                        CommandParameter="{Binding}">
+                                        <materialDesign:PackIcon Kind="Delete" Width="20" Height="20" Foreground="Red"/>
+                                    </Button>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -159,6 +168,68 @@
                 </DataGrid.Columns>
 
             </DataGrid>
+            
+            <!--Mensaje que aparece cuando no hay Productos registrados-->
+            <Border  Width="auto" Height="auto" Grid.Row="1"
+                                Background="White">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Source="/Assets/View/Products/caja.png" Width="150" Height="150"
+                                       HorizontalAlignment="Center"/>
+                    <TextBlock Text="No hay productos registrados" FontSize="26" 
+                                           Foreground="#1c4d8d" Margin="0,10,0,0"
+                                           FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Presiona el botón de Nuevo para crear tu primer producto"
+                                           FontSize="16" Foreground="#1c4d8d"
+                                           Margin="0,10,0,0"
+                                           FontWeight="Normal" HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Products.Count}" Value="0">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+
+            <!--Mensaje que aparece cuando no se encontraron resultados despues de filtrar-->
+            <Border  Width="auto" Height="auto" Grid.Row="1"
+                    Background="White">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Source="/Assets/View/Products/quitar-filtro.png" Width="150" Height="150"
+                           HorizontalAlignment="Center"/>
+                    <TextBlock Text="No hay productos que coincidan con los filtros" FontSize="26" 
+                               Foreground="#1c4d8d" Margin="0,10,0,0"
+                               FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Reajuste los filtros para encontrar resultados"
+                               FontSize="16" Foreground="#1c4d8d"
+                               Margin="0,10,0,0"
+                               FontWeight="Normal" HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsFilterActive}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
         </Grid>
+
+        <!--Pantalla de "Cargando..."-->
+        <controls:LoadingViewControl
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                    Background="White" IsLoading="{Binding IsBusy}"
+                    TextLoading="Cargando Productos..."
+                    TextColor="#BDBDBD"
+                    ProgressColor="#1C4D8D"/>
     </Grid>
 </Page>

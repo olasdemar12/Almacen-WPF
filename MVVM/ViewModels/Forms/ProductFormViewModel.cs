@@ -118,6 +118,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Forms
         [RelayCommand]
         private async Task ActionForm()
         {
+            await Task.Yield();
             _errorManualUsuario = string.Empty;
             ValidateAllProperties();
             if(HasErrors)
@@ -127,7 +128,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Forms
             }
             IsEnable = false;
             IsLoading = true;
-            switch(Title)
+            switch (Title)
             {
                 case "Agregar Nuevo Producto":
                     ProductObject = new Product(ProductName,BarCode,SaleType,PurchasePrice,SalePrice,IdCategory.GetValueOrDefault());
@@ -172,7 +173,31 @@ namespace Almacen_Sistema.MVVM.ViewModels.Forms
 
         private async Task EditProduct()
         {
+            SetInputs();
+            var result = await _productService.EditProductAsync(ProductObject);
+            if(result.IsSuccess)
+            {
+                var notificationTask = NotificationServiceControl.Instance.ShowNotification(result.Message, NotificationType.Success);
+                var closeFormTask = CloseForm();
 
+                await Task.WhenAll(notificationTask, closeFormTask);
+            }
+
+            if (!result.Data.NameExists)
+            {
+                SystemSounds.Hand.Play();
+                ClearErrors(nameof(ProductName));
+                _errorManualUsuario = "Este Nombre de producto ya existe. Intente con otro";
+                ValidateProperty(ProductName, nameof(ProductName));
+            }
+
+            if (!result.Data.BarcodeExists)
+            {
+                SystemSounds.Hand.Play();
+                ClearErrors(nameof(BarCode));
+                _errorManualUsuario = "Este Codigo de Barras ya existe. Intente con otro";
+                ValidateProperty(BarCode, nameof(BarCode));
+            }
         }
 
         public async Task InitializeAsync()
@@ -192,6 +217,16 @@ namespace Almacen_Sistema.MVVM.ViewModels.Forms
                 return new ValidationResult(vm._errorManualUsuario);
             }
             return ValidationResult.Success;
+        }
+    
+        private void SetInputs()
+        {
+            ProductObject.ProductName = ProductName;
+            ProductObject.BarCode = BarCode;
+            ProductObject.SaleType = SaleType;
+            ProductObject.PurchasePrice = PurchasePrice;
+            ProductObject.SalePrice = SalePrice;
+            ProductObject.IdCategory = IdCategory.GetValueOrDefault();
         }
     }
 }

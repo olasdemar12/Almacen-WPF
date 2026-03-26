@@ -9,6 +9,6 @@ namespace Almacen_Sistema.Services.Product.Contracts
 {
     public interface IProductReadCategoryService
     {
-        public Task<List<CategoryModel>> GetAllCategorysAsync();
+        public Task<List<CategoryModel>> GetAllCategory();
     }
 }

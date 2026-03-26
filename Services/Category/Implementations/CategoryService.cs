@@ -11,6 +11,14 @@ using CategoryModel = MVVM.Models.Category.Category;
 
 namespace Almacen_Sistema.Services.Category.Implementations
 {
+    public enum CategoryActionChanges
+    {
+        AddCategory,
+        UpdateCategory,
+        DeleteCategory,
+    }
+
+    public delegate void CategoryChanges(CategoryActionChanges action, CategoryModel category);
     public class CategoryService : ICategoryService
     {
         public CategoryService(ICategoryRepository categoryRepository) 

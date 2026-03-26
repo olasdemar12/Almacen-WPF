@@ -13,9 +13,9 @@ namespace Almacen_Sistema.Services.Product.Contracts
     public interface IProductService
     {
         public Task<ServiceResult<ProductRepositoryResult>> AddProductAsync(ProductModel product);
-        public Task<List<ProductModel>> GetAllProductsAsync();
+        public List<ProductModel> GetAllProductsAsync();
         public Task<ServiceResult<ProductRepositoryResult>> EditProductAsync(ProductModel product);
-        public Task<bool> RemoveProductAsync(int IdProduc);
+        public Task<ServiceResult<bool>> RemoveProductAsync(int IdProduc);
         public Task<List<CategoryModel>> GetCategoriesRegisterAsync();
     }
 }

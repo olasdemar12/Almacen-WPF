@@ -1,5 +1,6 @@
 ﻿using Almacen_Sistema.BaseDirectory;
 using Microsoft.Data.Sqlite;
+using MVVM.Models.Category;
 using MVVM.Models.Product;
 using System;
 using System.Collections.Generic;
@@ -14,28 +15,35 @@ namespace Almacen_Sistema.Services.Data.ProductDate
 {
     public class ProductRepository : IProductRepository
     {
-        public async Task<List<ProductModel>> GetAllProductsAsync()
+        public List<ProductModel> GetAllProductsAsync()
         {
-            SqliteConnection connection = null;
             List<ProductModel> products = new List<ProductModel>();
-            try
-            {
-                connection = DatabaseManager.Instance.CreateConnection();
-                await connection.OpenAsync();
 
-                using SqliteCommand command = connection.CreateCommand();
-                command.CommandText = @"
-SELECT P.IdProduct, P.ProductName, P.BarCode, P.TypeSale, P.PurchasePrice, 
-P.SalePrice,COALESCE(P.IdCategory,0) as IdCategory, COALESCE(C.CategoryName,'Sin Asignar') CategoryName 
-FROM Products as P 
-LEFT JOIN Categorys as C
-ON P.IdCategory = C.IdCategory
+            using SqliteConnection connection = DatabaseManager.Instance.CreateConnection();
+            connection.Open();
+
+            using SqliteCommand command = connection.CreateCommand();
+            command.CommandText = @"
+SELECT 
+    P.IdProduct,
+    P.ProductName,
+    P.BarCode,
+    P.TypeSale,
+    P.PurchasePrice,
+    P.SalePrice,
+    COALESCE(P.IdCategory, 0) AS IdCategory,
+    COALESCE(C.CategoryName, 'Sin Asignar') AS CategoryName
+FROM Products AS P
+LEFT JOIN Categorys AS C
+    ON P.IdCategory = C.IdCategory;
 ";
-                command.ExecuteNonQuery();
-                using SqliteDataReader reader = await command.ExecuteReaderAsync();
-                while(await reader.ReadAsync())
+
+            using SqliteDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                products.Add(new ProductModel()
                 {
-                    products.Add(new ProductModel() { 
                     IdProduct = reader.GetInt32(0),
                     ProductName = reader.GetString(1),
                     BarCode = reader.GetString(2),
@@ -44,23 +52,10 @@ ON P.IdCategory = C.IdCategory
                     SalePrice = reader.GetDecimal(5),
                     IdCategory = reader.GetInt32(6),
                     CategoryName = reader.GetString(7)
-                    });
-                }
-                await reader.CloseAsync();
-                return products;
+                });
             }
-            catch(Exception ex)
-            {
-                MessageBox.Show("Ocurio un Error al consultar las Categoría existentes", ex.Message, MessageBoxButton.OK, MessageBoxImage.Error);
-                return products;
-            }
-            finally
-            {
-                if(connection != null)
-                {
-                    await connection.CloseAsync();
-                }
-            }
+
+            return products;
         }
 
         public async Task<bool> InsertProductAsync(ProductModel product)
@@ -102,17 +97,77 @@ SELECT last_insert_rowid();
 
         public async Task<bool> UpdateProductAsync(ProductModel product)
         {
-            throw new NotImplementedException();
+            SqliteConnection connection = null;
+            try
+            {
+                connection = DatabaseManager.Instance.CreateConnection();
+                await connection.OpenAsync();
+
+                using SqliteCommand command = connection.CreateCommand();
+                command.CommandText = @"
+UPDATE Products
+SET 
+ProductName = $ProductName,
+BarCode = $BarCode,
+TypeSale = $TypeSale,
+PurchasePrice = $PurchasePrice,
+SalePrice = $SalePrice,
+IdCategory = $IdCategory
+WHERE IdProduct = $IdProduct
+";
+                command.Parameters.AddWithValue("$ProductName", product.ProductName);
+                command.Parameters.AddWithValue("$BarCode", product.BarCode);
+                command.Parameters.AddWithValue("$TypeSale", product.SaleType);
+                command.Parameters.AddWithValue("$PurchasePrice", product.PurchasePrice);
+                command.Parameters.AddWithValue("$SalePrice", product.SalePrice);
+                command.Parameters.AddWithValue("$IdCategory", product.IdCategory);
+                command.Parameters.AddWithValue("$IdProduct", product.IdProduct);
+
+                var rowsAffected = await command.ExecuteNonQueryAsync();
+                return rowsAffected > 0;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, $"Ocurio un Error al Actualizar el producto {product.ProductName}", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    await connection.CloseAsync();
+                }
+            }
         }
 
         public async Task<bool> DeleteProductAsync(int IdProduct)
         {
-            throw new NotImplementedException();
-        }
+            SqliteConnection connection = null;
+            try
+            {
+                connection = DatabaseManager.Instance.CreateConnection();
+                await connection.OpenAsync();
 
-        public async Task<List<CategoryModel>> GetAllCategoryAsync()
-        {
-            throw new NotImplementedException();
+                using SqliteCommand command = connection.CreateCommand();
+                command.CommandText = @"DELETE FROM Products WHERE IdProduct = $IdProduct";
+                command.Parameters.AddWithValue("$IdProduct", IdProduct);
+
+                int rowsAffects = command.ExecuteNonQuery();
+                return rowsAffects > 0;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ocurio un error al intentar el producto", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    await connection.CloseAsync();
+                }
+            }
         }
 
         //Validar nombre y codigo de barras

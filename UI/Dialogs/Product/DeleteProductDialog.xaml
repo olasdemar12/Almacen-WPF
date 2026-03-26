@@ -1,20 +1,20 @@
-﻿<UserControl x:Class="Almacen_Sistema.UI.Dialogs.Category.DeleteCategoryDialog"
+﻿<UserControl x:Class="Almacen_Sistema.UI.Dialogs.Product.DeleteProductDialog"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Almacen_Sistema.UI.Dialogs.Category"
+             xmlns:local="clr-namespace:Almacen_Sistema.UI.Dialogs.Product"
              xmlns:controls="clr-namespace:StockMasterControls"
-             d:DataContext="{d:DesignInstance Type=vm:DeleteDialogViewModel,IsDesignTimeCreatable=False}"
              xmlns:vm="clr-namespace:Almacen_Sistema.MVVM.ViewModels.Dialogs"
+             d:DataContext="{d:DesignInstance Type=vm:DeleteProductViewModel,IsDesignTimeCreatable=False}"
              mc:Ignorable="d">
     <Grid>
-        <controls:DeleteDialogControl Title="Eliminar Categoría" Subtitle="¿Deseas eliminar la siguiente Categoría?"
-                                      Normal1="Se eliminará la categoría" Negrita1="{Binding CategoryObject.NombreCategoria}"
-                                      Normal2="Los productos se quedarán registrados."
+        <controls:DeleteDialogControl Title="Eliminar Producto" Subtitle="¿Deseas eliminar la siguiente Producto?"
+                                      Normal1="Se eliminará el Producto" Negrita1="{Binding ProductObject.ProductName}"
+                                      Normal2="Los datos del stock y movimientos quedaran registrados."
                                       IsEnable="{Binding IsEnable}"
                                       IsLoading="{Binding IsLoading}"
-                                      DeleteCommand="{Binding DeleteCategoryCommand}"
+                                      DeleteCommand="{Binding DeleteProductCommand}"
                                       CancelCommand="{Binding CloseDialogCommand}"/>
     </Grid>
 </UserControl>

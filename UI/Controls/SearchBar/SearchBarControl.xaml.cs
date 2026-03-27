@@ -63,5 +63,31 @@ namespace StockMasterControls
             get => (ICommand)GetValue(SearchCommandProperty);
             set => SetValue(SearchCommandProperty, value);
         }
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter && !string.IsNullOrEmpty(SearchText))
+            {
+                if (SearchCommand?.CanExecute(null) == true)
+                {
+                    SearchCommand.Execute(null);
+                }
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(SearchText))
+            {
+                return;
+            }
+            else
+            {
+                if (SearchCommand?.CanExecute(null) == true)
+                {
+                    SearchCommand.Execute(null);
+                }
+            }
+        }
     }
 }

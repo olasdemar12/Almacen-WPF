@@ -10,7 +10,7 @@
              mc:Ignorable="d">
     <Grid>
         <controls:DeleteDialogControl Title="Eliminar Producto" Subtitle="¿Deseas eliminar la siguiente Producto?"
-                                      Normal1="Se eliminará el Producto" Negrita1="{Binding ProductObject.ProductName}"
+                                      Normal1="Se eliminará el Producto" Negrita1="{Binding ProductObject.ProductName, StringFormat={}{0}.}"
                                       Normal2="Los datos del stock y movimientos quedaran registrados."
                                       IsEnable="{Binding IsEnable}"
                                       IsLoading="{Binding IsLoading}"

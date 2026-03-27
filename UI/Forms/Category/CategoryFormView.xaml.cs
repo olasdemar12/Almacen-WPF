@@ -1,4 +1,6 @@
 ﻿using Almacen_Sistema.MVVM.ViewModels.Forms;
+
+using CategoryVM = Almacen_Sistema.MVVM.ViewModels.Forms.CategoryFormViewModel;
 using Almacen_Sistema.Services.Category.Contracts;
 using Almacen_Sistema.Services.Category.Implementations;
 using MVVM.Models.Category;
@@ -29,7 +31,7 @@ namespace Almacen_Sistema.UI.Forms.Category
         public CategoryFormView(string title,CategoryModel category,ICategoryService categoryService)
         {
             InitializeComponent();
-            var ViewModel = new CategoryFormViewModel(title, category, categoryService);
+            var ViewModel = new CategoryVM(title, category, categoryService);
             this.DataContext = ViewModel;
         }
 

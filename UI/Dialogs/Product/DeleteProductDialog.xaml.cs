@@ -24,10 +24,10 @@ namespace Almacen_Sistema.UI.Dialogs.Product
     /// </summary>
     public partial class DeleteProductDialog : UserControl
     {
-        public DeleteProductDialog(ProductModel product, IProductService service)
+        public DeleteProductDialog(ProductModel product, IProductService service, ActionDeleteProduct actionDelete)
         {
             InitializeComponent();
-            var ViewModel = new DeleteProductViewModel(product, service);
+            var ViewModel = new DeleteProductViewModel(product, service, actionDelete);
             this.DataContext = ViewModel;
         }
     }

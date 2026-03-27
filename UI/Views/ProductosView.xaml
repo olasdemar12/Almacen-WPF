@@ -39,7 +39,9 @@
                     <controls:SearchBarControl 
                         Width="300"
                         Margin="10,15,10,15"
-                        HintText="Buscar Producto"/>
+                        HintText="Buscar Producto"
+                        SearchText="{Binding SearchProduct}"
+                        SearchCommand="{Binding SearchProductsCommand}"/>
 
                     <!--Filtro para Categorias-->
                     <ComboBox Width="200"  FontSize="16" FontFamily="Segoe UI"

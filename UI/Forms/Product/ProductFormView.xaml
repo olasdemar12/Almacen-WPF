@@ -12,7 +12,7 @@
     <Grid>
         <controls:PanelControl Title="{Binding Title}"
                                Width="600" Height="auto" ShowBackButton="False"
-                               ShowCloseButton="False" IsEnabled="True">
+                               ShowCloseButton="{Binding IsSearchProduct}" IsEnabled="True">
             <StackPanel IsEnabled="{Binding IsEnable}">
                 <!-- Campo para el nombre del Producto -->
                 <TextBox  Style="{StaticResource MaterialDesignOutlinedTextBox}"
@@ -122,16 +122,32 @@
                 <StackPanel Orientation="Horizontal" Margin="10,20,10,15" HorizontalAlignment="Right">
                     
                     <!--Boton de Cancelar-->
-                    <Button Content="Cancelar" Width="auto" Height="50"
-                            Padding="20,0,20,0"
-                            Background="#BDBDBD"
-                            BorderBrush="#BDBDBD"
-                            Foreground="White"
-                            FontSize="22"
-                            FontWeight="Normal"
-                            materialDesign:ButtonAssist.CornerRadius="5"
-                            Command="{Binding CloseFormCommand}"
-                            />
+                    <Button>
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                                <Setter Property="Content" Value="Cancelar"/>
+                                <Setter Property="Width" Value="auto"/>
+                                <Setter Property="Height" Value="50"/>
+                                <Setter Property="Padding" Value="20,0,20,0"/>
+                                <Setter Property="Background" Value="#BDBDBD"/>
+                                <Setter Property="BorderBrush" Value="#BDBDBD"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontSize" Value="22"/>
+                                <Setter Property="FontWeight" Value="Normal"/>
+                                <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="5"/>
+                                <Setter Property="Command" Value="{Binding CloseFormCommand}"/>
+                                
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Title}" Value="Producto Encontrado">
+                                        <Setter Property="Background" Value="Red"/>
+                                        <Setter Property="BorderBrush" Value="Red"/>
+                                        <Setter Property="Content" Value="Eliminar"/>
+                                        <Setter Property="Command" Value="{Binding DeleteProductFormCommand}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
 
                     <!--Boton para accionar eventos de guardar, editar u otros-->
                     <controls:LoadingButtonControl Width="auto" Height="50"

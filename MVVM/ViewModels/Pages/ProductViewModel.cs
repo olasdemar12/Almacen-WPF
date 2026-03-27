@@ -3,6 +3,7 @@ using Almacen_Sistema.Services.Category.Implementations;
 using Almacen_Sistema.Services.Product.Contracts;
 using Almacen_Sistema.Services.Product.Implementations;
 using Almacen_Sistema.UI.Dialogs.Category;
+using Almacen_Sistema.UI.Dialogs.Login;
 using Almacen_Sistema.UI.Dialogs.Product;
 using Almacen_Sistema.UI.Forms.Category;
 using Almacen_Sistema.UI.Forms.Product;
@@ -35,8 +36,8 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages
         {
             this._productService = productService;
             StockMasterEvents.CategoryChanges += EventReactionCategory;
+            StockMasterEvents.ProductChanges += EventReactionProductRemove;
         }
-
 
         #region Propiedades para el funcionamiento del View  y el ViewModel
         private readonly IProductService _productService;
@@ -102,12 +103,37 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages
         [RelayCommand]
         private async Task RemoveProduct(ProductModel product)
         {
-            var result = await DialogHost.Show(new DeleteProductDialog(product, _productService), "DialogsRoot");
+            var result = await DialogHost.Show(new DeleteProductDialog(product, _productService,Dialogs.ActionDeleteProduct.DeleteView), "DialogsRoot");
             if ((result is ServiceResult<bool> ServiceResult && result != null) && ServiceResult.IsSuccess)
             {
                 Products.Remove(product);
             }
         }
+
+        [RelayCommand]
+        private async Task SearchProducts()
+        {
+            var producto = Products.FirstOrDefault(p => p.ProductName == SearchProduct || p.BarCode == SearchProduct);
+            if(producto != null)
+            {
+                await DialogHost.Show(new ProductFormView("Producto Encontrado", producto, _productService), "DialogsRoot");
+            }
+            else if(producto == null && !string.IsNullOrEmpty(SearchProduct))
+            {
+                var dialogData = new
+                {
+                    Titulo = "Error en la Búsqueda",
+                    Mensaje = "No se encontraron resultados que coincidan con la Búsqueda."
+                };
+
+                var view = new ErrorLoginDialog
+                {
+                    DataContext = dialogData
+                };
+                await DialogHost.Show(view, "DialogsRoot");
+            }
+        }
+
 
         //Metodo para cargar datos al modulo
         public async Task LoadingProducts()
@@ -126,7 +152,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages
             ProductsViewItems.Refresh();
         }
     
-        //Metodo para notificar de cambios
+        //Metodo para notificar de cambios que ocurrieron en categorias
         private void EventReactionCategory(CategoryActionChanges action, CategoryModel category)
         {
             
@@ -159,6 +185,12 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages
                     }
                     break;
             }
+        }
+
+        //Metodo para notificar al remover un producto en el formulario de Busqueda:
+        private async void EventReactionProductRemove(Product product)
+        {
+            Products.Remove(product);
         }
 
         //Metodo para filtrar datos:

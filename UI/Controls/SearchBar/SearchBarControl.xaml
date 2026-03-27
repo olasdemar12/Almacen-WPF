@@ -16,14 +16,16 @@
                  Padding="15,10,40,10"
                  FontSize="16"
                  FontFamily="Segoe UI"
-                 BorderBrush="#bdbdbd"/>
+                 BorderBrush="#bdbdbd"
+                 KeyDown="OnKeyDown"/>
 
         <Button Style="{StaticResource MaterialDesignIconButton}"
                 Command="{Binding SearchCommand, ElementName=Root}"
                 HorizontalAlignment="Right"
                 Margin="0,0,5,0"
                 Width="32" Height="32"
-                ToolTip="Ejecutar búsqueda">
+                ToolTip="Ejecutar búsqueda"
+                Click="Button_Click">
             <materialDesign:PackIcon Kind="Magnify" Width="20" Height="20" Foreground="#bdbdbd"/>
         </Button>
     </Grid>

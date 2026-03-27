@@ -1,4 +1,5 @@
 ﻿using Almacen_Sistema.Services.Product.Contracts;
+using Almacen_Sistema.UI.Dialogs.Product;
 using Almacen_Sistema.UI.Panels.Products;
 using Almacen_Sistema.UI.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -33,11 +34,19 @@ namespace Almacen_Sistema.MVVM.ViewModels.Forms
             {
                 case "Agregar Nuevo Producto":
                     ButtonContent = "Agregar Producto";
+                    IsSearchProduct = false;
                     break;
                 case "Editar Producto":
                     ButtonContent = "Guardar Cambios";
                     ProductObject = product;
                     EditingProduct();
+                    IsSearchProduct = false;
+                    break;
+                case "Producto Encontrado":
+                    ButtonContent = "Guardar Cambios";
+                    ProductObject = product;
+                    EditingProduct();
+                    IsSearchProduct = true;
                     break;
             }
         }
@@ -70,6 +79,9 @@ namespace Almacen_Sistema.MVVM.ViewModels.Forms
 
         [ObservableProperty]
         private bool _isLoading;
+
+        [ObservableProperty]
+        private bool _isSearchProduct;
 
         [ObservableProperty]
         private List<Category> _categories;
@@ -137,9 +149,19 @@ namespace Almacen_Sistema.MVVM.ViewModels.Forms
                 case "Editar Producto":
                     await EditProduct();
                     break;
+                case "Producto Encontrado":
+                    await EditProduct();
+                    break;
             }
             IsEnable = true;
             IsLoading = false;
+        }
+
+        [RelayCommand]
+        private async Task DeleteProductForm()
+        {
+            DialogHost.Close("DialogsRoot", "ProductObject");
+            await DialogHost.Show(new DeleteProductDialog(ProductObject, _productService,Dialogs.ActionDeleteProduct.DeleteSearch), "DialogsRoot");
         }
 
         private async Task SaveProduct(Product product)

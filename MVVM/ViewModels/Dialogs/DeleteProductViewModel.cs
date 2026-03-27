@@ -1,6 +1,7 @@
 ﻿using Almacen_Sistema.Composition;
 using Almacen_Sistema.Services.Category.Contracts;
 using Almacen_Sistema.Services.Product.Contracts;
+using Almacen_Sistema.UI.Forms.Product;
 using Almacen_Sistema.UI.Panels.Products;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -16,13 +17,18 @@ using System.Threading.Tasks;
 
 namespace Almacen_Sistema.MVVM.ViewModels.Dialogs
 {
+    public enum ActionDeleteProduct
+    {
+        DeleteView,
+        DeleteSearch
+    }
     public partial class DeleteProductViewModel: ObservableObject
     {
-        public DeleteProductViewModel(Product product, IProductService service)
+        public DeleteProductViewModel(Product product, IProductService service,ActionDeleteProduct actionDelete)
         {
             this._productService = service;
             ProductObject = product;
-            ProductObject.ProductName = $"{ProductObject.ProductName}.";
+            this.action = actionDelete;
         }
 
         private readonly IProductService _productService;
@@ -37,6 +43,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Dialogs
         private bool _isEnable = true;
 
         private ServiceResult<bool> _result;
+        private ActionDeleteProduct action;
 
         [RelayCommand]
         private async Task DeleteProduct()
@@ -46,24 +53,32 @@ namespace Almacen_Sistema.MVVM.ViewModels.Dialogs
             _result = await _productService.RemoveProductAsync(ProductObject.IdProduct);
             if (_result.IsSuccess)
             {
-                var NotificationTask = NotificationServiceControl.Instance.ShowNotification("Producto eliminado correctamente", NotificationType.Success);
-                var CloseDialogTask = CloseDialog();
-                await Task.WhenAll(NotificationTask, CloseDialogTask);
+                if (action == ActionDeleteProduct.DeleteSearch)
+                    await StockMasterEvents.OnDeleteProductSearch(ProductObject);
+                DialogHost.Close("DialogsRoot", _result);
+                await NotificationServiceControl.Instance.ShowNotification("Producto eliminado correctamente", NotificationType.Success);
             }
             else
             {
-                var NotificationTask = NotificationServiceControl.Instance.ShowNotification($"Error al intentar eliminar el producto {ProductObject.ProductName}", NotificationType.Error);
-                var CloseDialogTask = CloseDialog();
-                await Task.WhenAll(NotificationTask, CloseDialogTask);
+                DialogHost.Close("DialogsRoot", _result);
+                await NotificationServiceControl.Instance.ShowNotification($"Error al intentar eliminar el producto {ProductObject.ProductName}", NotificationType.Error);
             }
         }
 
         [RelayCommand]        
-        private Task CloseDialog()
+        private async Task CloseDialog()
         {
-            IsEnable = false;
-            DialogHost.Close("DialogsRoot", _result);
-            return Task.CompletedTask;
+            switch(action)
+            {
+                case ActionDeleteProduct.DeleteView:
+                    IsEnable = false;
+                    DialogHost.Close("DialogsRoot", _result);
+                    break;
+                case ActionDeleteProduct.DeleteSearch:
+                    DialogHost.Close("DialogsRoot", _result);
+                    await DialogHost.Show(new ProductFormView("Producto Encontrado", ProductObject, _productService), "DialogsRoot");
+                    break;
+            }
         }
     }
 }

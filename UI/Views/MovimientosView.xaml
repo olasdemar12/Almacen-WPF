@@ -4,14 +4,87 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Almacen_Sistema.UI.Views"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:controls="clr-namespace:StockMasterControls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MovimientosView">
     <Grid>
-        <!--<TextBlock Text="Modulo de Movimientos" FontSize="34"
-                   HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
-        <controls:PanelControl Width="300" Height="300" Title="Gestion de Categorias"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
+            <!--Barra de busquedam filtros y botones para acciones: Entrada y Salida -->
+            <Border Background="White" Grid.Row="0"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                    Width="auto" Height="80" CornerRadius="0,0,5,5"
+                    Margin="0,0,0,10">
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" 
+                                      Direction="270" 
+                                      ShadowDepth="2" 
+                                      Opacity="0.5" 
+                                      BlurRadius="10" />
+                </Border.Effect>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <!-- Barra de Busqueda -->
+                    <controls:SearchBarControl
+                        Width="350"
+                        Margin="10,15,10,15"
+                        HintText="Buscar Producto"
+                        SearchText="{Binding SearchProduct}"
+                        SearchCommand="{Binding SearchProductsCommand}"/>
+
+                    <!--Filtro de Tipo de Movimiento-->
+                    <ComboBox Grid.Column="1" Width="220" FontSize="16" FontFamily="Segoe UI"
+                              BorderBrush="#bdbdbd" HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch" 
+                              Padding="15,10" Margin="10,15,10,15"
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                              materialDesign:HintAssist.Hint="Tipo de Movimiento"
+                              materialDesign:HintAssist.Foreground="#212121"
+                              materialDesign:HintAssist.HintPaddingBrush="White"
+                              materialDesign:TextFieldAssist.HasClearButton="True"/>
+                    
+                    <!--Intervalos de fechas: Fecha Inicio -->
+                    <DatePicker Grid.Column="2" Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                                Margin="10,15,10,15"/>
+
+                    <!--Intervalos de fechas: Fecha Fin -->
+                    <DatePicker Grid.Column="3" Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                                Margin="10,15,10,15"/>
+                    
+                    <!--Boton para registrar Entradas-->
+                    <controls:IconTextButtonControl Grid.Column="4" 
+                        Width="150" Height="50"
+                        Margin="10,0,5,0"
+                        Icon="Login" Text="Entrada"
+                        ColorButton="#1c4d8d" ContentColorButton="White"
+                        materialDesign:ButtonAssist.CornerRadius="10"/>
+
+                    <!--Boton para registrar Salida-->
+                    <controls:IconTextButtonControl Grid.Column="5"
+                        Margin="5,0,10,0"
+                        Width="150" Height="50"
+                        Icon="Logout" Text="Salida"
+                        ColorButton="#1c4d8d" ContentColorButton="White"
+                        materialDesign:ButtonAssist.CornerRadius="10"/>
+                </Grid>
+                
+            </Border>
+
+        </Grid>
     </Grid>
 </Page>

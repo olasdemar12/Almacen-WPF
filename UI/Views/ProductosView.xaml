@@ -31,20 +31,26 @@
                                       BlurRadius="10" />
                 </Border.Effect>
 
-                <StackPanel Orientation="Horizontal" 
-                            HorizontalAlignment="Stretch" 
-                            VerticalAlignment="Stretch">
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
 
                     <!-- Barra de Busqueda -->
-                    <controls:SearchBarControl 
-                        Width="300"
+                    <controls:SearchBarControl
+                        Grid.Column="0"
                         Margin="10,15,10,15"
                         HintText="Buscar Producto"
                         SearchText="{Binding SearchProduct}"
                         SearchCommand="{Binding SearchProductsCommand}"/>
 
                     <!--Filtro para Categorias-->
-                    <ComboBox Width="200"  FontSize="16" FontFamily="Segoe UI"
+                    <ComboBox Grid.Column="1" FontSize="16" FontFamily="Segoe UI"
                               BorderBrush="#bdbdbd" HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch" 
                               Padding="15,10" Margin="10,15,10,15"
@@ -58,12 +64,11 @@
                               SelectedValuePath="IdCategoria"
                               DisplayMemberPath="NombreCategoria"/>
 
-
                     <!--Filtro para tipo de venta-->
-                    <ComboBox Width="200"  FontSize="16" FontFamily="Segoe UI"
+                    <ComboBox Grid.Column="2" FontSize="16" FontFamily="Segoe UI"
                               BorderBrush="#bdbdbd" HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch" 
-                              Padding="15,10" Margin="10,15,10,15"
+                              Padding="15,10" Margin="10,15,5,15"
                               Style="{StaticResource MaterialDesignOutlinedComboBox}"
                               materialDesign:HintAssist.Hint="Tipo de Venta"
                               materialDesign:HintAssist.Foreground="#212121"
@@ -73,23 +78,24 @@
                               SelectedItem="{Binding SelectedTypeSale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <!--Boton para agregar un nuevo Producto-->
-                    <controls:IconTextButtonControl 
+                    <controls:IconTextButtonControl Grid.Column="3"
                         Width="130" Height="50" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                        Margin="10,15,0,15"
+                        Margin="5,15,0,15"
                         Icon="Plus" Text="Nuevo"
                         ColorButton="#1c4d8d" ContentColorButton="White"
                         materialDesign:ButtonAssist.CornerRadius="10"
                         Command="{Binding ProductAddCommand}"/>
 
                     <!--Boton para abrir el panel de categorias-->
-                    <controls:IconTextButtonControl 
+                    <controls:IconTextButtonControl Grid.Column="4"
                         Width="180" Height="50" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                        Margin="10,15,0,15"
+                        Margin="10,15,10,15"
                         Icon="ViewGridOutline" Text="Categorias"
                         ColorButton="#1c4d8d" ContentColorButton="White"
                         materialDesign:ButtonAssist.CornerRadius="10"
                         Command="{Binding CategoryManagementCommand}"/>
-                </StackPanel>
+                    
+                </Grid>
 
             </Border>
             <Border Grid.Row="1" Height="42"
@@ -227,11 +233,11 @@
         </Grid>
 
         <!--Pantalla de "Cargando..."-->
-        <controls:LoadingViewControl
+        <!--<controls:LoadingViewControl
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                     Background="White" IsLoading="{Binding IsBusy}"
                     TextLoading="Cargando Productos..."
                     TextColor="#BDBDBD"
-                    ProgressColor="#1C4D8D"/>
+                    ProgressColor="#1C4D8D"/>-->
     </Grid>
 </Page>

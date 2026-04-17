@@ -98,12 +98,13 @@
                 </Grid>
 
             </Border>
+            
+
+            <!--Tabla para mostrar la lista de Productos-->
             <Border Grid.Row="1" Height="42"
                     VerticalAlignment="Top"
                     Background="#4A80C0"
                     Panel.ZIndex="0"/>
-
-            <!--Tabla para mostrar la lista de Productos-->
             <DataGrid x:Name="ProductsGrid" Grid.Row="1"
                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                       Style="{StaticResource DataGridStyleGeneral}"

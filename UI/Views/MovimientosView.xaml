@@ -85,6 +85,66 @@
                 
             </Border>
 
+            <!--Tabla quen muestra la lista de Movimientos-->
+            <Border Grid.Row="1" Height="42"
+                    VerticalAlignment="Top"
+                    Background="#4A80C0"
+                    Panel.ZIndex="0"/>
+            
+            <DataGrid x:Name="ProductsGrid" Grid.Row="1"
+                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                      Style="{StaticResource DataGridStyleGeneral}"
+                      ColumnHeaderStyle="{StaticResource DataGridHead}"
+                      CellStyle="{StaticResource DataGridCellConfig}"
+                      RowStyle="{StaticResource DataGridRowConfig}"
+                      ItemsSource="{Binding ProductsViewItems}"
+                      Padding="0,0,0,0"
+          
+                      ScrollViewer.CanContentScroll="True"
+                      VirtualizingPanel.ScrollUnit="Pixel"
+                      VirtualizingPanel.CacheLength="1,1"
+                      VirtualizingPanel.CacheLengthUnit="Page"
+                      VirtualizingPanel.IsVirtualizing="True"
+                      VirtualizingPanel.VirtualizationMode="Recycling"
+                
+                      RowHeight="60"
+                      Panel.ZIndex="1"
+                      Background="Transparent">
+
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="Fecha"
+                            ElementStyle="{StaticResource TextFillDataGrid}"
+                            Width="*" />
+
+                    <DataGridTextColumn Header="Movimiento" 
+                            ElementStyle="{StaticResource TextFillDataGrid}"
+                            Width="*" />
+
+                    <DataGridTextColumn Header="Producto"
+                            ElementStyle="{StaticResource TextFillDataGrid}"
+                            Width="*" />
+
+                    <DataGridTextColumn Header="Cantidad"
+                            ElementStyle="{StaticResource TextFillDataGrid}"
+                            Width="*" />
+
+                    <DataGridTextColumn Header="Notas"
+                            ElementStyle="{StaticResource TextFillDataGrid}"
+                            Width="*" />
+
+                    <DataGridTemplateColumn Header="Acciones" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    
+                </DataGrid.Columns>
+
+            </DataGrid>
+
         </Grid>
     </Grid>
 </Page>

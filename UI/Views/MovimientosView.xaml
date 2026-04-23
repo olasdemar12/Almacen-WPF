@@ -6,6 +6,8 @@
       xmlns:local="clr-namespace:Almacen_Sistema.UI.Views"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:controls="clr-namespace:StockMasterControls"
+      xmlns:vm="clr-namespace:Almacen_Sistema.MVVM.ViewModels.Pages"
+      d:DataContext="{d:DesignInstance Type=vm:MovementsViewModel,IsDesignTimeCreatable=False}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MovimientosView">
@@ -71,7 +73,8 @@
                         Margin="5,0,5,0"
                         Icon="Login" Text="Entrada"
                         ColorButton="#1c4d8d" ContentColorButton="White"
-                        materialDesign:ButtonAssist.CornerRadius="10"/>
+                        materialDesign:ButtonAssist.CornerRadius="10"
+                        Command="{Binding EntryMovementCommand}"/>
 
                     <!--Boton para registrar Salida-->
                     <controls:IconTextButtonControl Grid.Column="5"

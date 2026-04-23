@@ -1,5 +1,4 @@
-﻿using Almacen_Sistema.MVVM.ViewModels.Pages;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Almacen_Sistema.UI.Views
+namespace Almacen_Sistema.UI.Panels.Movements
 {
     /// <summary>
-    /// Lógica de interacción para MovimientosView.xaml
+    /// Lógica de interacción para ProductSelectionControl.xaml
     /// </summary>
-    public partial class MovimientosView : Page
+    public partial class ProductSelectionControl : UserControl
     {
-        public MovimientosView()
+        public ProductSelectionControl()
         {
             InitializeComponent();
-            this.DataContext = new MovementsViewModel();
         }
     }
 }

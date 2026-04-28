@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="Almacen_Sistema.UI.Forms.Movements_2.ExitFormControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Almacen_Sistema.UI.Forms.Movements_2"
+             xmlns:controls="clr-namespace:StockMasterControls"
+             xmlns:vm="clr-namespace:Almacen_Sistema.MVVM.ViewModels.Forms"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d">
+    <controls:PanelControl Width="500" Height="600" Title="Registrar Salida"
+                           ShowBackButton="True" ShowCloseButton="False">
+        <StackPanel>
+            
+            <!--Targeta que muestra la informacion del Producto seleccionado-->
+            <Border Background="White" BorderBrush="#bdbdbd" Margin="10"
+                    Height="140" BorderThickness="2" CornerRadius="4">
+                <StackPanel>
+                    <!--Informacion del Producto-->
+                    <Border Background="#e0e0e0" BorderBrush="#e0e0e0" Height="35"
+                            CornerRadius="2">
+                        <TextBlock Text="Informacion del Producto" Foreground="#212121" FontSize="16"
+                                   FontFamily="Segoe UI" Margin="10,8,0,0"/>
+                    </Border>
+                    
+                    <!--Nombre del Producto-->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="Nombre" Foreground="#616161"
+                                   FontSize="16" FontFamily="Segoe UI" Margin="10,5,0,0"/>
+
+                        <TextBlock Grid.Column="1" HorizontalAlignment="Right" Text="Coca Cola 600ml" Foreground="#616161"
+                                   FontSize="16" FontFamily="Segoe UI" Margin="0,5,10,0"/>
+
+                    </Grid>
+                    <Border Height="2" Margin="5,5,5,0" Background="#e0e0e0"/>
+
+                    <!--Unidades, Kilogramos o Piezas del Producto en Stock-->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="Unidades Totales" Foreground="#616161"
+                                   FontSize="16" FontFamily="Segoe UI" Margin="10,5,0,0"/>
+
+                        <TextBlock Grid.Column="1" HorizontalAlignment="Right" Text="160 / 160" Foreground="#616161"
+                                   FontSize="16" FontFamily="Segoe UI" Margin="0,5,10,0"/>
+
+                    </Grid>
+                    <Border Height="2" Margin="5,5,5,0" Background="#e0e0e0"/>
+
+                    <!--Fecha y Hora en el cual se realiza el registro-->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="Fecha y Hora de Registro" Foreground="#616161"
+                                   FontSize="16" FontFamily="Segoe UI" Margin="10,5,0,0"/>
+
+                        <TextBlock Grid.Column="1" HorizontalAlignment="Right" Text="2026-02-20 10:30" Foreground="#616161"
+                                   FontSize="16" FontFamily="Segoe UI" Margin="0,5,10,0"/>
+
+                    </Grid>
+
+
+
+                </StackPanel>
+
+            </Border>
+            
+        </StackPanel>
+    </controls:PanelControl>
+
+</UserControl>

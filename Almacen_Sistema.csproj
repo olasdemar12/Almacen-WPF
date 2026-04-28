@@ -27,6 +27,7 @@
     <Folder Include="MVVM\Models\Categroy\" />
     <Folder Include="MVVM\Models\Product\" />
     <Folder Include="Docs\" />
+    <Folder Include="UI\Forms\Movements\Exit\" />
   </ItemGroup>
 
   <ItemGroup>

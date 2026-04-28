@@ -7,6 +7,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:controls="clr-namespace:StockMasterControls"
       xmlns:vm="clr-namespace:Almacen_Sistema.MVVM.ViewModels.Pages"
+      xmlns:helpers="clr-namespace:Almacen_Sistema.Resources.Helpers.DataPicker___Control"
       d:DataContext="{d:DesignInstance Type=vm:MovementsViewModel,IsDesignTimeCreatable=False}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -60,11 +61,11 @@
                               materialDesign:TextFieldAssist.HasClearButton="True"/>
                     
                     <!--Intervalos de fechas: Fecha Inicio -->
-                    <DatePicker Grid.Column="2" Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                    <DatePicker Grid.Column="2" Style="{StaticResource CustomMaterialDatePickerStyle}"
                                 Margin="5,15,5,15"/>
 
                     <!--Intervalos de fechas: Fecha Fin -->
-                    <DatePicker Grid.Column="3" Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                    <DatePicker Grid.Column="3" Style="{StaticResource CustomMaterialDatePickerStyle}"
                                 Margin="5,15,5,15"/>
                     
                     <!--Boton para registrar Entradas-->

@@ -34,7 +34,10 @@ namespace Almacen_Sistema.Composition
 
         public static CategorysManagementVM CreateCategorysManagementVM()
         {
+            //Iniciamos los repositorios
             ICategoryRepository categoryRepository = new CategoryRepository();
+
+            //Creamos un objeto de servicio de categorias y iniciamos con el repositorio
             ICategoryService categoryService = new CategoryService(categoryRepository);
             return new CategorysManagementVM(categoryService);
 
@@ -42,12 +45,27 @@ namespace Almacen_Sistema.Composition
 
         public static ProductViewModel CreateProductosViewModel()
         {
+            //Iniciamos los repositorios
             IProductRepository productRepository = new ProductRepository();
             IProductReadCategoryService productReadCategoryService = new CategoryRepository();
 
+            //Iniciamos el servicio de Productos para la consulta de estos mismo y las categorias guardadas.
             IProductService productService = new ProductService(productRepository,productReadCategoryService);
 
             return new ProductViewModel(productService);
+        }
+
+        public static ProductSelectionViewModel CreateProductSelectionViewModel()
+        {
+            //Iniciamos los repositorios
+            IProductRepository productRepository = new ProductRepository();
+            IProductReadCategoryService categoryRepository = new CategoryRepository();
+
+            //Iniciamos el servicio de Productos para la consulta de estos mismo y las categorias guardadas.
+            IProductService productService = new ProductService(productRepository, categoryRepository);
+
+            return new ProductSelectionViewModel(productService);
+
         }
     }
 

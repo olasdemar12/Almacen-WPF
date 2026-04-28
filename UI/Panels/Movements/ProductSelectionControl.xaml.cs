@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Almacen_Sistema.Composition;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,14 @@ namespace Almacen_Sistema.UI.Panels.Movements
         public ProductSelectionControl()
         {
             InitializeComponent();
+            this.Loaded += OnLoaded;
+        }
+
+        private async void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            var ViewModel = Bootstrapper.CreateProductSelectionViewModel();
+            this.DataContext = ViewModel;
+            await ViewModel.LoadPanelSelection();
         }
     }
 }

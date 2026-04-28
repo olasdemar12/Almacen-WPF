@@ -17,6 +17,7 @@
 
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
                 <ResourceDictionary Source="/Resources/Styles/Tables/DataGridStyles.xaml"/>
+                <ResourceDictionary Source="/Resources/Styles/DataPicker/DataPickerStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

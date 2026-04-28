@@ -71,6 +71,8 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages
 
         #region Comandos y Metodos para el Funcionamiento del ViewModel
 
+
+        #region Comandos para abrir formularios y dialogos
         [RelayCommand]
         private async Task CategoryManagement()
         {
@@ -134,6 +136,8 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages
             }
         }
 
+        #endregion
+
 
         //Metodo para cargar datos al modulo
         public async Task LoadingProducts()
@@ -151,7 +155,9 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages
             ProductsViewItems.Filter = FilterProducts;
             ProductsViewItems.Refresh();
         }
-    
+
+
+        #region Metodos para reaccionar a eventos de cambios en categorias y productos
         //Metodo para notificar de cambios que ocurrieron en categorias
         private void EventReactionCategory(CategoryActionChanges action, CategoryModel category)
         {
@@ -218,6 +224,10 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages
             ProductsViewItems.Refresh();
             OnPropertyChanged(nameof(IsFilterActive));
         }
+
+        #endregion
+
+
         #endregion
     }
 }

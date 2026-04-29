@@ -8,7 +8,7 @@
              xmlns:vm="clr-namespace:Almacen_Sistema.MVVM.ViewModels.Forms"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d">
-    <controls:PanelControl Width="500" Height="600" Title="Registrar Salida"
+    <controls:PanelControl Width="500" Height="550" Title="Registrar Salida"
                            ShowBackButton="True" ShowCloseButton="False">
         <StackPanel>
             
@@ -76,6 +76,53 @@
 
             </Border>
             
+            <!--Registro de Unidades para la salida siempre y cuando exista stock almacenado.-->
+            <TextBlock Text="Unidades a Retirar" Foreground="#212121" FontSize="16"
+                                   FontFamily="Segoe UI" Margin="10,0,0,0"/>
+            <TextBox Width="auto" Height="50"
+                     BorderBrush="#bdbdbd" Background="White" BorderThickness="2"
+                     Margin="10,5,10,10"
+                     FontFamily="Segoe UI"
+                     FontSize="16"
+                     Padding="13"
+                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                     materialDesign:HintAssist.Hint="Simulacion"
+                     materialDesign:HintAssist.IsFloating="False"
+                     materialDesign:ValidationAssist.Background="White"
+                     />
+
+            <!--Observaciones del Registro-->
+            <TextBlock Text="Observaciones del Registro" Foreground="#212121" FontSize="16"
+                                   FontFamily="Segoe UI" Margin="10,0,0,0"/>
+            <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
+             BorderBrush="#bdbdbd" Background="White" BorderThickness="2"         
+             materialDesign:HintAssist.Hint="(Opcional)"
+             materialDesign:HintAssist.IsFloating="False"
+             Margin="10,5,10,0" FontFamily="Segoe UI" FontSize="16"
+             materialDesign:ValidationAssist.Background="White"
+             AcceptsReturn="True" Padding="10"
+             TextWrapping="Wrap" VerticalContentAlignment="Top"
+             VerticalScrollBarVisibility="Auto"
+             MinHeight="130"/>
+            
+            <!--Botones para cancelar o guardar el registro-->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,25,0,0">
+                <Button Content="Cancelar" Height="50" Padding="20,0,10,0" Background="#BDBDBD"
+                        BorderBrush="#BDBDBD" Foreground="White" FontFamily="Segoe UI"
+                        FontWeight="Normal" FontSize="22" materialDesign:ButtonAssist.CornerRadius="5"/>
+                
+                <controls:LoadingButtonControl Width="auto" Height="50"
+                                                   ButtonContent="Registrar Salida"
+                                                   IsLoading="False"
+                                                   Command="{Binding ActionFormCommand}"
+                                                   Margin="5,0,0,0"
+                                                   Padding="10,0,10,0"
+                                                   ButtonColor="#1c4d8d"
+                                                   Foreground="White"
+                                                   FontSize="22"
+                                                   FontWeight="Normal"/>
+            </StackPanel>
+             
         </StackPanel>
     </controls:PanelControl>
 

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace MVVM.Models.Product
 {
+
     public partial class Product : ObservableObject
     {
         [ObservableProperty]

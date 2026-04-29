@@ -58,8 +58,7 @@
                         Foreground="#212121"
                         FontFamily="Segoe UI"
                         Background="White"
-                        BorderBrush="#bdbdbd" 
-                        Click="BtnMenos_Click"/>
+                        BorderBrush="#bdbdbd" />
 
                         <Button Content="+" Width="50" 
                          Height="40" Margin="0,0,15,0" 
@@ -92,12 +91,11 @@
                             Foreground="White"
                             FontSize="16"
                             FontFamily="Segoe UI"
-                            Margin="5" Height="40" Click="BtnCancelar_Click"/>
+                            Margin="5" Height="40"/>
                     
                     
                     <Button Content="Registrar Entrada" Grid.Column="1" 
                             Margin="20" Height="40" Background="#1976D2"
-                        
                             Foreground="White"
                             FontSize="16"
                             FontFamily="Segoe UI"/>

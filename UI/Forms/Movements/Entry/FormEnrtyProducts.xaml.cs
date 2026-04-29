@@ -24,15 +24,5 @@ namespace Almacen_Sistema.UI.Forms.Movements.Entry
         {
             InitializeComponent();
         }
-
-        private void PanelControl_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void BtnRegistrar_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

@@ -234,11 +234,11 @@
         </Grid>
 
         <!--Pantalla de "Cargando..."-->
-        <!--<controls:LoadingViewControl
+        <controls:LoadingViewControl
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                     Background="White" IsLoading="{Binding IsBusy}"
                     TextLoading="Cargando Productos..."
                     TextColor="#BDBDBD"
-                    ProgressColor="#1C4D8D"/>-->
+                    ProgressColor="#1C4D8D"/>
     </Grid>
 </Page>

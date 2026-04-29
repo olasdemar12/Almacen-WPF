@@ -88,8 +88,7 @@
                      Style="{StaticResource MaterialDesignOutlinedTextBox}"
                      materialDesign:HintAssist.Hint="Simulacion"
                      materialDesign:HintAssist.IsFloating="False"
-                     materialDesign:ValidationAssist.Background="White"
-                     />
+                     materialDesign:ValidationAssist.Background="White"/>
 
             <!--Observaciones del Registro-->
             <TextBlock Text="Observaciones del Registro" Foreground="#212121" FontSize="16"
@@ -107,14 +106,13 @@
             
             <!--Botones para cancelar o guardar el registro-->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,25,0,0">
-                <Button Content="Cancelar" Height="50" Padding="20,0,10,0" Background="#BDBDBD"
+                <Button Content="Cancelar" Height="50" Padding="10,0,10,0" Background="#BDBDBD"
                         BorderBrush="#BDBDBD" Foreground="White" FontFamily="Segoe UI"
                         FontWeight="Normal" FontSize="22" materialDesign:ButtonAssist.CornerRadius="5"/>
                 
                 <controls:LoadingButtonControl Width="auto" Height="50"
                                                    ButtonContent="Registrar Salida"
                                                    IsLoading="False"
-                                                   Command="{Binding ActionFormCommand}"
                                                    Margin="5,0,0,0"
                                                    Padding="10,0,10,0"
                                                    ButtonColor="#1c4d8d"

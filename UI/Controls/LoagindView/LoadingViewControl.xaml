@@ -8,56 +8,38 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              x:Name="Root">
-    
-    <UserControl.Style>
 
+    <UserControl.Style>
         <Style TargetType="UserControl">
-            
-            <Setter Property="Visibility" Value="Visible"/>
+
+            <!-- Estado base -->
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Setter Property="Opacity" Value="0"/>
+            <Setter Property="IsHitTestVisible" Value="False"/>
 
             <Style.Triggers>
-                
-                <!--Propiedades que toma el control cuando esta "Cargando"-->
-                <DataTrigger Binding="{Binding IsLoading,ElementName=Root}" Value="True">
+
+                <!-- Cargando -->
+                <DataTrigger Binding="{Binding IsLoading, ElementName=Root}" Value="True">
                     <Setter Property="Visibility" Value="Visible"/>
                     <Setter Property="Opacity" Value="1"/>
                     <Setter Property="IsHitTestVisible" Value="True"/>
                 </DataTrigger>
-                
-                <!--Animacion de salida (Fade) del control-->
+
+                <!-- No cargando -->
                 <DataTrigger Binding="{Binding IsLoading, ElementName=Root}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Setter Property="Opacity" Value="0"/>
                     <Setter Property="IsHitTestVisible" Value="False"/>
-                    
-                    <DataTrigger.EnterActions>
-                        <BeginStoryboard>
-                            <Storyboard>
-
-                                <!--Animacion de Opacidad para el efecto Fade-->
-                                <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.3">
-                                    <DoubleAnimation.EasingFunction>
-                                        <QuinticEase EasingMode="EaseInOut"/>
-                                    </DoubleAnimation.EasingFunction>
-                                </DoubleAnimation>
-
-                                <!--Se Aplica el estado "Visibility" en Collapse luego de animar la Opacidad-->
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility">
-                                    <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Collapsed}"/>
-                                </ObjectAnimationUsingKeyFrames>
-
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </DataTrigger.EnterActions>
                 </DataTrigger>
-                
-                
-            </Style.Triggers>
 
+            </Style.Triggers>
         </Style>
     </UserControl.Style>
-    
+
     <Grid HorizontalAlignment="{Binding HorizontalAlignment, ElementName=Root}" 
           VerticalAlignment="{Binding VerticalAlignment, ElementName=Root}"
-          Background="White">
+          Background="{Binding Background, ElementName=Root}">
 
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             

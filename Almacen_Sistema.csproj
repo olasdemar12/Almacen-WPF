@@ -29,7 +29,6 @@
     <Folder Include="Docs\" />
     <Folder Include="Services\Movements\Contracts\" />
     <Folder Include="Services\Movements\Implementations\" />
-    <Folder Include="UI\Forms\Movements\Exit\" />
   </ItemGroup>
 
   <ItemGroup>

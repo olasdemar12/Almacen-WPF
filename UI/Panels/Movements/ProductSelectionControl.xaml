@@ -70,7 +70,7 @@
                       CellStyle="{StaticResource DataGridCellConfig}"
                       RowStyle="{StaticResource DataGridRowConfig}"
                       ItemsSource="{Binding ProductsViewItems}"
-                      SelectedItem="{Binding SelectedProduct,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedProduct,Mode=TwoWay}"
                       Padding="0,0,0,0" Margin="5"
                       
                       ScrollViewer.CanContentScroll="True"

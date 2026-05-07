@@ -8,7 +8,12 @@ using System.Threading.Tasks;
 
 namespace MVVM.Models.Product
 {
-
+    public enum SaleType
+    {
+        Unidad,
+        Pieza,
+        Gramos
+    }
     public partial class Product : ObservableObject
     {
         [ObservableProperty]

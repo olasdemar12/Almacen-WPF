@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Almacen_Sistema.MVVM.ViewModels.Forms.Movements;
+using MVVM.Models.Product;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ProductModel = MVVM.Models.Product.Product;
 
 namespace Almacen_Sistema.UI.Forms.Movements.Entry
 {
@@ -20,9 +23,10 @@ namespace Almacen_Sistema.UI.Forms.Movements.Entry
     /// </summary>
     public partial class FormEnrtyProducts : UserControl
     {
-        public FormEnrtyProducts()
+        public FormEnrtyProducts(ProductModel product)
         {
             InitializeComponent();
+            this.DataContext = new EntryFormViewModel(product);
         }
     }
 }

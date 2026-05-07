@@ -1,7 +1,11 @@
-﻿using Almacen_Sistema.Services.Product.Contracts;
+﻿using Almacen_Sistema.MVVM.ViewModels.Forms.Movements;
+using Almacen_Sistema.Services.Product.Contracts;
 using Almacen_Sistema.Services.Product.Implementations;
+using Almacen_Sistema.UI.Forms.Movements.Entry;
+using Almacen_Sistema.UI.Forms.Product;
 using Almacen_Sistema.UI.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
+using MaterialDesignThemes.Wpf;
 using MVVM.Models.Product;
 using System;
 using System.Collections.Generic;
@@ -97,7 +101,8 @@ namespace Almacen_Sistema.MVVM.ViewModels.Panels
         {
             if (value != null)
             {
-                MessageBox.Show($"Seleccionaste: {value.ProductName}");
+                DialogHost.Close("DialogsRoot", true);
+                DialogHost.Show(new FormEnrtyProducts(value), "DialogsRoot");
             }
         }
 

@@ -6,43 +6,43 @@
              xmlns:local="clr-namespace:Almacen_Sistema.UI.Forms.Movements.Entry"
              xmlns:controls="clr-namespace:StockMasterControls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:vm="clr-namespace:Almacen_Sistema.MVVM.ViewModels.Forms.Movements"
+             d:DataContext="{d:DesignInstance Type=vm:EntryFormViewModel,IsDesignTimeCreatable=False}"
              mc:Ignorable="d">
-    <Grid IsEnabled="{Binding IsEnable}">
-
-        <controls:PanelControl Title="Registrar Entrada" 
+    <controls:PanelControl Title="Registrar Entrada" 
                             ShowBackButton="True"
                             ShowCloseButton="False"
                             Width="500"
                             Height="575">
-            <StackPanel>
-                <!--Producto seleccionado-->
-                <Label Content="Producto Seleccionado" 
+        <StackPanel>
+            <!--Producto seleccionado-->
+            <Label Content="Producto Seleccionado" 
                       FontSize="16" FontWeight="Normal"
                       FontFamily="Segoe UI" Foreground="#212121"
                       Margin="10,10,10,0"/>
-                <Border Margin="10,0,10,0" Height="45" Background="#e0e0e0"
+            <Border Margin="10,0,10,0" Height="45" Background="#e0e0e0"
                         BorderBrush="#bdbdbd" BorderThickness="2"
                         CornerRadius="5">
-                    <TextBlock Text="Coca Cola 600ml" FontSize="16" Margin="10"
+                <TextBlock Text="{Binding ProductObject.ProductName}" FontSize="16" Margin="10"
                                Foreground="#212121" FontFamily="Segoe UI"/>
-                </Border>
+            </Border>
 
-                <!--Fecha y Hora del registro de entrada-->
-                <Label Content="Fecha y Hora del registro"
+            <!--Fecha y Hora del registro de entrada-->
+            <Label Content="Fecha y Hora del registro"
                         FontSize="16" FontWeight="Normal"
                         FontFamily="Segoe UI" Foreground="#212121"
                         Margin="10,10,10,0"/>
-                <Border Margin="10,0,10,0" Height="45" Background="#e0e0e0"
+            <Border Margin="10,0,10,0" Height="45" Background="#e0e0e0"
                  BorderBrush="#bdbdbd" BorderThickness="2"
                     CornerRadius="5">
-                    <TextBlock Text="2026-02-20 -- 10:30:00" FontSize="16" Margin="10"
+                <TextBlock Text="{Binding TicketsObject.RegisterDate}" FontSize="16" Margin="10"
                     Foreground="#212121" FontFamily="Segoe UI"/>
-                </Border>
+            </Border>
 
-                <!--Registro de unidades, piezas o kilogramos registrados-->
-                <TextBlock Text="Unidades Recibidas" Foreground="#212121" FontSize="16"
+            <!--Registro de unidades, piezas o kilogramos registrados-->
+            <TextBlock Text="Unidades Recibidas" Foreground="#212121" FontSize="16"
                                    FontFamily="Segoe UI" Margin="10,10,0,0"/>
-                <TextBox Width="auto" Height="50"
+            <TextBox Width="auto" Height="50" Text="{Binding TicketsObject.AmountRegister}"
                      BorderBrush="#bdbdbd" Background="White" BorderThickness="2"
                      Margin="10,5,10,10"
                      FontFamily="Segoe UI"
@@ -54,10 +54,11 @@
                      materialDesign:ValidationAssist.Background="White"/>
 
 
-                <!--Observaciones del Registro-->
-                <TextBlock Text="Observaciones del Registro" Foreground="#212121" FontSize="16"
+            <!--Observaciones del Registro-->
+            <TextBlock Text="Observaciones del Registro" Foreground="#212121" FontSize="16"
                                    FontFamily="Segoe UI" Margin="10,0,0,0"/>
-                <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
+            <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
+             Text="{Binding TicketsObject.Notes}"        
              BorderBrush="#bdbdbd" Background="White" BorderThickness="2"         
              materialDesign:HintAssist.Hint="(Opcional)"
              materialDesign:HintAssist.IsFloating="False"
@@ -68,13 +69,13 @@
              VerticalScrollBarVisibility="Auto"
              MinHeight="130"/>
 
-                <!--Botones para cancelar o guardar el registro-->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,25,0,0">
-                    <Button Content="Cancelar" Height="50" Padding="10,0,10,0" Background="#BDBDBD"
+            <!--Botones para cancelar o guardar el registro-->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,25,0,0">
+                <Button Content="Cancelar" Height="50" Padding="10,0,10,0" Background="#BDBDBD"
                         BorderBrush="#BDBDBD" Foreground="White" FontFamily="Segoe UI"
                         FontWeight="Normal" FontSize="22" materialDesign:ButtonAssist.CornerRadius="5"/>
 
-                    <controls:LoadingButtonControl Width="auto" Height="50"
+                <controls:LoadingButtonControl Width="auto" Height="50"
                                                    ButtonContent="Registrar Entrada"
                                                    IsLoading="False"
                                                    Margin="5,0,0,0"
@@ -83,10 +84,9 @@
                                                    Foreground="White"
                                                    FontSize="22"
                                                    FontWeight="Normal"/>
-                </StackPanel>
-
             </StackPanel>
-      
-        </controls:PanelControl>
-    </Grid>
+
+        </StackPanel>
+
+    </controls:PanelControl>
 </UserControl>

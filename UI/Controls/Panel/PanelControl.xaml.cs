@@ -83,5 +83,19 @@ namespace StockMasterControls
             set { SetValue(PanelContentProperty, value); }
         }
 
+        //Comando a ejecutar al hacer click en el boton:
+        public static readonly DependencyProperty CommandBackButtonProperty =
+            DependencyProperty.Register(
+                nameof(CommandBackButton),
+                typeof(ICommand),
+                typeof(PanelControl),
+                new PropertyMetadata(null));
+
+        public ICommand CommandBackButton
+        {
+            get { return (ICommand)GetValue(CommandBackButtonProperty); }
+            set { SetValue(CommandBackButtonProperty, value); }
+        }
+
     }
 }

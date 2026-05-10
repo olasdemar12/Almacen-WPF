@@ -26,6 +26,7 @@
                         Style="{StaticResource MaterialDesignIconButton}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                        Command="{Binding CommandBackButton, RelativeSource={RelativeSource AncestorType=local:PanelControl}}"
                         Visibility="{Binding ShowBackButton, RelativeSource={RelativeSource AncestorType=local:PanelControl}, Converter={StaticResource BoolToVisibilityConverter}}">
                     <materialDesign:PackIcon Kind="ArrowBack"
                                              Width="30"

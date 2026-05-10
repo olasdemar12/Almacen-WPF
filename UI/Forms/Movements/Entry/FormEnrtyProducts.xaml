@@ -12,8 +12,9 @@
     <controls:PanelControl Title="Registrar Entrada" 
                             ShowBackButton="True"
                             ShowCloseButton="False"
-                            Width="500"
-                            Height="575">
+                            Width="500" IsEnabled="{Binding IsEnable}"
+                            Height="575"
+                            CommandBackButton="{Binding CloseFormCommand}">
         <StackPanel>
             <!--Producto seleccionado-->
             <Label Content="Producto Seleccionado" 
@@ -67,13 +68,14 @@
              AcceptsReturn="True" Padding="10"
              TextWrapping="Wrap" VerticalContentAlignment="Top"
              VerticalScrollBarVisibility="Auto"
-             MinHeight="130"/>
+             Height="130"/>
 
             <!--Botones para cancelar o guardar el registro-->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,25,0,0">
                 <Button Content="Cancelar" Height="50" Padding="10,0,10,0" Background="#BDBDBD"
                         BorderBrush="#BDBDBD" Foreground="White" FontFamily="Segoe UI"
-                        FontWeight="Normal" FontSize="22" materialDesign:ButtonAssist.CornerRadius="5"/>
+                        FontWeight="Normal" FontSize="22" materialDesign:ButtonAssist.CornerRadius="5"
+                        Command="{Binding CloseFormCommand}"/>
 
                 <controls:LoadingButtonControl Width="auto" Height="50"
                                                    ButtonContent="Registrar Entrada"

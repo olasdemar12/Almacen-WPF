@@ -5,9 +5,13 @@ using Almacen_Sistema.Services.Category.Contracts;
 using Almacen_Sistema.Services.Category.Implementations;
 using Almacen_Sistema.Services.Data.CategoryDate;
 using Almacen_Sistema.Services.Data.Login;
+using Almacen_Sistema.Services.Data.Movements.TransactionHistory;
 using Almacen_Sistema.Services.Data.ProductDate;
 using Almacen_Sistema.Services.Login.Contracts;
 using Almacen_Sistema.Services.Login.Implementations;
+using Almacen_Sistema.Services.Movements.Contracts;
+using Almacen_Sistema.Services.Movements.General;
+using Almacen_Sistema.Services.Movements.Implementations;
 using Almacen_Sistema.Services.Product.Contracts;
 using Almacen_Sistema.Services.Product.Implementations;
 using System;
@@ -55,40 +59,65 @@ namespace Almacen_Sistema.Composition
             return new ProductViewModel(productService);
         }
 
-        public static ProductSelectionViewModel CreateProductSelectionViewModel()
+        public static MovementsViewModel CreateMovementsViewModel()
         {
-            //Iniciamos los repositorios
-            IProductRepository productRepository = new ProductRepository();
-            IProductReadCategoryService categoryRepository = new CategoryRepository();
-
-            //Iniciamos el servicio de Productos para la consulta de estos mismo y las categorias guardadas.
-            IProductService productService = new ProductService(productRepository, categoryRepository);
-
-            return new ProductSelectionViewModel(productService);
-
+            IMovementService movementService = new MovementService();
+            return new MovementsViewModel(movementService);
         }
     }
-
-    public class ServiceResult<T>
+    public class ServiceResult
     {
-        public ServiceResult(bool isSuccess, string message)
+        public ServiceResult()
         {
-            this.IsSuccess = isSuccess;
-            this.Message = message;
+            Message = string.Empty;
         }
 
-        public ServiceResult()
+        public ServiceResult(bool isSuccess, string message)
+        {
+            IsSuccess = isSuccess;
+            Message = message;
+        }
+
+        public bool IsSuccess { get; set; }
+
+        public string Message { get; set; }
+
+        public static ServiceResult Success(string message)
+        {
+            return new ServiceResult(true, message);
+        }
+
+        public static ServiceResult Failure(string message)
+        {
+            return new ServiceResult(false, message);
+        }
+    }
+    public class ServiceResult<T> : ServiceResult
+    {
+        public ServiceResult() : base()
+        {
+        }
+
+        public ServiceResult(bool isSuccess, string message): base(isSuccess, message)
         {
         }
 
         public ServiceResult(bool isSuccess, string message, T? data)
+            : base(isSuccess, message)
         {
-            this.IsSuccess = isSuccess;
-            this.Message = message;
-            this.Data = data;
+            Data = data;
         }
-        public bool IsSuccess { get; set; }
-        public string Message { get; set; }
+
         public T? Data { get; set; }
+
+        public static ServiceResult<T> Success(string message, T data)
+        {
+            return new ServiceResult<T>(true, message, data);
+        }
+
+        public static ServiceResult<T> Failure(string message)
+        {
+            return new ServiceResult<T>(false, message, default);
+        }
     }
 }

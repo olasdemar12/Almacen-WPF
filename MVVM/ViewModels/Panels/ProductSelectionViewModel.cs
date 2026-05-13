@@ -1,4 +1,6 @@
 ﻿using Almacen_Sistema.MVVM.ViewModels.Forms.Movements;
+using Almacen_Sistema.MVVM.ViewModels.Pages;
+using Almacen_Sistema.Services.Movements.Contracts;
 using Almacen_Sistema.Services.Product.Contracts;
 using Almacen_Sistema.Services.Product.Implementations;
 using Almacen_Sistema.UI.Forms.Movements.Entry;
@@ -18,19 +20,20 @@ using System.Windows;
 using System.Windows.Data;
 using CategoryModel = MVVM.Models.Category.Category;
 using ProductModel = MVVM.Models.Product.Product;
+using Almacen_Sistema.Composition.EventsDefinitions.Movements;
+using Almacen_Sistema.MVVM.Models.Movements;
 
 namespace Almacen_Sistema.MVVM.ViewModels.Panels
 {
     public partial class ProductSelectionViewModel:ObservableObject
     {
-        public ProductSelectionViewModel(IProductService service)
+        public ProductSelectionViewModel()
         {
-            this.productService = service;
+            productService = MovementsViewModel.MovementService.PanelServices.ProductService;
         }
 
         #region Propiedades, Campos y Observables
-        //Servicio principal
-        private IProductService productService;
+        IProductService productService;
 
         //Observables y colecciones para la vista del Panel
         [ObservableProperty]
@@ -101,8 +104,13 @@ namespace Almacen_Sistema.MVVM.ViewModels.Panels
         {
             if (value != null)
             {
+                var transacion = new TransactionHistory(
+                    0,value.IdProduct, DateTime.Now,
+                    TypeMovementTransaction.Entrada,value.ProductName, 
+                    0.00m, string.Empty,false
+                    );
                 DialogHost.Close("DialogsRoot", true);
-                DialogHost.Show(new FormEnrtyProducts(value), "DialogsRoot");
+                DialogHost.Show(new FormEnrtyProducts(TypeActionMovementChanges.Add, transacion), "DialogsRoot");
             }
         }
 

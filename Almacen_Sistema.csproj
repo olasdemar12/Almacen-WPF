@@ -27,9 +27,7 @@
     <Folder Include="MVVM\Models\Categroy\" />
     <Folder Include="MVVM\Models\Product\" />
     <Folder Include="Docs\" />
-    <Folder Include="Services\Movements\Contracts\" />
-    <Folder Include="Services\Movements\Implementations\" />
-    <Folder Include="UI\Controls\MovementPanelControl\" />
+    <Folder Include="MVVM\ViewModels\Pages\Movements\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -157,7 +157,8 @@
                                                         materialDesign:ButtonAssist.CornerRadius="10"
                                                         Foreground="#3F8CD9"
                                                         Command="{Binding DataContext.EditProductCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                                        CommandParameter="{Binding}">
+                                                        CommandParameter="{Binding}"
+                                                        ToolTip="Editar Registro">
                                         <materialDesign:PackIcon Kind="Pencil" Width="20" Height="20" Foreground="#3F8CD9"/>
                                     </Button>
 
@@ -167,7 +168,8 @@
                                                         materialDesign:RippleAssist.Feedback="Red"
                                                         Foreground="Red"
                                                         Command="{Binding DataContext.RemoveProductCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                                        CommandParameter="{Binding}">
+                                                        CommandParameter="{Binding}"
+                                                        ToolTip="Eliminar Registro">
                                         <materialDesign:PackIcon Kind="Delete" Width="20" Height="20" Foreground="Red"/>
                                     </Button>
                                 </StackPanel>

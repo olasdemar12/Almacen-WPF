@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="Almacen_Sistema.UI.Dialogs.Movement.DeleteMovementDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Almacen_Sistema.UI.Dialogs.Movement"
+             xmlns:controls="clr-namespace:StockMasterControls"
+             xmlns:vm="clr-namespace:Almacen_Sistema.MVVM.ViewModels.Dialogs.Movements.EntryMovementDelete"
+             d:DataContext="{d:DesignInstance Type=vm:DeleteMovementDialogViewModel,IsDesignTimeCreatable=False}"
+             mc:Ignorable="d">
+    <controls:DeleteDialogControl Title="Eliminar Movimiento" Subtitle="¿Deseas eliminar el siguiente registro de movimiento?"
+                                      Normal1="Se eliminará el registro de" Negrita1="{Binding TransactionMovements.TypeMovement}"
+                                      Normal2="del Producto" Negrita2="{Binding TransactionMovements.ProductName, StringFormat={}{0}.}" 
+                                      Normal3="Los datos del producto permanecerán registrados."
+                                      IsEnable="{Binding IsEnable}"
+                                      IsLoading="{Binding IsLoading}"
+                                      DeleteCommand="{Binding DeleteMovementCommand}"
+                                      CancelCommand="{Binding CloseDialogCommand}"/>
+</UserControl>

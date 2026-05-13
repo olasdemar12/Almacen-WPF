@@ -1,4 +1,7 @@
-﻿using Almacen_Sistema.MVVM.ViewModels.Forms.Movements;
+﻿using Almacen_Sistema.Composition.EventsDefinitions.Movements;
+using Almacen_Sistema.MVVM.Models.Movements;
+using Almacen_Sistema.MVVM.ViewModels.Forms.Movements;
+using Almacen_Sistema.Services.Movements.Contracts;
 using MVVM.Models.Product;
 using System;
 using System.Collections.Generic;
@@ -23,10 +26,11 @@ namespace Almacen_Sistema.UI.Forms.Movements.Entry
     /// </summary>
     public partial class FormEnrtyProducts : UserControl
     {
-        public FormEnrtyProducts(ProductModel product)
+        public FormEnrtyProducts(TypeActionMovementChanges action, TransactionHistory transaction)
         {
             InitializeComponent();
-            this.DataContext = new EntryFormViewModel(product);
+            this.DataContext = new EntryFormViewModel(action, transaction);
         }
+
     }
 }

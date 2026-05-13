@@ -1,0 +1,113 @@
+﻿<UserControl x:Class="StockMasterControls.InputQuantitiesControl"
+             x:Name="Root"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StockMasterControls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             Validation.ErrorTemplate="{x:Null}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Caja principal -->
+        <Grid Grid.Row="0">
+
+            <TextBox x:Name="QuantityTextBox"
+                     materialDesign:HintAssist.HintPaddingBrush="White"
+                     materialDesign:TextFieldAssist.TextFieldCornerRadius="0"
+                     Padding="15,10,100,10"
+                     FontSize="16"
+                     FontFamily="Segoe UI"
+                     VerticalContentAlignment="Center"
+                     Text="0.00"
+                     PreviewTextInput="QuantityTextBox_PreviewTextInput"
+                     PreviewKeyDown="QuantityTextBox_PreviewKeyDown"
+                     TextChanged="QuantityTextBox_TextChanged"
+                     LostFocus="QuantityTextBox_LostFocus">
+
+                <TextBox.Style>
+                    <Style TargetType="{x:Type TextBox}"
+                           BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+
+                        <Setter Property="BorderBrush" Value="#bdbdbd"/>
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=Root, Path=(Validation.HasError)}"
+                                         Value="True">
+                                <Setter Property="BorderBrush" Value="#B00020"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+
+                    </Style>
+                </TextBox.Style>
+
+            </TextBox>
+
+            <Button Style="{StaticResource MaterialDesignOutlinedButton}"
+                    HorizontalAlignment="Right"
+                    Margin="0,0,44,0"
+                    Padding="0"
+                    Width="45"
+                    Height="44"
+                    ToolTip="Decrementar cantidad"
+                    BorderBrush="#bdbdbd"
+                    BorderThickness="2"
+                    Click="DecreaseButton_Click"
+                    materialDesign:ButtonAssist.CornerRadius="0">
+
+                <materialDesign:PackIcon Kind="Minus"
+                                         Width="20"
+                                         Height="20"
+                                         Foreground="#bdbdbd"/>
+            </Button>
+
+            <Button Style="{StaticResource MaterialDesignOutlinedButton}"
+                    HorizontalAlignment="Right"
+                    Margin="0,0,0,0"
+                    Padding="0"
+                    Width="45"
+                    Height="44"
+                    ToolTip="Incrementar cantidad"
+                    BorderBrush="#bdbdbd"
+                    BorderThickness="2"
+                    Click="IncreaseButton_Click"
+                    materialDesign:ButtonAssist.CornerRadius="0">
+
+                <materialDesign:PackIcon Kind="Plus"
+                                         Width="20"
+                                         Height="20"
+                                         Foreground="#bdbdbd"/>
+            </Button>
+
+        </Grid>
+
+        <!-- Mensaje de error -->
+        <TextBlock Grid.Row="1"
+                   Margin="4,4,0,0"
+                   FontSize="12"
+                   Foreground="#B00020"
+                   Text="{Binding ElementName=Root, Path=ValidationErrorMessage}">
+
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=Root, Path=(Validation.HasError)}"
+                                     Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+
+        </TextBlock>
+
+    </Grid>
+</UserControl>

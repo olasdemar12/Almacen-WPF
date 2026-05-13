@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Almacen_Sistema.Composition.EventsDefinitions.Movements;
+using Almacen_Sistema.MVVM.Models.Movements;
+using Almacen_Sistema.MVVM.ViewModels.Forms.Movements.ExitForm;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +23,10 @@ namespace Almacen_Sistema.UI.Forms.Movements_2
     /// </summary>
     public partial class ExitFormControl : UserControl
     {
-        public ExitFormControl()
+        public ExitFormControl(TypeActionMovementChanges actionform, TransactionHistory transaction)
         {
             InitializeComponent();
+            this.DataContext = new ExitFormViewModel(actionform, transaction);
         }
     }
 }

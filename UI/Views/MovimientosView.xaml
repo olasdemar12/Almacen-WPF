@@ -7,11 +7,15 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:controls="clr-namespace:StockMasterControls"
       xmlns:vm="clr-namespace:Almacen_Sistema.MVVM.ViewModels.Pages"
-      xmlns:helpers="clr-namespace:Almacen_Sistema.Resources.Helpers.DataPicker___Control"
+      xmlns:helpers="clr-namespace:Almacen_Sistema.Resources.Helpers.EmptyStringText"
       d:DataContext="{d:DesignInstance Type=vm:MovementsViewModel,IsDesignTimeCreatable=False}"
+      xmlns:converters="clr-namespace:Almacen_Sistema.Resources.Helpers.EmptyStringText"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MovimientosView">
+    <Page.Resources>
+        <converters:EmptyStringToTextConverter x:Key="EmptyStringToTextConverter" />
+    </Page.Resources>
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -58,15 +62,23 @@
                               materialDesign:HintAssist.Hint="Tipo de Movimiento"
                               materialDesign:HintAssist.Foreground="#212121"
                               materialDesign:HintAssist.HintPaddingBrush="White"
-                              materialDesign:TextFieldAssist.HasClearButton="True"/>
+                              materialDesign:TextFieldAssist.HasClearButton="True"
+                              ItemsSource="{Binding MovementTypes}"
+                              SelectedItem="{Binding SelectedMovementType, Mode=TwoWay}"/>
                     
                     <!--Intervalos de fechas: Fecha Inicio -->
                     <DatePicker Grid.Column="2" Style="{StaticResource CustomMaterialDatePickerStyle}"
-                                Margin="5,15,5,15"/>
+                                Margin="5,15,5,15" materialDesign:HintAssist.Hint="Fecha de Inicio"
+                                materialDesign:TextFieldAssist.HasClearButton="True"
+                                SelectedDate="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayDateEnd="{Binding EndDate}"/>
 
                     <!--Intervalos de fechas: Fecha Fin -->
                     <DatePicker Grid.Column="3" Style="{StaticResource CustomMaterialDatePickerStyle}"
-                                Margin="5,15,5,15"/>
+                                Margin="5,15,5,15" materialDesign:HintAssist.Hint="Fecha de Fin"
+                                materialDesign:TextFieldAssist.HasClearButton="True"
+                                SelectedDate="{Binding EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayDateStart="{Binding StartDate}"/>
                     
                     <!--Boton para registrar Entradas-->
                     <controls:IconTextButtonControl Grid.Column="4" 
@@ -83,7 +95,8 @@
                         Width="125" Height="50"
                         Icon="Logout" Text="Salida"
                         ColorButton="#1c4d8d" ContentColorButton="White"
-                        materialDesign:ButtonAssist.CornerRadius="10"/>
+                        materialDesign:ButtonAssist.CornerRadius="10"
+                        Command="{Binding ExitMovementCommand}"/>
                 </Grid>
                 
             </Border>
@@ -99,8 +112,7 @@
                       Style="{StaticResource DataGridStyleGeneral}"
                       ColumnHeaderStyle="{StaticResource DataGridHead}"
                       CellStyle="{StaticResource DataGridCellConfig}"
-                      RowStyle="{StaticResource DataGridRowConfig}"
-                      ItemsSource="{Binding ProductsViewItems}"
+                      ItemsSource="{Binding TransactionHistoryViewItems}"
                       Padding="0,0,0,0"
           
                       ScrollViewer.CanContentScroll="True"
@@ -114,32 +126,101 @@
                       Panel.ZIndex="1"
                       Background="Transparent">
 
+                <DataGrid.RowStyle>
+                    <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource MaterialDesignDataGridRow}">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Setter Property="Opacity" Value="1"/>
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Confirmed}" Value="True">
+                                <Setter Property="IsEnabled" Value="False"/>
+                                <Setter Property="Opacity" Value="0.90"/>
+                            </DataTrigger>
+
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+
                 <DataGrid.Columns>
 
                     <DataGridTextColumn Header="Fecha"
+                            Binding="{Binding RegisterDate,StringFormat={}{0:dd/MM/yyyy}}"            
                             ElementStyle="{StaticResource TextFillDataGrid}"
-                            Width="*" />
+                            Width="*"/>
 
-                    <DataGridTextColumn Header="Movimiento" 
-                            ElementStyle="{StaticResource TextFillDataGrid}"
-                            Width="*" />
+                    <DataGridTemplateColumn Header="Movimiento"
+                            Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+
+                                <Border Style="{StaticResource MovementBadgeBorderStyle}">
+                                    <TextBlock Text="{Binding TypeMovement}" 
+                                               Style="{StaticResource MovementBadgeTextStyle}" />
+                                </Border>
+
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
                     <DataGridTextColumn Header="Producto"
+                            Binding="{Binding ProductName}" 
                             ElementStyle="{StaticResource TextFillDataGrid}"
                             Width="*" />
 
-                    <DataGridTextColumn Header="Cantidad"
-                            ElementStyle="{StaticResource TextFillDataGrid}"
-                            Width="*" />
+                    <DataGridTemplateColumn Header="Cantidad"
+                                            Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+
+                                <Border Style="{StaticResource MovementBadgeBorderStyle}">
+                                    <TextBlock Text="{Binding Quantity}" 
+                                               Style="{StaticResource MovementBadgeTextStyle}" />
+                                </Border>
+
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
                     <DataGridTextColumn Header="Notas"
+                            Binding="{Binding Notes,Converter={StaticResource EmptyStringToTextConverter}}" 
                             ElementStyle="{StaticResource TextFillDataGrid}"
                             Width="*" />
 
                     <DataGridTemplateColumn Header="Acciones" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button Width="40" Height="40" Margin="0,0,5,0" 
+                                            Style="{StaticResource MaterialDesignIconButton}"
+                                            materialDesign:ButtonAssist.CornerRadius="10"
+                                            Command="{Binding DataContext.ModificationEntryMovementCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                            CommandParameter="{Binding}"
+                                            Foreground="#3F8CD9" ToolTip="Editar Registro">
+                                        <materialDesign:PackIcon Kind="Pencil" Width="20" Height="20" Foreground="#3F8CD9"/>
+                                    </Button>
 
+                                    <Button Width="35" Height="35"
+                                            Style="{StaticResource MaterialDesignIconButton}"
+                                            materialDesign:ButtonAssist.CornerRadius="10"
+                                            Margin="0,0,5,0"
+                                            materialDesign:RippleAssist.Feedback="Red"
+                                            Command="{Binding DataContext.RemoveMovementRegistedCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                            CommandParameter="{Binding}"
+                                            Foreground="Red" ToolTip="Eliminar Registro">
+                                        <materialDesign:PackIcon Kind="Delete" Width="20" Height="20" Foreground="Red"/>
+                                    </Button>
+
+                                    <CheckBox HorizontalAlignment="Center" Height="80" Width="80"
+                                              VerticalAlignment="Center"
+                                              ToolTip="Confirmar Movimiento"
+                                              IsChecked="{Binding Confirmed, Mode=OneWay}"
+                                              Command="{Binding DataContext.ConfirmMovementCommand,
+                                              RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                              CommandParameter="{Binding}"/>
+                                </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

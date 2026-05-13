@@ -1,7 +1,12 @@
 ﻿using Almacen_Sistema.Composition;
+using Almacen_Sistema.MVVM.ViewModels.Forms;
+using Almacen_Sistema.MVVM.ViewModels.Panels;
+using Almacen_Sistema.Services.Movements.Contracts;
+using Almacen_Sistema.Services.Product.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,10 +31,9 @@ namespace Almacen_Sistema.UI.Panels.Movements
             InitializeComponent();
             this.Loaded += OnLoaded;
         }
-
         private async void OnLoaded(object sender, RoutedEventArgs e)
         {
-            var ViewModel = Bootstrapper.CreateProductSelectionViewModel();
+            var ViewModel = new ProductSelectionViewModel();
             this.DataContext = ViewModel;
             await ViewModel.LoadPanelSelection();
         }

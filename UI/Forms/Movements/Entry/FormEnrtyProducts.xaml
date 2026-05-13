@@ -9,12 +9,9 @@
              xmlns:vm="clr-namespace:Almacen_Sistema.MVVM.ViewModels.Forms.Movements"
              d:DataContext="{d:DesignInstance Type=vm:EntryFormViewModel,IsDesignTimeCreatable=False}"
              mc:Ignorable="d">
-    <controls:PanelControl Title="Registrar Entrada" 
-                            ShowBackButton="True"
-                            ShowCloseButton="False"
-                            Width="500" IsEnabled="{Binding IsEnable}"
-                            Height="575"
-                            CommandBackButton="{Binding CloseFormCommand}">
+    <controls:PanelControl Title="{Binding TitleForm}"
+                            Width="500"
+                            Height="575">
         <StackPanel>
             <!--Producto seleccionado-->
             <Label Content="Producto Seleccionado" 
@@ -24,7 +21,7 @@
             <Border Margin="10,0,10,0" Height="45" Background="#e0e0e0"
                         BorderBrush="#bdbdbd" BorderThickness="2"
                         CornerRadius="5">
-                <TextBlock Text="{Binding ProductObject.ProductName}" FontSize="16" Margin="10"
+                <TextBlock Text="{Binding MovementObject.ProductName}" FontSize="16" Margin="10"
                                Foreground="#212121" FontFamily="Segoe UI"/>
             </Border>
 
@@ -36,30 +33,26 @@
             <Border Margin="10,0,10,0" Height="45" Background="#e0e0e0"
                  BorderBrush="#bdbdbd" BorderThickness="2"
                     CornerRadius="5">
-                <TextBlock Text="{Binding TicketsObject.RegisterDate}" FontSize="16" Margin="10"
+                <TextBlock Text="{Binding MovementObject.RegisterDate,StringFormat={}{0:dd-MM-yyyy hh:mm:ss}}" FontSize="16" Margin="10"
                     Foreground="#212121" FontFamily="Segoe UI"/>
             </Border>
 
             <!--Registro de unidades, piezas o kilogramos registrados-->
-            <TextBlock Text="Unidades Recibidas" Foreground="#212121" FontSize="16"
+            <TextBlock Text="Cantidad Recibida" Foreground="#212121" FontSize="16"
                                    FontFamily="Segoe UI" Margin="10,10,0,0"/>
-            <TextBox Width="auto" Height="50" Text="{Binding TicketsObject.AmountRegister}"
-                     BorderBrush="#bdbdbd" Background="White" BorderThickness="2"
-                     Margin="10,5,10,10"
-                     FontFamily="Segoe UI"
-                     FontSize="16"
-                     Padding="13"
-                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                     materialDesign:HintAssist.Hint="Simulacion"
-                     materialDesign:HintAssist.IsFloating="False"
-                     materialDesign:ValidationAssist.Background="White"/>
+            <controls:InputQuantitiesControl Margin="10,5,10,10"
+                                             Quantity="{Binding TotalAmount,
+                                             Mode=TwoWay,
+                                             UpdateSourceTrigger=PropertyChanged,
+                                             ValidatesOnNotifyDataErrors=True,
+                                             NotifyOnValidationError=True}"/>
 
 
             <!--Observaciones del Registro-->
             <TextBlock Text="Observaciones del Registro" Foreground="#212121" FontSize="16"
                                    FontFamily="Segoe UI" Margin="10,0,0,0"/>
             <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
-             Text="{Binding TicketsObject.Notes}"        
+             Text="{Binding Notes,Mode=TwoWay,UpdateSourceTrigger=Default,ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True}"        
              BorderBrush="#bdbdbd" Background="White" BorderThickness="2"         
              materialDesign:HintAssist.Hint="(Opcional)"
              materialDesign:HintAssist.IsFloating="False"
@@ -78,17 +71,32 @@
                         Command="{Binding CloseFormCommand}"/>
 
                 <controls:LoadingButtonControl Width="auto" Height="50"
-                                                   ButtonContent="Registrar Entrada"
+                                                   ButtonContent="{Binding ContentButton}"
                                                    IsLoading="False"
                                                    Margin="5,0,0,0"
                                                    Padding="10,0,10,0"
                                                    ButtonColor="#1c4d8d"
                                                    Foreground="White"
                                                    FontSize="22"
-                                                   FontWeight="Normal"/>
+                                                   FontWeight="Normal"
+                                                   Command="{Binding SaveEntryCommand}"/>
             </StackPanel>
 
         </StackPanel>
 
+        <controls:PanelControl.Style>
+            <Style TargetType="{x:Type controls:PanelControl}">
+                <Setter Property="ShowBackButton" Value="False"/>
+                <Setter Property="ShowCloseButton" Value="False"/>
+                <Setter Property="IsEnabled" Value="{Binding IsEnable}"/>
+                <Setter Property="CommandBackButton" Value="{Binding CloseFormCommand}"/>
+
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ActionForm}" Value="Add">
+                        <Setter Property="ShowBackButton" Value="True"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </controls:PanelControl.Style>
     </controls:PanelControl>
 </UserControl>

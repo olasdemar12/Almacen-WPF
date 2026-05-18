@@ -3,6 +3,7 @@ using Almacen_Sistema.MVVM.Models.Movements;
 using Almacen_Sistema.MVVM.Models.Movements.CurrentStocks;
 using Almacen_Sistema.UI.Forms.Movements_2;
 using MaterialDesignThemes.Wpf;
+using MVVM.Models.Category;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -54,7 +55,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Panels.Movements.ProductSelectionExitM
                     value.Value.TotalAmount,string.Empty,false);
 
                 DialogHost.Close("DialogsRoot", true);
-                DialogHost.Show(new ExitFormControl(TypeActionMovementChanges.Add, transaction), "DialogsRoot");
+                DialogHost.Show(new ExitFormControl(TypeActionMovementChanges.Add, transaction,value.Value.TotalAmount), "DialogsRoot");
             }
         }
         partial void OnSearchTextProductChanged(string value)
@@ -106,6 +107,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Panels.Movements.ProductSelectionExitM
 
             RowPanelItems = new ObservableCollection<CurrentStockRowPanel?>(RowsTask.Result);
             Categories = CategoryTask.Result;
+            Categories.Add(new Category(0,"Sin Asignar",0));
             RowPanelItemsView = CollectionViewSource.GetDefaultView(RowPanelItems);
             RowPanelItemsView.Filter = FilterStocksRows;
             RowPanelItemsView.Refresh();

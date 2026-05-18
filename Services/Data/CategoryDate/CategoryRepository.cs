@@ -29,7 +29,7 @@ namespace Almacen_Sistema.Services.Data.CategoryDate
                 command.CommandText = @"
 SELECT c.IdCategory,c.CategoryName,COUNT(p.IdCategory) as TotalProduct 
 FROM Categorys as c LEFT JOIN Products as p 
-ON c.IdCategory = p.IdCategory 
+ON c.IdCategory = p.IdCategory AND p.Active = 1
 GROUP BY c.IdCategory, c.CategoryName ORDER BY TotalProduct DESC
 ";
                 using SqliteDataReader reader = await command.ExecuteReaderAsync();

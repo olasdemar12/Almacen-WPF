@@ -54,7 +54,7 @@
                                    FontSize="16" FontFamily="Segoe UI" Margin="0,5,10,0">
                             <Run Text="{Binding TakenAmount}"/>
                             <Run Text="/"/>
-                            <Run Text="{Binding TransactionObject.Quantity}"/>
+                            <Run Text="{Binding TotalAmount}"/>
                         </TextBlock>
 
                     </Grid>
@@ -118,6 +118,7 @@
                 <controls:LoadingButtonControl Width="auto" Height="50"
                                                    ButtonContent="{Binding ContentButton}"
                                                    IsLoading="{Binding LoadingAction}"
+                                                   Command="{Binding SaveMovementExitCommand}"
                                                    Margin="5,0,0,0"
                                                    Padding="10,0,10,0"
                                                    ButtonColor="#1c4d8d"

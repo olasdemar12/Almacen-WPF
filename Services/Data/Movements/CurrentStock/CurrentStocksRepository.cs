@@ -128,7 +128,7 @@ SELECT last_insert_rowid();";
                 using SqliteCommand command = connection.CreateCommand();
                 command.CommandText = @"
 SELECT S.IdStock,S.IdProduct,P.ProductName,C.CategoryName,S.TotalAmount FROM CurrentStocks as S 
-INNER JOIN Products as P ON S.IdProduct = P.IdProduct INNER JOIN Categorys as C ON P.IdCategory = C.IdCategory
+INNER JOIN Products as P ON S.IdProduct = P.IdProduct LEFT JOIN Categorys as C ON P.IdCategory = C.IdCategory
 WHERE S.TotalAmount > 0 ORDER BY C.CategoryName ASC,S.TotalAmount DESC
 ";
                 using SqliteDataReader reader = await command.ExecuteReaderAsync();
@@ -139,7 +139,7 @@ WHERE S.TotalAmount > 0 ORDER BY C.CategoryName ASC,S.TotalAmount DESC
                         reader.GetInt32(0),
                         reader.GetInt32(1),
                         reader.GetString(2),
-                        reader.GetString(3),
+                        await reader.IsDBNullAsync(3) ? "Sin Asignar" : reader.GetString(3),
                         reader.GetDecimal(4)
                         ));
                 }

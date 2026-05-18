@@ -6,6 +6,7 @@ using Almacen_Sistema.Services.Movements.General;
 using Almacen_Sistema.Services.Product.Contracts;
 using Almacen_Sistema.UI.Dialogs.Movement;
 using Almacen_Sistema.UI.Forms.Movements.Entry;
+using Almacen_Sistema.UI.Forms.Movements_2;
 using Almacen_Sistema.UI.Panels.Movements;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -22,7 +23,7 @@ using System.Windows.Data;
 
 namespace Almacen_Sistema.MVVM.ViewModels.Pages
 {
-    public partial class MovementsViewModel: ObservableObject
+    public partial class MovementsViewModel : ObservableObject
     {
 
         public MovementsViewModel(IMovementService movementService)
@@ -34,7 +35,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages
 
         public static IMovementService MovementService { get => _movementService; }
         private static IMovementService _movementService;
-        
+
         public IReadOnlyList<TypeMovementTransaction> MovementTypes { get; }
         [ObservableProperty]
         private ObservableCollection<TransactionHistory> _transactionHistoryItems;
@@ -46,11 +47,18 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages
         private DateTime? startDate;
         [ObservableProperty]
         private DateTime? endDate;
+        [ObservableProperty]
+        private string searchTextProductMovements;
+        [ObservableProperty]
+        private bool _isBusy;
+        public bool IsFilterActive => TransactionHistoryViewItems.IsEmpty;
+
+        private CancellationTokenSource? _searchCancellationTokenSource;
 
         [RelayCommand]
         private async Task EntryMovement()
         {
-            await DialogHost.Show(new ProductSelectionControl(), "DialogsRoot");
+             await DialogHost.Show(new ProductSelectionControl(), "DialogsRoot");
         }
 
         [RelayCommand]
@@ -61,11 +69,16 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages
         [RelayCommand]
         private async Task ConfirmMovementAsync(TransactionHistory transaction)
         {
+            var TotalStockActive = await _movementService.TransactionService.GetTotalAmountStockByIdProduct(transaction.IdProduct);
             if (transaction == null)
                 return;
 
-            if (transaction.Confirmed)
+            if (transaction.TypeMovement == TypeMovementTransaction.Salida && TotalStockActive <= 0)
+            {
+                TransactionHistoryViewItems.Refresh();
+                MessageBox.Show("No se puede confirmar la transacción. Verifique que no esté confirmada previamente y que haya stock disponible.", "Error al Confirmar", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
+            }
 
             transaction.Confirmed = true;
             await MovementService.TransactionService.ConfirmTransactionAsync(transaction);
@@ -73,9 +86,19 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages
             TransactionHistoryViewItems.Refresh();
         }
         [RelayCommand]
-        private async Task ModificationEntryMovement(TransactionHistory transaction)
+        private async Task ModificationMovement(TransactionHistory transaction)
         {
-            await DialogHost.Show(new FormEnrtyProducts(TypeActionMovementChanges.Update, transaction), "DialogsRoot");
+            switch (transaction.TypeMovement)
+            {
+                case TypeMovementTransaction.Entrada:
+                    await DialogHost.Show(new FormEnrtyProducts(TypeActionMovementChanges.Update, transaction), "DialogsRoot");
+                    break;
+
+                case TypeMovementTransaction.Salida:
+                    var TotalStock = await _movementService.TransactionService.GetTotalAmountStockByIdProduct(transaction.IdProduct);
+                    await DialogHost.Show(new ExitFormControl(TypeActionMovementChanges.Update, transaction, TotalStock), "DialogsRoot");
+                    break;
+            }
         }
         [RelayCommand]
         private async Task RemoveMovementRegisted(TransactionHistory transaction)
@@ -83,6 +106,15 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages
             await DialogHost.Show(new DeleteMovementDialog(transaction), "DialogsRoot");
         }
 
+        partial void OnSearchTextProductMovementsChanged(string value)
+        {
+            _searchCancellationTokenSource?.Cancel();
+
+            var cts = new CancellationTokenSource();
+            _searchCancellationTokenSource = cts;
+
+            _ = ApplySearchAsync(cts);
+        }
         partial void OnSelectedMovementTypeChanged(TypeMovementTransaction? value)
         {
             TransactionHistoryViewItems.Refresh();
@@ -117,6 +149,8 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages
             if (obj is not TransactionHistory movement)
                 return false;
 
+            bool matchesProductName = string.IsNullOrEmpty(SearchTextProductMovements) || movement.ProductName.Contains(SearchTextProductMovements, StringComparison.OrdinalIgnoreCase);
+
             if (StartDate.HasValue)
             {
                 DateTime start = StartDate.Value.Date;
@@ -139,7 +173,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages
                     return false;
             }
 
-            return true;
+            return true && matchesProductName;
         }
         private void ConfigureView()
         {
@@ -151,12 +185,34 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages
             );
             TransactionHistoryViewItems.Filter = FilterMovements;
         }
+        private async Task ApplySearchAsync(CancellationTokenSource cts)
+        {
+            try
+            {
+                await Task.Delay(300, cts.Token);
+                TransactionHistoryViewItems.Refresh();
+            }
+            catch (TaskCanceledException)
+            {
+            }
+            finally
+            {
+                if (_searchCancellationTokenSource == cts)
+                {
+                    TransactionHistoryViewItems.Refresh();
+                    _searchCancellationTokenSource = null;
+                }
+            }
+        }
+
         public async Task LoadMovementDates()
         {
+            IsBusy = true;
             TransactionHistoryItems = new ObservableCollection<TransactionHistory>(await _movementService.TransactionService.GetAllTransactionAsync());
             TransactionHistoryViewItems = CollectionViewSource.GetDefaultView(TransactionHistoryItems);
             ConfigureView();
             TransactionHistoryViewItems.Refresh();
+            IsBusy = false;
         }
 
         public async Task ReactionPageEvent(TypeActionMovementChanges typeAction, TransactionHistory transaction)

@@ -5,6 +5,7 @@ using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,6 +26,27 @@ namespace Almacen_Sistema.MVVM.ViewModels.Forms.Movements.ExitForm
             {
                 FormEnabled = false;
                 DialogHost.Close("DialogsRoot", true);
+            }
+        }
+
+        [RelayCommand]
+        private async Task SaveMovementExit()
+        {
+            ValidateAllProperties();
+            if (HasErrors)
+            {
+                SystemSounds.Hand.Play();
+                return;
+            }
+
+            switch(TypeActionForm)
+            {
+                case TypeActionMovementChanges.Add:
+                    await AddMovementExit();
+                    break;
+                case TypeActionMovementChanges.Update:
+                    await UpdateMovementExit();
+                    break;
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Almacen_Sistema.Composition;
 using Almacen_Sistema.MVVM.Models.Movements;
+using Almacen_Sistema.MVVM.Models.Movements.CurrentStocks;
 using MVVM.Models.Product;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,6 @@ namespace Almacen_Sistema.Services.Movements.Contracts
         Task<ServiceResult> EditTransactionAsync(TransactionHistory transaction);
         Task<ServiceResult> DeleteTransactionAsync(int IdTransaction);
         Task ConfirmTransactionAsync(TransactionHistory transaction);
+        Task<decimal> GetTotalAmountStockByIdProduct (int IdProduct);
     }
 }

@@ -14,5 +14,6 @@ namespace Almacen_Sistema.Services.Movements.Contracts.Panels
         public Task<ServiceResult> StockAdjustmentAsync(TransactionHistory transaction);
         public Task<List<CurrentStock?>> GetAllStocksProducts();
         public Task<List<CurrentStockRowPanel?>> GetAllStockExitMovement();
+        public Task<CurrentStock?> GetStockByIdProduct(int IdProduct);
     }
 }

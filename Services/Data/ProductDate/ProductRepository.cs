@@ -31,11 +31,11 @@ SELECT
     P.TypeSale,
     P.PurchasePrice,
     P.SalePrice,
-    COALESCE(P.IdCategory, 0) AS IdCategory,
+    COALESCE(P.IdCategory, NULL) AS IdCategory,
     COALESCE(C.CategoryName, 'Sin Asignar') AS CategoryName
 FROM Products AS P
 LEFT JOIN Categorys AS C
-    ON P.IdCategory = C.IdCategory;
+    ON P.IdCategory = C.IdCategory WHERE P.Active = 1 ;
 ";
 
             using SqliteDataReader reader = command.ExecuteReader();
@@ -50,7 +50,7 @@ LEFT JOIN Categorys AS C
                     SaleType = reader.GetString(3),
                     PurchasePrice = reader.GetDecimal(4),
                     SalePrice = reader.GetDecimal(5),
-                    IdCategory = reader.GetInt32(6),
+                    IdCategory = reader.IsDBNull(6) ? null : reader.GetInt32(6),
                     CategoryName = reader.GetString(7)
                 });
             }
@@ -112,9 +112,11 @@ BarCode = $BarCode,
 TypeSale = $TypeSale,
 PurchasePrice = $PurchasePrice,
 SalePrice = $SalePrice,
-IdCategory = $IdCategory
+IdCategory = $IdCategory,
+Active = 1
 WHERE IdProduct = $IdProduct
 ";
+                
                 command.Parameters.AddWithValue("$ProductName", product.ProductName);
                 command.Parameters.AddWithValue("$BarCode", product.BarCode);
                 command.Parameters.AddWithValue("$TypeSale", product.SaleType);
@@ -149,7 +151,12 @@ WHERE IdProduct = $IdProduct
                 await connection.OpenAsync();
 
                 using SqliteCommand command = connection.CreateCommand();
-                command.CommandText = @"DELETE FROM Products WHERE IdProduct = $IdProduct";
+                command.CommandText = @"
+UPDATE Products
+SET 
+Active = 0
+WHERE IdProduct = $IdProduct
+";
                 command.Parameters.AddWithValue("$IdProduct", IdProduct);
 
                 int rowsAffects = command.ExecuteNonQuery();
@@ -193,7 +200,7 @@ WHERE IdProduct = $IdProduct
                 await connection.OpenAsync();
 
                 using SqliteCommand command = connection.CreateCommand();
-                command.CommandText = @"SELECT IdProduct FROM Products WHERE ProductName = $ProductName";
+                command.CommandText = @"SELECT IdProduct FROM Products WHERE ProductName = $ProductName AND Active = 1";
                 command.Parameters.AddWithValue("$ProductName", product.ProductName);
                 using SqliteDataReader reader = await command.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
@@ -248,7 +255,7 @@ WHERE IdProduct = $IdProduct
                 await connection.OpenAsync();
 
                 using SqliteCommand command = connection.CreateCommand();
-                command.CommandText = @"SELECT IdProduct FROM Products WHERE BarCode = $BarCode";
+                command.CommandText = @"SELECT IdProduct FROM Products WHERE BarCode = $BarCode AND Active = 1";
                 command.Parameters.AddWithValue("$BarCode", product.BarCode);
                 using SqliteDataReader reader = await command.ExecuteReaderAsync();
                 while (await reader.ReadAsync())

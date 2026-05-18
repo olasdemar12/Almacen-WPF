@@ -101,7 +101,6 @@
 
     </Style>
 
-
     <Style x:Key="MovementBadgeTextStyle" TargetType="{x:Type TextBlock}">
 
         <Setter Property="FontSize" Value="16"/>
@@ -124,5 +123,80 @@
         </Style.Triggers>
 
     </Style>
-    
+
+    <!--Estilos para el modulo de movimientos-->
+    <Style x:Key="DataInventoryGridConfing" TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource MaterialDesignDataGridRow}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding StateStock}" Value="Agotado">
+                <Setter Property="Background" Value="#f5d7d7"/>
+                <Setter Property="Foreground" Value="Red"/>
+            </DataTrigger>
+
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="#BDD7EE" />
+                <Setter Property="Foreground" Value="Black" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type TextBlock}" x:Key="TextFillInventoryDataGrid">
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Foreground" Value="#616161"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding StateStock}" Value="Agotado">
+                <Setter Property="Foreground" Value="Red"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="StatusInventoryBorderStyle" TargetType="{x:Type Border}">
+
+        <Setter Property="Margin" Value="0,5,0,5"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="Padding" Value="10,0,10,0"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+
+        <Style.Triggers>
+
+            <DataTrigger Binding="{Binding StateStock}" Value="Normal">
+                <Setter Property="Background" Value="#E8F8EE"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding StateStock}" Value="Bajo">
+                <Setter Property="Background" Value="#F8DADA"/>
+            </DataTrigger>
+
+        </Style.Triggers>
+
+    </Style>
+
+    <Style x:Key="StatusInventoryTextStyle" TargetType="{x:Type TextBlock}">
+
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+
+        <Style.Triggers>
+
+            <DataTrigger Binding="{Binding StateStock}" Value="Normal">
+                <Setter Property="Foreground" Value="#00B020"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding StateStock}" Value="Bajo">
+                <Setter Property="Foreground" Value="#FF1F1F"/>
+            </DataTrigger>
+
+        </Style.Triggers>
+
+    </Style>
 </ResourceDictionary>

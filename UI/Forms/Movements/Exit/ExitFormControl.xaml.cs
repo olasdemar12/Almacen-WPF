@@ -23,10 +23,10 @@ namespace Almacen_Sistema.UI.Forms.Movements_2
     /// </summary>
     public partial class ExitFormControl : UserControl
     {
-        public ExitFormControl(TypeActionMovementChanges actionform, TransactionHistory transaction)
+        public ExitFormControl(TypeActionMovementChanges actionform, TransactionHistory transaction,decimal TotalStock = 0.00m)
         {
             InitializeComponent();
-            this.DataContext = new ExitFormViewModel(actionform, transaction);
+            this.DataContext = new ExitFormViewModel(actionform, transaction, TotalStock);
         }
     }
 }

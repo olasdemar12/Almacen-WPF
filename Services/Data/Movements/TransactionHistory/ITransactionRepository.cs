@@ -12,6 +12,6 @@ namespace Almacen_Sistema.Services.Data.Movements.TransactionHistory
         public Task<bool> InsertTransactionRepository(TransactionHistoryModel transaction);
         public Task<bool> UpdateTransactionRepository(TransactionHistoryModel transaction);
         public Task<bool> DeleteTransactionRepository(int IdTransaction);
-
+        
     }
 }

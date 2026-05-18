@@ -50,8 +50,7 @@
                     <controls:SearchBarControl
                         Margin="5,15,5,15"
                         HintText="Buscar Producto"
-                        SearchText="{Binding SearchProduct}"
-                        SearchCommand="{Binding SearchProductsCommand}"/>
+                        SearchText="{Binding SearchTextProductMovements}"/>
 
                     <!--Filtro de Tipo de Movimiento-->
                     <ComboBox Grid.Column="1" FontSize="16" FontFamily="Segoe UI"
@@ -106,7 +105,6 @@
                     VerticalAlignment="Top"
                     Background="#4A80C0"
                     Panel.ZIndex="0"/>
-            
             <DataGrid x:Name="ProductsGrid" Grid.Row="1"
                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                       Style="{StaticResource DataGridStyleGeneral}"
@@ -196,7 +194,7 @@
                                     <Button Width="40" Height="40" Margin="0,0,5,0" 
                                             Style="{StaticResource MaterialDesignIconButton}"
                                             materialDesign:ButtonAssist.CornerRadius="10"
-                                            Command="{Binding DataContext.ModificationEntryMovementCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                            Command="{Binding DataContext.ModificationMovementCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                             CommandParameter="{Binding}"
                                             Foreground="#3F8CD9" ToolTip="Editar Registro">
                                         <materialDesign:PackIcon Kind="Pencil" Width="20" Height="20" Foreground="#3F8CD9"/>
@@ -216,7 +214,7 @@
                                     <CheckBox HorizontalAlignment="Center" Height="80" Width="80"
                                               VerticalAlignment="Center"
                                               ToolTip="Confirmar Movimiento"
-                                              IsChecked="{Binding Confirmed, Mode=OneWay}"
+                                              IsChecked="{Binding Confirmed, Mode=TwoWay}"
                                               Command="{Binding DataContext.ConfirmMovementCommand,
                                               RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                               CommandParameter="{Binding}"/>
@@ -224,11 +222,72 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    
+
                 </DataGrid.Columns>
 
             </DataGrid>
 
+            <!--Mensaje que aparece cuando no se encontraron resultados despues de filtrar-->
+            <Border  Width="auto" Height="auto" Grid.Row="1"
+                    Background="White">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Source="/Assets/View/Products/quitar-filtro.png" Width="150" Height="150"
+                           HorizontalAlignment="Center"/>
+                    <TextBlock Text="No hay movimientos que coincidan con los filtros" FontSize="26" 
+                               Foreground="#1c4d8d" Margin="0,10,0,0"
+                               FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Reajuste los filtros para encontrar resultados"
+                               FontSize="16" Foreground="#1c4d8d"
+                               Margin="0,10,0,0"
+                               FontWeight="Normal" HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding TransactionHistoryViewItems.IsEmpty}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+
+            <!--Mensaje que aparece cuando no hay movimientos registrados-->
+            <Border  Width="auto" Height="auto" Grid.Row="1"
+                                Background="White">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Source="/Assets/View/Products/caja.png" Width="150" Height="150"
+                                       HorizontalAlignment="Center"/>
+                    <TextBlock Text="No hay movimientos registrados" FontSize="26" 
+                                           Foreground="#1c4d8d" Margin="0,10,0,0"
+                                           FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Presiona el botón de salida o entrada para crear un nuevo movimiento"
+                                           FontSize="16" Foreground="#1c4d8d"
+                                           Margin="0,10,0,0"
+                                           FontWeight="Normal" HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding TransactionHistoryItems.Count}" Value="0">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
         </Grid>
+
+        <!--Pantalla de "Cargando..."-->
+        <controls:LoadingViewControl
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                    Background="White" IsLoading="{Binding IsBusy}"
+                    TextLoading="Cargando Movimientos registrados..."
+                    TextColor="#BDBDBD"
+                    ProgressColor="#1C4D8D"/>
     </Grid>
 </Page>

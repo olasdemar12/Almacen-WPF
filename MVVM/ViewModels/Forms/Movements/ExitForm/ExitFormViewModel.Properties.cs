@@ -19,19 +19,21 @@ namespace Almacen_Sistema.MVVM.ViewModels.Forms.Movements.ExitForm
         [ObservableProperty]
         private decimal _takenAmount;
         [ObservableProperty]
+        private decimal _totalAmount;
+        [ObservableProperty]
         [NotifyDataErrorInfo]
         [CustomValidation(typeof(ExitFormViewModel), nameof(ValidateAmountExit))]
         private decimal _amountExit;
         [ObservableProperty]
-        private string _notes = string.Empty;
+        private string _notes;
 
         //Propiedades de funcionamiento
         [ObservableProperty]
-        private bool _showButtonBackActive = TypeActionForm == TypeActionMovementChanges.Add;
+        private bool _showButtonBackActive;
         [ObservableProperty]
-        private string _titleForm = TypeActionForm == TypeActionMovementChanges.Add ? "Registrar Salida" : "Modificar Movimiento de Salida";
+        private string _titleForm;
         [ObservableProperty]
-        private string _contentButton = TypeActionForm == TypeActionMovementChanges.Add ? "Registrar Salida" : "Guardar Cambios";
+        private string _contentButton;
         [ObservableProperty]
         private bool _formEnabled = true;
         [ObservableProperty]

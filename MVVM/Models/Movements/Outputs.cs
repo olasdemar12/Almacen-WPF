@@ -1,51 +1,49 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Almacen_Sistema.MVVM.Models.Movements
 {
-    public partial class Tickets : ObservableValidator
+    public partial class Outputs : ObservableObject
     {
-        public Tickets() 
+        public Outputs()
         {
-            IdTicket = 0;
+            IdOutput = 0;
             IdProduct = 0;
             RegisterDate = DateTime.Now;
-            AmountRegister = 0;
+            AmountWithDrawn = 0;
             Notes = string.Empty;
         }
 
-        public Tickets(int IdProduct, DateTime RegisterDate, decimal AmountRegister, string Notes)
+        public Outputs(int IdProduct, DateTime RegisterDate, decimal AmountWithDrawn, string Notes)
         {
-            IdTicket = 0;
+            IdOutput = 0;
             this.IdProduct = IdProduct;
             this.RegisterDate = RegisterDate;
-            this.AmountRegister = AmountRegister;
+            this.AmountWithDrawn = AmountWithDrawn;
             this.Notes = Notes;
         }
 
-        public Tickets(int IdTicket,int IdProduct, DateTime RegisterDate, decimal AmountRegister, string Notes)
+        public Outputs(int IdOutput,int IdProduct, DateTime RegisterDate, decimal AmountWithDrawn, string Notes)
         {
-            this.IdTicket = IdTicket;
+            this.IdOutput = IdOutput;
             this.IdProduct = IdProduct;
             this.RegisterDate = RegisterDate;
-            this.AmountRegister = AmountRegister;
+            this.AmountWithDrawn = AmountWithDrawn;
             this.Notes = Notes;
         }
 
         [ObservableProperty]
-        private int _idTicket;
+        private int _idOutput;
         [ObservableProperty]
         private int _idProduct;
         [ObservableProperty]
         private DateTime _registerDate;
         [ObservableProperty]
-        private decimal _amountRegister;
+        private decimal _amountWithDrawn;
         [ObservableProperty]
         private string _notes;
     }

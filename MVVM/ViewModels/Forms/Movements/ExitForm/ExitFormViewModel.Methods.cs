@@ -1,4 +1,7 @@
-﻿using Almacen_Sistema.MVVM.Models.Movements;
+﻿using Almacen_Sistema.Composition.EventsDefinitions.Movements;
+using Almacen_Sistema.Composition;
+using Almacen_Sistema.MVVM.Models.Movements;
+using StockMasterControls;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -34,12 +37,38 @@ namespace Almacen_Sistema.MVVM.ViewModels.Forms.Movements.ExitForm
             if (TransactionObject is null)
                 return 0.00m;
 
-            decimal result = TransactionObject.Quantity - amountExit;
+            decimal result = TotalAmount - amountExit;
 
             if (result < 0)
                 result = 0.00m;
 
             return Math.Round(result, 2, MidpointRounding.AwayFromZero);
+        }
+
+
+        private async Task AddMovementExit()
+        {
+            TransactionObject.Notes = Notes;
+            var result = await _transactionService.AddTransactionAsync(TransactionObject.IdProduct, TransactionObject.ProductName, TransactionObject, AmountExit);
+
+            var type = result.IsSuccess ? NotificationType.Success : NotificationType.Error;
+            var NotificationTask = NotificationServiceControl.Instance.ShowNotification(result.Message, type);
+            var CloseTask = CloseForm();
+            var EventNotificacion = EventsAplicationStockMaser.Instance.MovementEvents.OnTransactionLogChangesInvoke(TypeActionMovementChanges.Add, TransactionObject);
+
+            await Task.WhenAll(NotificationTask, CloseTask, EventNotificacion);
+        }
+
+        private async Task UpdateMovementExit()
+        {
+            TransactionObject.Notes = Notes;
+            TransactionObject.Quantity = AmountExit;
+            var result = await _transactionService.EditTransactionAsync(TransactionObject);
+            var type = result.IsSuccess ? NotificationType.Success : NotificationType.Error;
+            var NotificationTask = NotificationServiceControl.Instance.ShowNotification(result.Message, type);
+            var CloseTask = CloseForm();
+            var EventNotificacion = EventsAplicationStockMaser.Instance.MovementEvents.OnTransactionLogChangesInvoke(TypeActionMovementChanges.Update, TransactionObject);
+            await Task.WhenAll(NotificationTask, CloseTask, EventNotificacion);
         }
     }
 }

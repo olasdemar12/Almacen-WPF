@@ -17,7 +17,7 @@ namespace MVVM.Models.Product
     public partial class Product : ObservableObject
     {
         [ObservableProperty]
-        private int idProduct;
+        private int? idProduct;
         [ObservableProperty]
         private string productName;
         [ObservableProperty]
@@ -29,7 +29,9 @@ namespace MVVM.Models.Product
         [ObservableProperty]
         private decimal salePrice;
         [ObservableProperty]
-        private int idCategory;
+        private int? idCategory;
+        [ObservableProperty]
+        private int active;
         [ObservableProperty]
         private string categoryName;
 

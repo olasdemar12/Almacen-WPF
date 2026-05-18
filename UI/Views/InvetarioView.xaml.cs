@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Almacen_Sistema.Composition;
+using Almacen_Sistema.MVVM.ViewModels.Pages.Inventory;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,14 @@ namespace Almacen_Sistema.UI.Views
         public InvetarioView()
         {
             InitializeComponent();
+            this.Loaded += OnLoaded;
+        }
+
+        private async void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            var viewModel = new InventoryViewModel();
+            this.DataContext = viewModel;
+            await viewModel.LoadInventoryItems();
         }
     }
 }

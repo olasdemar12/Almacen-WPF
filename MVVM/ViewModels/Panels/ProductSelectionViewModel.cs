@@ -105,7 +105,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Panels
             if (value != null)
             {
                 var transacion = new TransactionHistory(
-                    0,value.IdProduct, DateTime.Now,
+                    0,value.IdProduct.Value, DateTime.Now,
                     TypeMovementTransaction.Entrada,value.ProductName, 
                     0.00m, string.Empty,false
                     );

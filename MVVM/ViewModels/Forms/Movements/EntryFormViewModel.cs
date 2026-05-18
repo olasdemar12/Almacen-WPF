@@ -79,10 +79,8 @@ namespace Almacen_Sistema.MVVM.ViewModels.Forms.Movements
                 SystemSounds.Hand.Play();
                 return;
             }
-            else
-            {
-                await ExecuteActionFormTransaction();
-            }
+            await ExecuteActionFormTransaction();
+            return;
         }
 
         private async Task ExecuteActionFormTransaction()

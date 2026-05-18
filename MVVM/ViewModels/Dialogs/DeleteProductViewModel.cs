@@ -50,7 +50,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Dialogs
         {
             IsLoading = true;
             IsEnable = false;
-            _result = await _productService.RemoveProductAsync(ProductObject.IdProduct);
+            _result = await _productService.RemoveProductAsync(ProductObject.IdProduct.Value);
             if (_result.IsSuccess)
             {
                 if (action == ActionDeleteProduct.DeleteSearch)

@@ -1,5 +1,6 @@
 ﻿using Almacen_Sistema.Composition;
 using Almacen_Sistema.MVVM.Models.Movements;
+using Almacen_Sistema.MVVM.Models.Movements.CurrentStocks;
 using Almacen_Sistema.Services.Data.Movements.TransactionHistory;
 using Almacen_Sistema.Services.Movements.Contracts;
 using Almacen_Sistema.Services.Movements.Contracts.Panels;
@@ -85,6 +86,14 @@ namespace Almacen_Sistema.Services.Movements.Implementations
             var UpdateTransactionTask = EditTransactionAsync(transaction);
 
             await Task.WhenAll(NotificationTask, UpdateTransactionTask);
+        }
+
+        public async Task<decimal> GetTotalAmountStockByIdProduct(int IdProduct)
+        {
+            var totalAmount = await _currentStocksService.GetStockByIdProduct(IdProduct);
+            if(totalAmount != null)
+                return totalAmount.TotalAmount;
+            return 0.00m;
         }
     }
 }

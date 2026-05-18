@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="MVVM\ViewModels\Pages\Movements\**" />
+    <EmbeddedResource Remove="MVVM\ViewModels\Pages\Movements\**" />
+    <None Remove="MVVM\ViewModels\Pages\Movements\**" />
+    <Page Remove="MVVM\ViewModels\Pages\Movements\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Assets\Panel\Categorys\carpeta.png" />
     <None Remove="Assets\View\Products\caja.png" />
     <None Remove="Assets\View\Products\quitar-filtro.png" />
@@ -27,7 +34,6 @@
     <Folder Include="MVVM\Models\Categroy\" />
     <Folder Include="MVVM\Models\Product\" />
     <Folder Include="Docs\" />
-    <Folder Include="MVVM\ViewModels\Pages\Movements\" />
   </ItemGroup>
 
   <ItemGroup>

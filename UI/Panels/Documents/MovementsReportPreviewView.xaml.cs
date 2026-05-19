@@ -26,13 +26,33 @@ namespace Almacen_Sistema.UI.Panels.Documents
         {
             InitializeComponent();
             this.Loaded += OnLoaded;
+            this.Unloaded += OnUnloaded;
         }
 
         private async void OnLoaded(object sender, RoutedEventArgs e)
         {
-            var vm = new MovementsReportPreviewViewModel();
-            this.DataContext = vm;
-            await vm.LoadingTableInformation();
+            if (_isLoaded)
+                return;
+
+            _isLoaded = true;
+
+            _viewModel = new MovementsReportPreviewViewModel();
+            DataContext = _viewModel;
+
+            await _viewModel.LoadingTableInformation();
         }
+
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            _viewModel?.Dispose();
+
+            DataContext = null;
+            _viewModel = null;
+            _isLoaded = false;
+        }
+
+        private MovementsReportPreviewViewModel? _viewModel;
+        private bool _isLoaded;
     }
 }

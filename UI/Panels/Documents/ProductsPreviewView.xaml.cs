@@ -1,4 +1,5 @@
-﻿using Almacen_Sistema.MVVM.ViewModels.Panels.Documents.Products;
+﻿using Almacen_Sistema.MVVM.ViewModels.Panels.Documents.Movements;
+using Almacen_Sistema.MVVM.ViewModels.Panels.Documents.Products;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,14 +27,32 @@ namespace Almacen_Sistema.UI.Panels.Documents
         {
             InitializeComponent();
             this.Loaded += OnLoaded;
+            this.Unloaded += OnUnloaded;
         }
 
+        private ProductsPreviewViewModel? _viewModel;
+        private bool _isLoaded;
         private async void OnLoaded(object sender, RoutedEventArgs e)
         {
-            var vm = new ProductsPreviewViewModel();
-            this.DataContext = vm;
-            await vm.LoadingInformationDocument();
+            if (_isLoaded)
+                return;
+
+            _isLoaded = true;
+
+            _viewModel = new ProductsPreviewViewModel();
+            DataContext = _viewModel;
+
+            await _viewModel.LoadingInformationDocument();
         }
-        
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            _viewModel?.Dispose();
+
+            DataContext = null;
+            _viewModel = null;
+            _isLoaded = false;
+        }
+
     }
 }

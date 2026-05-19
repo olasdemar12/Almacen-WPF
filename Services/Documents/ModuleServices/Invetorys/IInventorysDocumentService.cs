@@ -1,5 +1,7 @@
 ﻿using Almacen_Sistema.Composition;
+using Almacen_Sistema.MVVM.Models.Documents;
 using Almacen_Sistema.MVVM.Models.Movements.Inventory;
+using Almacen_Sistema.MVVM.Models.Movements.RowMovements;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,6 @@ namespace Almacen_Sistema.Services.Documents.ModuleServices.Invetorys
     {
         public Task<List<DocumentInventoryRow>> GetDocumentInventoryRowsAsync();
 
-        public Task<ServiceResult> ExportMovementsDocument();
+        public Task<ServiceResult> ExportMovementsDocument(InformationReport informationReport, List<DocumentInventoryRow> viewInformationModule);
     }
 }

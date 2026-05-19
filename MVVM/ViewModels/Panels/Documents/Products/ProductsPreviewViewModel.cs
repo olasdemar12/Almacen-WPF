@@ -10,18 +10,34 @@ using static Almacen_Sistema.Composition.EventsDefinitions.Documents.IDocumentEv
 
 namespace Almacen_Sistema.MVVM.ViewModels.Panels.Documents.Products
 {
-    public partial class ProductsPreviewViewModel : ObservableValidator
+    public partial class ProductsPreviewViewModel : ObservableValidator, IDisposable
     {
         public ProductsPreviewViewModel()
         {
             _productDocumentService = new ProductDocumentService();
+            SubscribeEvents();
+        }
+
+        private readonly IProductDocumentService _productDocumentService;
+        private bool _disposed;
+
+        private void SubscribeEvents()
+        {
             DocumentsViewModel._filterEventService.OnIdCategorySelected -= SetIdCategoryFilter;
             DocumentsViewModel._filterEventService.OnGenerateReport -= GenerateReport;
             DocumentsViewModel._filterEventService.OnIdCategorySelected += SetIdCategoryFilter;
             DocumentsViewModel._filterEventService.OnGenerateReport += GenerateReport;
         }
+        public void Dispose()
+        {
+            if (_disposed)
+                return;
 
-        private readonly IProductDocumentService _productDocumentService;
+            DocumentsViewModel._filterEventService.OnIdCategorySelected -= SetIdCategoryFilter;
+            DocumentsViewModel._filterEventService.OnGenerateReport -= GenerateReport;
+
+            _disposed = true;
+        }
 
     }
 }

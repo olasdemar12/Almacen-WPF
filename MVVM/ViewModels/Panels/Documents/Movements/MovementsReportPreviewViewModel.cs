@@ -9,19 +9,40 @@ using System.Threading.Tasks;
 
 namespace Almacen_Sistema.MVVM.ViewModels.Panels.Documents.Movements
 {
-    public partial class MovementsReportPreviewViewModel : ObservableObject 
+    public partial class MovementsReportPreviewViewModel : ObservableObject, IDisposable
     {
+        private bool _disposed;
         public MovementsReportPreviewViewModel()
         {
             _movementsDocumentService = new MovementsDocumentService();
-            DocumentsViewModel._filterEventService.OnIdCategorySelected += SetIdCategoryFilter;
-            DocumentsViewModel._filterEventService.OnStartDateTime += SetStartDateTime; 
-            DocumentsViewModel._filterEventService.OnEndDateTime += SetEndDateTime;
-
-            DocumentsViewModel._filterEventService.OnGenerateReport += GenerateReport;
-            DocumentsViewModel._filterEventService.OnGenerateReport -= GenerateReport;
+            SubscribeEvents();
         }
 
         private readonly IMovementsDocumentService _movementsDocumentService;
+
+        private void SubscribeEvents()
+        {
+            DocumentsViewModel._filterEventService.OnIdCategorySelected -= SetIdCategoryFilter;
+            DocumentsViewModel._filterEventService.OnStartDateTime -= SetStartDateTime;
+            DocumentsViewModel._filterEventService.OnEndDateTime -= SetEndDateTime;
+            DocumentsViewModel._filterEventService.OnGenerateReport -= GenerateReport;
+
+            DocumentsViewModel._filterEventService.OnIdCategorySelected += SetIdCategoryFilter;
+            DocumentsViewModel._filterEventService.OnStartDateTime += SetStartDateTime;
+            DocumentsViewModel._filterEventService.OnEndDateTime += SetEndDateTime;
+            DocumentsViewModel._filterEventService.OnGenerateReport += GenerateReport;
+        }
+        public void Dispose()
+        {
+            if (_disposed)
+                return;
+
+            DocumentsViewModel._filterEventService.OnIdCategorySelected -= SetIdCategoryFilter;
+            DocumentsViewModel._filterEventService.OnStartDateTime -= SetStartDateTime;
+            DocumentsViewModel._filterEventService.OnEndDateTime -= SetEndDateTime;
+            DocumentsViewModel._filterEventService.OnGenerateReport -= GenerateReport;
+
+            _disposed = true;
+        }
     }
 }

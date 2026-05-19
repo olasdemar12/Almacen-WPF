@@ -4,12 +4,232 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Almacen_Sistema.UI.Views"
+      xmlns:controls="clr-namespace:StockMasterControls"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ConfiguracionView">
-
     <Grid>
-        <TextBlock Text="Modulo de Configuracion" FontSize="34"
-                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <StackPanel>
+            
+            <!--Titulo: Exportar Datos-->
+            <TextBlock Text="Exportar Datos" FontSize="34" Margin="20,10,0,0"
+                       Foreground="#1c4d8d" FontFamily="Segoe UI"
+                       FontWeight="SemiBold"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+            <!--Sub titulo: Información de Módulos:-->
+            <TextBlock Text="Información de Módulos:" FontSize="30" Margin="20,0,0,0"
+                       Foreground="Black" FontFamily="Segoe UI"
+                       FontWeight="Normal"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            
+            <!--Panel para exportar la informacion-->
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Style="{StaticResource BorderEffectShawdow}"
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                Margin="10,5,0,10">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <materialDesign:PackIcon Grid.Row="0" Grid.Column="0" Kind="Database" Foreground="#1c4d8d"
+                                                 Width="60" Height="60" Margin="5"/>
+
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="Productos" FontSize="32" Margin="5,0,0,0"
+                                   Foreground="Black" FontFamily="Segoe UI"
+                                   FontWeight="Normal"
+                                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                        <controls:IconTextButtonControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                                        Icon="FileDownloadOutline" Text="Exportar CSV"
+                                                        Height="50"
+                                                        ColorButton="#1c4d8d" Margin="5,0,5,5"/>
+
+                    </Grid>
+                    
+                </Border>
+
+                <Border Grid.Column="1" Style="{StaticResource BorderEffectShawdow}"
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                Margin="10,5,0,10">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <materialDesign:PackIcon Grid.Row="0" Grid.Column="0" Kind="Database" Foreground="#1c4d8d"
+                                                 Width="60" Height="60" Margin="5"/>
+
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="Movimientos" FontSize="32" Margin="5,0,0,0"
+                                   Foreground="Black" FontFamily="Segoe UI"
+                                   FontWeight="Normal"
+                                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                        <controls:IconTextButtonControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                                        Icon="FileDownloadOutline" Text="Exportar CSV"
+                                                        Height="50"
+                                                        ColorButton="#1c4d8d" Margin="5,0,5,5"/>
+
+                    </Grid>
+
+                </Border>
+
+                <Border Grid.Column="2" Style="{StaticResource BorderEffectShawdow}"
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                Margin="10,5,0,10">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <materialDesign:PackIcon Grid.Row="0" Grid.Column="0" Kind="Database" Foreground="#1c4d8d"
+                                                 Width="60" Height="60" Margin="5"/>
+
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="Inventario" FontSize="32" Margin="5,0,0,0"
+                                   Foreground="Black" FontFamily="Segoe UI"
+                                   FontWeight="Normal"
+                                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                        <controls:IconTextButtonControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                                        Icon="FileDownloadOutline" Text="Exportar CSV"
+                                                        Height="50"
+                                                        ColorButton="#1c4d8d" Margin="5,0,5,5"/>
+
+                    </Grid>
+
+                </Border>
+
+            </Grid>
+
+            <!--Titulo: Exportar Datos-->
+            <TextBlock Text="Seguridad y Usuarios" FontSize="34" Margin="20,10,0,10"
+                       Foreground="#1c4d8d" FontFamily="Segoe UI"
+                       FontWeight="SemiBold"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <!--Panel para gestionar usuarios y seguridad-->
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Style="{StaticResource BorderEffectShawdow}"
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                Margin="10,5,0,10">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <materialDesign:PackIcon Grid.Row="0" Grid.Column="0" Kind="AccountLockOutline" Foreground="#1c4d8d"
+                                                 Width="60" Height="60" Margin="5"/>
+
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="Mi Cuenta" FontSize="32" Margin="5,0,0,0"
+                                   Foreground="Black" FontFamily="Segoe UI"
+                                   FontWeight="Normal"
+                                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                                   Text="Cambiar Contraseña o Nombre de Usuario." FontSize="16" Margin="15,0,5,10"
+                                   Foreground="Black" FontFamily="Segoe UI"
+                                   FontWeight="Normal"
+                                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                        <controls:IconTextButtonControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                                        Icon="Settings" Text="Gestionar Cuenta"
+                                                        Height="50" Padding="0"
+                                                        ColorButton="#1c4d8d" Margin="5,0,5,5"/>
+
+                    </Grid>
+
+                </Border>
+
+                <Border Grid.Column="1" Style="{StaticResource BorderEffectShawdow}"
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                Margin="10,5,0,10">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <materialDesign:PackIcon Grid.Row="0" Grid.Column="0" Kind="AccountPlusOutline" Foreground="#1c4d8d"
+                                                 Width="60" Height="60" Margin="5"/>
+
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="Usuarios" FontSize="32" Margin="5,0,0,0"
+                                   Foreground="Black" FontFamily="Segoe UI"
+                                   FontWeight="Normal"
+                                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                                   Text="Registrar Nuevos Usuarios en el Sistema." FontSize="16" Margin="15,0,5,10"
+                                   Foreground="Black" FontFamily="Segoe UI"
+                                   FontWeight="Normal"
+                                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                        <controls:IconTextButtonControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                                        Icon="Add" Text="Agregar Usuario"
+                                                        Height="50" Padding="0"
+                                                        ColorButton="#1c4d8d" Margin="5,0,5,5"/>
+
+                    </Grid>
+
+                </Border>
+
+            </Grid>
+
+        </StackPanel>
     </Grid>
 </Page>

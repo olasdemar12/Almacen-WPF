@@ -1,4 +1,6 @@
 ﻿using Almacen_Sistema.Composition;
+using Almacen_Sistema.MVVM.Models.Documents;
+using Almacen_Sistema.MVVM.Models.Movements.Inventory;
 using MVVM.Models.Product;
 using System;
 using System.Collections.Generic;
@@ -12,7 +14,7 @@ namespace Almacen_Sistema.Services.Documents.ModuleServices.Products
     {
         public Task<List<DocumentProductRow>> GetDocumentProductRowAsync();
 
-        public Task<ServiceResult> ExportMovementsDocument();
+        public Task<ServiceResult> ExportMovementsDocument(InformationReport informationReport, List<DocumentProductRow> viewInformationModule);
     }
 
     public interface IProductRowsServiceList

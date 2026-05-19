@@ -1,6 +1,8 @@
-﻿using Almacen_Sistema.MVVM.Models.Movements.Inventory;
+﻿using Almacen_Sistema.MVVM.Models.Documents;
+using Almacen_Sistema.MVVM.Models.Movements.Inventory;
 using Almacen_Sistema.MVVM.Models.Movements.RowMovements;
 using Almacen_Sistema.MVVM.ViewModels.Pages.Documents;
+using StockMasterControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,9 +61,26 @@ namespace Almacen_Sistema.MVVM.ViewModels.Panels.Documents.Inventory
         }
         private void GenerateReport(ModuleReport typeReport)
         {
-            if (typeReport != ModuleReport.Inventario)
+            if (typeReport != ModuleReport.Inventario || RowsInventoryView.IsEmpty)
+            {
+                MessageBox.Show("No hay registros para generar un reporte", "No se puede generar el reporte", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
-            MessageBox.Show("Se pidio generar un reporte del modulo: Inventario");
+            }
+
+            var information = new InformationReport(typeReport, StartDate, EndDate, string.Empty);
+            var ListInventory = RowsInventoryView.Cast<DocumentInventoryRow>().ToList();
+
+            if (IdCategorySelected != null && ListInventory[0].IdCategory == IdCategorySelected.Value)
+            {
+                information.CategoryName = ListInventory[0].CategoryName;
+            }
+            else
+            {
+                information.CategoryName = "Sin categoria seleccionada";
+            }
+            var result = _invetoryDocumentService.ExportMovementsDocument(information, ListInventory);
+            var type = result.Result.IsSuccess ? NotificationType.Success : NotificationType.Error;
+            NotificationServiceControl.Instance.ShowNotification(result.Result.Message, type);
         }
         public async Task LoadingInformationDocument()
         {

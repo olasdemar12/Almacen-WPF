@@ -1,16 +1,16 @@
-﻿using Almacen_Sistema.MVVM.Models.Movements.RowMovements;
+﻿using Almacen_Sistema.MVVM.Models.Movements.Inventory;
+using Almacen_Sistema.MVVM.Models.Movements.RowMovements;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Almacen_Sistema.MVVM.ViewModels.Panels.Documents.Movements
+namespace Almacen_Sistema.MVVM.ViewModels.Panels.Documents.Inventory
 {
-    public partial class MovementsReportPreviewViewModel
+    public partial class InventoryPreviewViewModel
     {
         //Modelo de la vista
         [ObservableProperty]
@@ -20,9 +20,9 @@ namespace Almacen_Sistema.MVVM.ViewModels.Panels.Documents.Movements
         [ObservableProperty]
         private int? _idCategorySelected;
         [ObservableProperty]
-        private List<RowMovementsProductsDocument> rowsMovement;
+        private List<DocumentInventoryRow> rowsInventory;
         [ObservableProperty]
-        private ICollectionView rowsMovementView;
+        private ICollectionView rowsInventoryView;
 
         //Propiedades de funcionamiento:
         [ObservableProperty]

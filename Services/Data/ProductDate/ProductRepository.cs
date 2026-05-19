@@ -1,4 +1,5 @@
 ﻿using Almacen_Sistema.BaseDirectory;
+using Almacen_Sistema.Services.Documents.ModuleServices.Products;
 using Microsoft.Data.Sqlite;
 using MVVM.Models.Category;
 using MVVM.Models.Product;
@@ -13,7 +14,7 @@ using CategoryModel = MVVM.Models.Category.Category;
 using ProductModel = MVVM.Models.Product.Product;
 namespace Almacen_Sistema.Services.Data.ProductDate
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : IProductRepository, IProductRowsServiceList
     {
         public List<ProductModel> GetAllProductsAsync()
         {
@@ -176,6 +177,53 @@ WHERE IdProduct = $IdProduct
                 }
             }
         }
+
+        List<ProductModel> IProductRowsServiceList.GetAllProductsAsync()
+        {
+            List<ProductModel> products = new List<ProductModel>();
+
+            using SqliteConnection connection = DatabaseManager.Instance.CreateConnection();
+            connection.Open();
+
+            using SqliteCommand command = connection.CreateCommand();
+            command.CommandText = @"
+SELECT 
+    P.IdProduct,
+    P.ProductName,
+    P.BarCode,
+    P.TypeSale,
+    P.PurchasePrice,
+    P.SalePrice,
+    COALESCE(P.IdCategory, NULL) AS IdCategory,
+    COALESCE(C.CategoryName, 'Sin Asignar') AS CategoryName,
+    P.Active
+FROM Products AS P
+LEFT JOIN Categorys AS C
+    ON P.IdCategory = C.IdCategory;
+";
+
+            using SqliteDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                products.Add(new ProductModel()
+                {
+                    IdProduct = reader.GetInt32(0),
+                    ProductName = reader.GetString(1),
+                    BarCode = reader.GetString(2),
+                    SaleType = reader.GetString(3),
+                    PurchasePrice = reader.GetDecimal(4),
+                    SalePrice = reader.GetDecimal(5),
+                    IdCategory = reader.IsDBNull(6) ? null : reader.GetInt32(6),
+                    CategoryName = reader.GetString(7),
+                    Active = reader.GetInt32(8)
+                });
+            }
+
+            return products;
+        }
+
+
 
         //Validar nombre y codigo de barras
         public async Task<ProductRepositoryResult> ValidateProductAsync(ActionRegister action, ProductModel product)

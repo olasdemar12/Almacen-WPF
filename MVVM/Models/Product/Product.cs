@@ -2,18 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MVVM.Models.Product
 {
-    public enum SaleType
+    public enum StateProduct
     {
-        Unidad,
-        Pieza,
-        Gramos
+        Inactivo,
+        Activo
     }
+
+
     public partial class Product : ObservableObject
     {
         [ObservableProperty]
@@ -63,6 +65,42 @@ namespace MVVM.Models.Product
             SalePrice = precioVenta;
             IdCategory = idCategoria;
             this.CategoryName = CategoryName;
+        }
+    }
+
+    public struct DocumentProductRow
+    {
+        private int _idCategory;
+        private string _productName;
+        private string _categoryName;
+        private StateProduct _stateProduct;
+        private decimal _priceSale;
+        private string _typeSale;
+
+        public int IdCategory { get => _idCategory; set => _idCategory = value; }
+        public string ProductName { get => _productName; set => _productName = value; }
+        public string CategoryName { get => _categoryName; set => _categoryName = value; }
+        public StateProduct StateProduct { get => _stateProduct; set => _stateProduct = value; }
+        public decimal PriceSale { get => _priceSale; set => _priceSale = value; }
+        public string TypeSale { get => _typeSale; set => _typeSale = value; }
+
+        public DocumentProductRow()
+        {
+            _idCategory = 0;
+            _productName = string.Empty;
+            _stateProduct = StateProduct.Inactivo;
+            _priceSale = 0.00m;
+            _typeSale = "Unidad";
+        }
+
+        public DocumentProductRow(int IdCategory, string ProductName, string CategoryName, StateProduct StateProduct, decimal PriceSale, string TypeSale)
+        {
+            this.IdCategory = IdCategory;
+            this.ProductName = ProductName;
+            this.CategoryName = CategoryName;
+            this.StateProduct = StateProduct;
+            this.PriceSale = PriceSale;
+            this.TypeSale = TypeSale;
         }
     }
 }

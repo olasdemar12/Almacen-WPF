@@ -36,11 +36,27 @@ namespace Almacen_Sistema.Resources.Helpers.DataPicker___Control
                 if ((bool)e.NewValue)
                 {
                     datePicker.Loaded += DatePicker_Loaded;
+                    datePicker.IsVisibleChanged += DatePicker_IsVisibleChanged;
                 }
                 else
                 {
                     datePicker.Loaded -= DatePicker_Loaded;
+                    datePicker.IsVisibleChanged -= DatePicker_IsVisibleChanged;
                 }
+            }
+        }
+
+        private static void DatePicker_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (sender is not DatePicker datePicker)
+                return;
+
+            if (datePicker.IsVisible)
+            {
+                datePicker.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    ApplyDisableManualInput(datePicker);
+                }));
             }
         }
 
@@ -49,6 +65,18 @@ namespace Almacen_Sistema.Resources.Helpers.DataPicker___Control
             if (sender is not DatePicker datePicker)
                 return;
 
+            datePicker.ApplyTemplate();
+
+            datePicker.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                ApplyDisableManualInput(datePicker);
+            }));
+        }
+
+        private static void ApplyDisableManualInput(DatePicker datePicker)
+        {
+            datePicker.ApplyTemplate();
+
             DatePickerTextBox textBox = FindTextBox(datePicker);
 
             if (textBox == null)
@@ -56,6 +84,7 @@ namespace Almacen_Sistema.Resources.Helpers.DataPicker___Control
 
             textBox.IsReadOnly = true;
             textBox.Focusable = false;
+            textBox.Cursor = Cursors.Arrow;
 
             textBox.PreviewTextInput -= TextBox_PreviewTextInput;
             textBox.PreviewTextInput += TextBox_PreviewTextInput;
@@ -66,6 +95,7 @@ namespace Almacen_Sistema.Resources.Helpers.DataPicker___Control
             DataObject.RemovePastingHandler(textBox, OnPaste);
             DataObject.AddPastingHandler(textBox, OnPaste);
         }
+
 
         private static DatePickerTextBox FindTextBox(DatePicker datePicker)
         {

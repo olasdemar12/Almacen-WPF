@@ -10,6 +10,9 @@
         <Setter Property="FontFamily" Value="Segoe UI"/>
         <Setter Property="helpers:DatePickerHelper.DisableManualInput" Value="True"/>
         <Setter Property="Language" Value="es-MX"/>
+        <Setter Property="materialDesign:HintAssist.Background" Value="White"/>
+        <Setter Property="materialDesign:TextFieldAssist.HasClearButton" Value="True"/>
+        <Setter Property="materialDesign:HintAssist.HintPaddingBrush" Value="White"/>
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">

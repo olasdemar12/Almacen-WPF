@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Almacen_Sistema.MVVM.ViewModels.Panels.Documents.Products;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -23,6 +25,15 @@ namespace Almacen_Sistema.UI.Panels.Documents
         public ProductsPreviewView()
         {
             InitializeComponent();
+            this.Loaded += OnLoaded;
         }
+
+        private async void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            var vm = new ProductsPreviewViewModel();
+            this.DataContext = vm;
+            await vm.LoadingInformationDocument();
+        }
+        
     }
 }

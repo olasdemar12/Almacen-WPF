@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Almacen_Sistema.MVVM.ViewModels.Pages.Documents
 {
@@ -14,6 +15,19 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages.Documents
             StartDate = null;
             EndDate = null;
         }
+        partial void OnStartDateChanged(DateTime? value)
+        {
+            _filterEventService.OnStratDateTimeInvoke(value);
+        }
+        partial void OnEndDateChanged(DateTime? value)
+        {
+            _filterEventService?.OnEndDateTimeInvoke(value);
+        }
+        partial void OnIdCategorySelectedChanged(int? value)
+        {
+            _filterEventService.OnIdCategorySelectedInvoke(value);
+        }
+
         public async Task LoadingInformationModule()
         {
             IsLoading = true;

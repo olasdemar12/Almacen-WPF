@@ -20,9 +20,10 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages.Documents
         private int? _idCategorySelected;
         [ObservableProperty]
         private bool _isLoading;
-
         [ObservableProperty]
         private List<Category> _categories;
         public IReadOnlyList<ModuleReport> ModuleReportsList { get; }
+
+        private CancellationTokenSource? _filterCancellationTokenSource;
     }
 }

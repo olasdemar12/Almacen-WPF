@@ -78,4 +78,36 @@ namespace Almacen_Sistema.MVVM.Models.Movements.Inventory
             Amount = amount;
         }
     }
+
+    public struct DocumentInventoryRow
+    {
+        private int _idCategory;
+        private string _productName;
+        private string _categoryName;
+        private decimal _totalStock;
+        private DateTime _lastMovement;
+
+        public int IdCategory { get => _idCategory; set => _idCategory = value; }
+        public string ProductName { get => _productName; set => _productName = value; }
+        public string CategoryName { get => _categoryName; set => _categoryName = value; }
+        public decimal TotalStock { get => _totalStock; set => _totalStock = value; }
+        public DateTime LastMovement { get => _lastMovement; set => _lastMovement = value; }
+
+        public DocumentInventoryRow()
+        {
+            ProductName = string.Empty;
+            CategoryName = string.Empty;
+            TotalStock = 0.00m;
+            LastMovement = DateTime.Now;
+        }
+
+        public DocumentInventoryRow(int IdCategory, string ProductName, string CategoryName, decimal TotalStock, DateTime LastMovement)
+        {
+            this.IdCategory = IdCategory;
+            this.ProductName = ProductName;
+            this.CategoryName = CategoryName;
+            this.TotalStock = TotalStock;
+            this.LastMovement = LastMovement;
+        }
+    }
 }

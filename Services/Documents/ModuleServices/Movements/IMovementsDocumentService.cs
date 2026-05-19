@@ -16,6 +16,6 @@ namespace Almacen_Sistema.Services.Documents.ModuleServices.Movements
     {
         public Task<List<RowMovementsProductsDocument>?> GetRowMovementsProductsDocumentsAsync();
 
-        public Task<ServiceResult> ExportMovementsDocument();
+        public Task<ServiceResult> ExportMovementsDocument(string FileName);
     }
 }

@@ -27,34 +27,35 @@
         </DataTemplate>
 
     </Page.Resources>
-    
+
     <Grid>
+        <Grid>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="2.5*"/>
-        </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2.5*"/>
+            </Grid.ColumnDefinitions>
 
-        <!--Columna para seleccionar el tipo de reporte-->
-        <Border Grid.Column="0" Style="{StaticResource BorderEffectShawdow}"
+            <!--Columna para seleccionar el tipo de reporte-->
+            <Border Grid.Column="0" Style="{StaticResource BorderEffectShawdow}"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                 Margin="10,5,0,10">
 
-            <StackPanel>
-                
-                <!--Titulo: Generar reporte-->
-                <TextBlock Text="Generar Reportes" HorizontalAlignment="Left"
+                <StackPanel>
+
+                    <!--Titulo: Generar reporte-->
+                    <TextBlock Text="Generar Reportes" HorizontalAlignment="Left"
                            FontSize="24" FontFamily="Segoe UI" FontWeight="SemiBold"
                            Margin="20,10,0,0"/>
-                
-                <!--Sub titulo: Tipo de reporte-->
-                <Label Content="Tipo de Reporte" 
+
+                    <!--Sub titulo: Tipo de reporte-->
+                    <Label Content="Tipo de Reporte" 
                       FontSize="20" FontWeight="Normal"
                       FontFamily="Segoe UI" Foreground="#212121"
                       Margin="20,20,0,0"/>
 
-                <!--Combobox para seleccionar el modulo del cual se genera el reporte-->
-                <ComboBox FontSize="22" FontFamily="Segoe UI" Grid.Column="1"
+                    <!--Combobox para seleccionar el modulo del cual se genera el reporte-->
+                    <ComboBox FontSize="22" FontFamily="Segoe UI" Grid.Column="1"
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch" 
                               Padding="15,10" Margin="10,0,10,0"
@@ -66,59 +67,61 @@
                               materialDesign:TextFieldAssist.HasClearButton="True"
                               ItemsSource="{Binding ModuleReportsList}"
                               SelectedItem="{Binding SelectedTypeReport, Mode=TwoWay}">
-                    <ComboBox.Style>
-                        <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
-                            <Setter Property="BorderBrush" Value="#bdbdbd"/>
-                            <Style.Triggers>
-                                <!-- Cuando hay error -->
-                                <Trigger Property="Validation.HasError" Value="True">
-                                    <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
-                                    <Setter Property="BorderThickness" Value="2" />
-                                </Trigger>
+                        <ComboBox.Style>
+                            <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
+                                <Setter Property="BorderBrush" Value="#bdbdbd"/>
+                                <Style.Triggers>
+                                    <!-- Cuando hay error -->
+                                    <Trigger Property="Validation.HasError" Value="True">
+                                        <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                                        <Setter Property="BorderThickness" Value="2" />
+                                    </Trigger>
 
-                            </Style.Triggers>
-                        </Style>
-                    </ComboBox.Style>
-                </ComboBox>
+                                </Style.Triggers>
+                            </Style>
+                        </ComboBox.Style>
+                    </ComboBox>
 
-                <!--Seccion de ajuste para reporte: Movimientos e Inventario-->
-                <StackPanel>
-                    
-                    <!--Titulo: Rango de Fechas-->
-                    <Label Content="Rango de Fechas" 
+                    <!--Seccion de ajuste para reporte: Movimientos e Inventario-->
+                    <StackPanel>
+
+                        <!--Titulo: Rango de Fechas-->
+                        <Label Content="Rango de Fechas" 
                       FontSize="20" FontWeight="SemiBold"
                       FontFamily="Segoe UI" Foreground="#212121"
                       Margin="20,20,0,0"/>
 
-                    <!--Ajustador de fechas-->
-                    <Grid>
-                        
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                        <!--Ajustador de fechas-->
+                        <Grid>
 
 
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <!--Intervalos de fechas: Fecha Fin -->
-                        <DatePicker Grid.Column="1" Style="{StaticResource CustomMaterialDatePickerStyle}"
+                            <!--Intervalos de fechas: Fecha Inicio -->
+                            <DatePicker Grid.Column="0" Style="{StaticResource CustomMaterialDatePickerStyle}"
+                                Margin="5,5,5,0" materialDesign:HintAssist.Hint="Desde"                 
+                                SelectedDate="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayDateEnd="{Binding EndDate}"/>
+
+                            <!--Intervalos de fechas: Fecha Fin -->
+                            <DatePicker Grid.Column="1" Style="{StaticResource CustomMaterialDatePickerStyle}"
                                 Margin="5,5,5,0" materialDesign:HintAssist.Hint="Hasta"
-                                materialDesign:TextFieldAssist.HasClearButton="True"
-                                materialDesign:HintAssist.Background="White"
                                 SelectedDate="{Binding EndDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                DisplayDateStart="{Binding StartDate}"
-                                IsManipulationEnabled="True"/>
-                        
-                    </Grid>
+                                DisplayDateStart="{Binding StartDate}"/>
 
-                    <!--Sub titulo: Categorias-->
-                    <Label Content="Categoría" 
+                        </Grid>
+
+                        <!--Sub titulo: Categorias-->
+                        <Label Content="Categoría" 
                       FontSize="20" FontWeight="Normal"
                       FontFamily="Segoe UI" Foreground="#212121"
                       Margin="20,5,0,5"/>
 
-                    <!--Combobox para seleccionar la categoria-->
-                    <ComboBox FontSize="22" FontFamily="Segoe UI" Grid.Column="1"
+                        <!--Combobox para seleccionar la categoria-->
+                        <ComboBox FontSize="22" FontFamily="Segoe UI" Grid.Column="1"
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch" 
                               Padding="15,10" Margin="10,0,10,20"
@@ -132,23 +135,23 @@
                               SelectedValue="{Binding IdCategorySelected,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               SelectedValuePath="IdCategoria"
                               DisplayMemberPath="NombreCategoria">
-                        <ComboBox.Style>
-                            <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
-                                <Setter Property="BorderBrush" Value="#bdbdbd"/>
-                                <Style.Triggers>
-                                    <!-- Cuando hay error -->
-                                    <Trigger Property="Validation.HasError" Value="True">
-                                        <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
-                                        <Setter Property="BorderThickness" Value="2" />
-                                    </Trigger>
+                            <ComboBox.Style>
+                                <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
+                                    <Setter Property="BorderBrush" Value="#bdbdbd"/>
+                                    <Style.Triggers>
+                                        <!-- Cuando hay error -->
+                                        <Trigger Property="Validation.HasError" Value="True">
+                                            <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                                            <Setter Property="BorderThickness" Value="2" />
+                                        </Trigger>
 
-                                </Style.Triggers>
-                            </Style>
-                        </ComboBox.Style>
-                    </ComboBox>
+                                    </Style.Triggers>
+                                </Style>
+                            </ComboBox.Style>
+                        </ComboBox>
 
-                    <!--Boton para exportar el PDF-->
-                    <controls:LoadingButtonControl Width="auto" Height="50"
+                        <!--Boton para exportar el PDF de Movimientos e Inventario-->
+                        <controls:LoadingButtonControl Width="auto" Height="50"
                                                    ButtonContent="Exportar Documento"
                                                    IsLoading="False"
                                                    Margin="10,0,10,0"
@@ -156,61 +159,67 @@
                                                    ButtonColor="#1c4d8d"
                                                    Foreground="White"
                                                    FontSize="22"
-                                                   FontWeight="Normal"/>
+                                                   FontWeight="Normal"
+                                                   Command="{Binding GenerateDocumentCommand}"/>
 
-                    <StackPanel.Style>
-                        <Style TargetType="{x:Type StackPanel}">
-                            <Setter Property="Visibility" Value="Collapsed"/>
+                        <StackPanel.Style>
+                            <Style TargetType="{x:Type StackPanel}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
 
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding SelectedTypeReport}" Value="Movimientos">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedTypeReport}" Value="Movimientos">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
 
-                                <DataTrigger Binding="{Binding SelectedTypeReport}" Value="Inventario">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StackPanel.Style>
-                </StackPanel>
+                                    <DataTrigger Binding="{Binding SelectedTypeReport}" Value="Inventario">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+                    </StackPanel>
 
-                <!--Seccion de ajuste para reporte: Productos-->
-                <StackPanel>
+                    <!--Seccion de ajuste para reporte: Productos-->
+                    <StackPanel>
 
-                    <!--Sub titulo: Categorias-->
-                    <Label Content="Categoría" 
+                        <!--Sub titulo: Categorias-->
+                        <Label Content="Categoría" 
                       FontSize="20" FontWeight="Normal"
                       FontFamily="Segoe UI" Foreground="#212121"
                       Margin="20,5,0,5"/>
 
-                    <!--Combobox para seleccionar la categoria-->
-                    <ComboBox FontSize="22" FontFamily="Segoe UI" Grid.Column="1"
+                        <!--Combobox para seleccionar la categoria-->
+                        <ComboBox FontSize="22" FontFamily="Segoe UI" Grid.Column="1"
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch" 
                               Padding="15,10" Margin="10,0,10,20"
                               materialDesign:HintAssist.IsFloating="False"
                               materialDesign:HintAssist.Hint="Todas"
+                              materialDesign:TextFieldAssist.HasClearButton="True"
                               materialDesign:HintAssist.HintPaddingBrush="White"
                               materialDesign:ValidationAssist.Background="White"
-                              materialDesign:ValidationAssist.FontSize="16">
-                        <ComboBox.Style>
-                            <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
-                                <Setter Property="BorderBrush" Value="#bdbdbd"/>
-                                <Style.Triggers>
-                                    <!-- Cuando hay error -->
-                                    <Trigger Property="Validation.HasError" Value="True">
-                                        <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
-                                        <Setter Property="BorderThickness" Value="2" />
-                                    </Trigger>
+                              materialDesign:ValidationAssist.FontSize="16"
+                              ItemsSource="{Binding Categories}"
+                              SelectedValue="{Binding IdCategorySelected,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedValuePath="IdCategoria"
+                              DisplayMemberPath="NombreCategoria">
+                            <ComboBox.Style>
+                                <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
+                                    <Setter Property="BorderBrush" Value="#bdbdbd"/>
+                                    <Style.Triggers>
+                                        <!-- Cuando hay error -->
+                                        <Trigger Property="Validation.HasError" Value="True">
+                                            <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                                            <Setter Property="BorderThickness" Value="2" />
+                                        </Trigger>
 
-                                </Style.Triggers>
-                            </Style>
-                        </ComboBox.Style>
-                    </ComboBox>
+                                    </Style.Triggers>
+                                </Style>
+                            </ComboBox.Style>
+                        </ComboBox>
 
-                    <!--Boton para exportar el PDF-->
-                    <controls:LoadingButtonControl Width="auto" Height="50"
+                        <!--Boton para exportar el PDF de productos-->
+                        <controls:LoadingButtonControl Width="auto" Height="50"
                                                    ButtonContent="Exportar Documento"
                                                    IsLoading="False"
                                                    Margin="10,0,10,0"
@@ -218,148 +227,149 @@
                                                    ButtonColor="#1c4d8d"
                                                    Foreground="White"
                                                    FontSize="22"
-                                                   FontWeight="Normal"/>
+                                                   FontWeight="Normal"
+                                                   Command="{Binding GenerateDocumentCommand}"/>
 
-                    <StackPanel.Style>
-                        <Style TargetType="{x:Type StackPanel}">
-                            <Setter Property="Visibility" Value="Collapsed"/>
+                        <StackPanel.Style>
+                            <Style TargetType="{x:Type StackPanel}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
 
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding SelectedTypeReport}" Value="Productos">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StackPanel.Style>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedTypeReport}" Value="Productos">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+                    </StackPanel>
+
                 </StackPanel>
 
-            </StackPanel>
-            
-        </Border>
+            </Border>
 
-        <!--Columna para la vista previa del reporte-->
-        <Border Grid.Column="1" Style="{StaticResource BorderEffectShawdow}"
+            <!--Columna para la vista previa del reporte-->
+            <Border Grid.Column="1" Style="{StaticResource BorderEffectShawdow}"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                 Margin="10,5,0,10">
 
-            <Grid>
+                <Grid>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                
-                <!--Titulo: Vista Previa: Modulo-->
-                <StackPanel Orientation="Horizontal" Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                    <TextBlock Text="Vista Previa:" HorizontalAlignment="Left"
+                    <!--Titulo: Vista Previa: Modulo-->
+                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+
+                        <TextBlock Text="Vista Previa:" HorizontalAlignment="Left"
                            FontSize="24" FontFamily="Segoe UI" FontWeight="SemiBold"
                            Margin="20,10,0,0"/>
 
-                    <TextBlock Text="{Binding SelectedTypeReport}" HorizontalAlignment="Left"
+                        <TextBlock Text="{Binding SelectedTypeReport}" HorizontalAlignment="Left"
                            FontSize="24" FontFamily="Segoe UI" FontWeight="SemiBold"
                            Margin="5,10,0,0"/>
 
-                    <StackPanel.Style>
+                        <StackPanel.Style>
 
-                        <Style TargetType="{x:Type StackPanel}">
+                            <Style TargetType="{x:Type StackPanel}">
 
-                            <Setter Property="Visibility" Value="Visible"/>
+                                <Setter Property="Visibility" Value="Visible"/>
 
-                            <Style.Triggers>
+                                <Style.Triggers>
 
-                                <DataTrigger Binding="{Binding SelectedTypeReport}" Value="{x:Null}">
+                                    <DataTrigger Binding="{Binding SelectedTypeReport}" Value="{x:Null}">
 
-                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Setter Property="Visibility" Value="Collapsed"/>
 
-                                </DataTrigger>
+                                    </DataTrigger>
 
-                            </Style.Triggers>
+                                </Style.Triggers>
 
-                        </Style>
+                            </Style>
 
-                    </StackPanel.Style>
+                        </StackPanel.Style>
 
-                </StackPanel>
-                
-                <!--Contenedor de Preview-->
-                <ContentControl Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <ContentControl.Style>
-
-                        <Style TargetType="{x:Type ContentControl}">
-                            
-                            <Setter Property="Visibility" Value="Visible"/>
-
-                            <Style.Triggers>
-
-                                <DataTrigger Binding="{Binding SelectedTypeReport}" Value="{x:Null}">
-
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-
-                                </DataTrigger>
-
-                                <DataTrigger Binding="{Binding SelectedTypeReport}" Value="Movimientos">
-
-                                    <Setter Property="ContentTemplate" Value="{StaticResource MovementsPreviewTemplate}"/>
-
-                                </DataTrigger>
-
-                                <DataTrigger Binding="{Binding SelectedTypeReport}" Value="Inventario">
-
-                                    <Setter Property="ContentTemplate" Value="{StaticResource InventoryPreviewTemplate}"/>
-
-                                </DataTrigger>
-
-                                <DataTrigger Binding="{Binding SelectedTypeReport}" Value="Productos">
-
-                                    <Setter Property="ContentTemplate" Value="{StaticResource ProductsPreviewTemplate}"/>
-
-                                </DataTrigger>
-
-                            </Style.Triggers>
-
-                        </Style>
-                        
-                    </ContentControl.Style>
-                </ContentControl>
-
-                <!--Mensaje que se habilita cuando no esta seleccionado el tipo de reporte que se requiere generar-->
-                <Border HorizontalAlignment="Center" VerticalAlignment="Center"
-                        Background="White" Grid.Row="1">
-                    
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Image Source="/Assets/View/Documents/papel.png" Width="250" Height="250"
-                           HorizontalAlignment="Center"/>
-                        <TextBlock Text="Seleccione el Tipo de Reporte para Generar el Documento" FontSize="32" 
-                               Foreground="#1c4d8d" Margin="5,10,5,0" TextWrapping="Wrap" TextAlignment="Center"
-                               FontWeight="Bold" HorizontalAlignment="Center"/>
                     </StackPanel>
 
-                    <Border.Style>
-                        <Style TargetType="Border">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding SelectedTypeReport}" Value="{x:Null}">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Border.Style>
-                </Border>
-                
-                
-            </Grid>
-            
-        </Border>
+                    <!--Contenedor de Preview-->
+                    <ContentControl Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <ContentControl.Style>
 
-        <!--Intervalos de fechas: Fecha Inicio -->
-        <DatePicker Grid.Column="1" Style="{StaticResource CustomMaterialDatePickerStyle}"
-                                Background="Red" BorderBrush="Red" HorizontalAlignment="Center" VerticalAlignment="Center" Width="220"
-                                Margin="5,5,5,0" materialDesign:HintAssist.Hint="Desde"
-                                materialDesign:HintAssist.Background="White"
-                                materialDesign:TextFieldAssist.HasClearButton="True"
-                                SelectedDate="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                DisplayDateEnd="{Binding EndDate}"/>
+                            <Style TargetType="{x:Type ContentControl}">
 
+                                <Setter Property="Visibility" Value="Visible"/>
+
+                                <Style.Triggers>
+
+                                    <DataTrigger Binding="{Binding SelectedTypeReport}" Value="{x:Null}">
+
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding SelectedTypeReport}" Value="Movimientos">
+
+                                        <Setter Property="ContentTemplate" Value="{StaticResource MovementsPreviewTemplate}"/>
+
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding SelectedTypeReport}" Value="Inventario">
+
+                                        <Setter Property="ContentTemplate" Value="{StaticResource InventoryPreviewTemplate}"/>
+
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding SelectedTypeReport}" Value="Productos">
+
+                                        <Setter Property="ContentTemplate" Value="{StaticResource ProductsPreviewTemplate}"/>
+
+                                    </DataTrigger>
+
+                                </Style.Triggers>
+
+                            </Style>
+
+                        </ContentControl.Style>
+                    </ContentControl>
+
+                    <!--Mensaje que se habilita cuando no esta seleccionado el tipo de reporte que se requiere generar-->
+                    <Border HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Background="White" Grid.Row="1">
+
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Image Source="/Assets/View/Documents/papel.png" Width="250" Height="250"
+                           HorizontalAlignment="Center"/>
+                            <TextBlock Text="Seleccione el Tipo de Reporte para Generar el Documento" FontSize="32" 
+                               Foreground="#1c4d8d" Margin="5,10,5,0" TextWrapping="Wrap" TextAlignment="Center"
+                               FontWeight="Bold" HorizontalAlignment="Center"/>
+                        </StackPanel>
+
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedTypeReport}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+
+
+                </Grid>
+
+            </Border>
+
+        </Grid>
+
+        <!--Pantalla de "Cargando..."-->
+        <controls:LoadingViewControl
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                    Background="White" IsLoading="{Binding IsLoading}"
+                    TextLoading="Cargando Productos registrados..."
+                    TextColor="#BDBDBD"
+                    ProgressColor="#1C4D8D"/>
     </Grid>
 </Page>

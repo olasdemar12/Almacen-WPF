@@ -33,17 +33,13 @@ namespace Almacen_Sistema.MVVM.ViewModels.Panels.Movements.ProductSelectionExitM
                 //TODO: Habilitar busqueda por codigo de barras
                 matchesText = stockRow.ProductName?.Contains(text, StringComparison.OrdinalIgnoreCase) == true;
             }
-
-            // --- Filtro por categoría ---
             bool matchesCategory = true;
 
             if (SelectedCategory != null)
             {
-                // Ajusta esto según tu modelo (Id o Nombre)
                 matchesCategory = stockRow.CategoryName == SelectedCategory;
             }
 
-            // --- Resultado final ---
             return matchesText && matchesCategory;
         }
         partial void OnSelectedStockRowChanging(CurrentStockRowPanel? value)

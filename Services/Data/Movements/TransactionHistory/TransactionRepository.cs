@@ -1,5 +1,6 @@
 ﻿using Almacen_Sistema.BaseDirectory;
 using Almacen_Sistema.MVVM.Models.Movements;
+using Almacen_Sistema.Services.Inventory;
 using Microsoft.Data.Sqlite;
 using MVVM.Models.Product;
 using System;
@@ -12,7 +13,7 @@ using System.Windows;
 using TransactionHistoryModel = Almacen_Sistema.MVVM.Models.Movements.TransactionHistory;
 namespace Almacen_Sistema.Services.Data.Movements.TransactionHistory
 {
-    public class TransactionRepository : ITransactionRepository
+    public class TransactionRepository : ITransactionRepository, IProductTransactionInformationService
     {
         public async Task<List<TransactionHistoryModel>> SelectAllTransaction()
         {
@@ -170,7 +171,5 @@ WHERE IdMovement = $IdMovement
                 }
             }
         }
-
-
     }
 }

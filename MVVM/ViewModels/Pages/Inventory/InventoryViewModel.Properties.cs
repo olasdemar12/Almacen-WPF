@@ -31,7 +31,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages.Inventory
         [ObservableProperty]
         private InventoryRow? _selectedInventoryRow;
         [ObservableProperty]
-        private int _selectedProductIndex = -1;
+        private bool _isBusy;
 
         private CancellationTokenSource? _searchCancellationTokenSource;
         public IReadOnlyList<StateStockInventory> StateStockOptions { get; } 

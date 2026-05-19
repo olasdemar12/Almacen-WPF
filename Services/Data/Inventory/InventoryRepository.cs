@@ -78,9 +78,34 @@ ON P.IdProduct = T.IdProduct WHERE T.Confirmed = 1 ORDER BY T.RegisterDate DESC
             }
         }
 
-        public Task<bool> UpdateStockMinumInventory(decimal MinumStock)
+        public async Task<bool> UpdateStockMinumInventory(int IdProduct, decimal MinumStock)
         {
-            throw new NotImplementedException();
+            SqliteConnection? connection = null;
+            try
+            {
+                connection = DatabaseManager.Instance.CreateConnection();
+                await connection.OpenAsync();
+
+                using SqliteCommand command = connection.CreateCommand();
+                command.CommandText = @"UPDATE CurrentStocks SET MiniumStock = $MinumStock WHERE IdProduct = $IdProduct";
+                command.Parameters.AddWithValue("$MinumStock", MinumStock);
+                command.Parameters.AddWithValue("$IdProduct", IdProduct);
+
+                var rowsAffected = await command.ExecuteNonQueryAsync();
+                return rowsAffected > 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, $"Ocurrio un Error al actualizar el stock minimo del producto {IdProduct}", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    await connection.CloseAsync();
+                }
+            }
         }
 
         private StateStockInventory GetStateStock(decimal MiniumStock, decimal TotalStock)

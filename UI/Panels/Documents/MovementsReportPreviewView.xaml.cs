@@ -1,4 +1,4 @@
-﻿using Almacen_Sistema.MVVM.Models.Movements.Inventory;
+﻿using Almacen_Sistema.MVVM.ViewModels.Panels.Documents.Movements;
 using Almacen_Sistema.MVVM.ViewModels.Panels.InventoryInformation;
 using System;
 using System.Collections.Generic;
@@ -15,27 +15,24 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Almacen_Sistema.UI.Panels.Inventory
+namespace Almacen_Sistema.UI.Panels.Documents
 {
     /// <summary>
-    /// Lógica de interacción para InventoryInformationControl.xaml
+    /// Lógica de interacción para MovementsReportPreviewView.xaml
     /// </summary>
-    public partial class InventoryInformationControl : UserControl
+    public partial class MovementsReportPreviewView : UserControl
     {
-        public InventoryInformationControl(InventoryRow? selectionRow)
+        public MovementsReportPreviewView()
         {
             InitializeComponent();
-            _objectoRowSelection = selectionRow; 
             this.Loaded += OnLoaded;
         }
 
-        private InventoryRow _objectoRowSelection;
-
         private async void OnLoaded(object sender, RoutedEventArgs e)
         {
-            var vm = new InventoryInformationViewModel(_objectoRowSelection);
+            var vm = new MovementsReportPreviewViewModel();
             this.DataContext = vm;
-            await vm.SetInformationProduct();
+            await vm.LoadingTableInformation();
         }
     }
 }

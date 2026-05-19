@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Almacen_Sistema.MVVM.ViewModels.Pages.Documents;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,14 @@ namespace Almacen_Sistema.UI.Views
         public DocumentosView()
         {
             InitializeComponent();
+            this.Loaded += OnLoaded;
+        }
+
+        private async void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            var vm = new DocumentsViewModel();
+            this.DataContext = vm;
+            await vm.LoadingInformationModule();
         }
     }
 }

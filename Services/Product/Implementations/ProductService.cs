@@ -1,6 +1,8 @@
 ﻿using Almacen_Sistema.BaseDirectory;
 using Almacen_Sistema.Composition;
+using Almacen_Sistema.Services.Data.CategoryDate;
 using Almacen_Sistema.Services.Data.ProductDate;
+using Almacen_Sistema.Services.Documents.ModuleServices.Movements;
 using Almacen_Sistema.Services.Product.Contracts;
 using Almacen_Sistema.UI.Forms.Category;
 using Microsoft.Data.Sqlite;
@@ -22,6 +24,13 @@ namespace Almacen_Sistema.Services.Product.Implementations
             this.productRepository = productRepository;
             this.readCategorys = productReadCategoryService;
         }
+
+        public ProductService()
+        {
+            this.productRepository = new ProductRepository();
+            this.readCategorys = new CategoryRepository();
+        }
+
         private readonly IProductRepository productRepository;
         private readonly IProductReadCategoryService readCategorys;
 

@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="Almacen_Sistema.UI.Panels.Documents.MovementsReportPreviewView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Almacen_Sistema.UI.Panels.Documents"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:controls="clr-namespace:StockMasterControls"
+             xmlns:vm="clr-namespace:Almacen_Sistema.MVVM.ViewModels.Panels.Documents.Movements"
+             d:DataContext="{d:DesignInstance Type=vm:MovementsReportPreviewViewModel,IsDesignTimeCreatable=False}"
+             mc:Ignorable="d">
+    <Grid>
+        <!--Tabla quen muestra la lista de Movimientos-->
+        <Border Grid.Row="1" Height="40.5" Width="30"
+                    VerticalAlignment="Top" HorizontalAlignment="Right"
+                    Background="#4A80C0"
+                    Panel.ZIndex="0"/>
+        <DataGrid Grid.Row="1"
+                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                      Style="{StaticResource DataGridStyleGeneral}"
+                      ColumnHeaderStyle="{StaticResource DataGridHead}"
+                      CellStyle="{StaticResource DataGridCellConfig}"
+                      RowStyle="{StaticResource DataInventoryGridConfing}"
+                      ItemsSource="{Binding RowsMovementView}"
+                      Padding="0,0,0,0"
+          
+                      ScrollViewer.CanContentScroll="True"
+                      VirtualizingPanel.ScrollUnit="Pixel"
+                      VirtualizingPanel.CacheLength="1,1"
+                      VirtualizingPanel.CacheLengthUnit="Page"
+                      VirtualizingPanel.IsVirtualizing="True"
+                      VirtualizingPanel.VirtualizationMode="Recycling"
+                
+                      RowHeight="60"
+                      Panel.ZIndex="1"
+                      Background="Transparent">
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Fecha"
+                            ElementStyle="{StaticResource TextFillInventoryDataGrid}"
+                            Binding="{Binding RegisterDate,StringFormat={}{0:dd/MM/yyyy}}"        
+                            Width="*"/>
+
+                <DataGridTextColumn Header="Tipo"
+                            ElementStyle="{StaticResource TextFillInventoryDataGrid}"
+                            Binding="{Binding MovementTransaction}"
+                            Width="*"/>
+
+                <DataGridTextColumn Header="Producto"
+                            ElementStyle="{StaticResource TextFillInventoryDataGrid}"
+                            Binding="{Binding ProductName}"
+                            Width="*"/>
+
+                <DataGridTextColumn Header="Categoría"
+                            ElementStyle="{StaticResource TextFillInventoryDataGrid}"
+                            Binding="{Binding CategoryName}"
+                            Width="*" />
+
+                <DataGridTextColumn Header="Cantidad"
+                            ElementStyle="{StaticResource TextFillInventoryDataGrid}"
+                            Binding="{Binding Quantity}"
+                            Width="*" />
+                
+            </DataGrid.Columns>
+
+        </DataGrid>
+    </Grid>
+</UserControl>

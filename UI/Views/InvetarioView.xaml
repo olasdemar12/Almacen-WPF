@@ -105,11 +105,8 @@
                       RowStyle="{StaticResource DataInventoryGridConfing}"
                       ItemsSource="{Binding InventoryItemsView}"
                       SelectedItem="{Binding SelectedInventoryRow,Mode=TwoWay}"
-                      SelectedIndex="{Binding SelectedProductIndex,Mode=TwoWay}"
                       SelectionMode="Single"
-                      SelectionUnit="FullRow"
                       AutoGenerateColumns="False"
-                      IsSynchronizedWithCurrentItem="False"
                       Padding="0,0,0,0"
           
                       ScrollViewer.CanContentScroll="True"
@@ -231,5 +228,13 @@
                 </Border>
             </Grid>
         </Grid>
+
+        <!--Pantalla de "Cargando..."-->
+        <controls:LoadingViewControl
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                    Background="White" IsLoading="{Binding IsBusy}"
+                    TextLoading="Cargando Inventarios Disponibles..."
+                    TextColor="#BDBDBD"
+                    ProgressColor="#1C4D8D"/>
     </Grid>
 </Page>

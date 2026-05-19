@@ -6,14 +6,21 @@
              xmlns:local="clr-namespace:Almacen_Sistema.UI.Panels.Inventory"
              xmlns:controls="clr-namespace:StockMasterControls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:vm="clr-namespace:Almacen_Sistema.MVVM.ViewModels.Panels.InventoryInformation"
+             d:DataContext="{d:DesignInstance Type=vm:InventoryInformationViewModel,IsDesignTimeCreatable=False}"
              mc:Ignorable="d">
     <controls:PanelControl Width="500" Height="600" Title="Información del Producto"
                                ShowCloseButton="True" ShowBackButton="False">
-        <StackPanel>
+        <Grid>
 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
             <!--Targeta que muestra la informacion del Producto seleccionado-->
             <Border Background="White" BorderBrush="#bdbdbd" Margin="10"
-                    Height="100" BorderThickness="2" CornerRadius="4">
+                    Height="auto" BorderThickness="2" CornerRadius="4">
                 <StackPanel>
 
                     <!--Nombre del Producto-->
@@ -26,7 +33,7 @@
                         <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="Nombre" Foreground="#616161"
                                    FontSize="16" FontFamily="Segoe UI" Margin="10,5,0,0"/>
 
-                        <TextBlock Grid.Column="1" HorizontalAlignment="Right" Text="Coca Cola 600ml" Foreground="#616161"
+                        <TextBlock Grid.Column="1" HorizontalAlignment="Right" Text="{Binding ProductName}" Foreground="#616161"
                                    FontSize="16" FontFamily="Segoe UI" Margin="0,5,10,0"/>
 
                     </Grid>
@@ -44,7 +51,7 @@
 
                         <TextBlock Grid.Column="1" HorizontalAlignment="Right" Foreground="#616161"
                                    FontSize="16" FontFamily="Segoe UI" Margin="0,5,10,0"
-                                   Text="160"/>
+                                   Text="{Binding TotalStock}"/>
 
                     </Grid>
                     <Border Height="2" Margin="5,5,5,0" Background="#e0e0e0"/>
@@ -56,12 +63,17 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="Stock Minimo" Foreground="#616161"
-                                   FontSize="16" FontFamily="Segoe UI" Margin="10,5,0,0"/>
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Stock Minimo" Foreground="#616161"
+                                   FontSize="16" FontFamily="Segoe UI" Margin="10,0,0,0"/>
 
-                        <TextBlock Grid.Column="1" HorizontalAlignment="Right"
-                                   Text="5" Foreground="#616161"
-                                   FontSize="16" FontFamily="Segoe UI" Margin="0,5,10,0"/>
+                        <controls:InputQuantitiesControl Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                                         Quantity="{Binding MinimumStock,
+                                                                    Mode=TwoWay,
+                                                                    UpdateSourceTrigger=PropertyChanged,
+                                                                    ValidatesOnNotifyDataErrors=True,
+                                                                    NotifyOnValidationError=True}" 
+                                                         Margin="0,5,10,5" Width="Auto"
+                                                         Minimum="5"/>
 
                     </Grid>
 
@@ -69,8 +81,62 @@
 
             </Border>
 
-            
-        </StackPanel>
+            <!--Tabla quen muestra la lista de Movimientos del producto seleccionado-->
+            <Border Height="40" Width="30"  Grid.Row="1"
+                    VerticalAlignment="Top" HorizontalAlignment="Right"
+                    Background="#4A80C0" Margin="3"
+                    Panel.ZIndex="0"/>
+            <DataGrid Grid.Row="1"
+                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                      Style="{StaticResource DataGridStyleGeneral}"
+                      ColumnHeaderStyle="{StaticResource DataGridHead}"
+                      CellStyle="{StaticResource DataGridCellConfig}"
+                      RowStyle="{StaticResource DataInventoryGridConfing}"
+                      ItemsSource="{Binding TransactionsProductInformation}"
+                      Padding="0,0,0,0"
+                      Margin="3"
+          
+                      ScrollViewer.CanContentScroll="True"
+                      VirtualizingPanel.ScrollUnit="Pixel"
+                      VirtualizingPanel.CacheLength="1,1"
+                      VirtualizingPanel.CacheLengthUnit="Page"
+                      VirtualizingPanel.IsVirtualizing="True"
+                      VirtualizingPanel.VirtualizationMode="Recycling"
+                
+                      RowHeight="60"
+                      Panel.ZIndex="1"
+                      Background="Transparent">
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="Fecha"
+                            ElementStyle="{StaticResource TextFillInventoryDataGrid}"
+                            Binding="{Binding RegisterDate,StringFormat={}{0:dd/MM/yyyy}}"                
+                            Width="*"/>
+
+                    <DataGridTemplateColumn Header="Movimiento"
+                            Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+
+                                <Border Style="{StaticResource MovementBadgeBorderStyle}">
+                                    <TextBlock Text="{Binding TypeMovement}" 
+                                               Style="{StaticResource MovementBadgeTextStyle}" />
+                                </Border>
+
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTextColumn Header="Cantidad"
+                            ElementStyle="{StaticResource TextFillInventoryDataGrid}"
+                            Binding="{Binding Amount}"
+                            Width="*" />
+
+                </DataGrid.Columns>
+
+            </DataGrid>
+
+        </Grid>
 
     </controls:PanelControl>
 </UserControl>

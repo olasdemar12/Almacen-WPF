@@ -2,6 +2,7 @@
 using Almacen_Sistema.MVVM.Models.Movements;
 using Almacen_Sistema.MVVM.Models.Movements.CurrentStocks;
 using Almacen_Sistema.Services.Data.Movements.TransactionHistory;
+using Almacen_Sistema.Services.Documents.ModuleServices.Movements;
 using Almacen_Sistema.Services.Movements.Contracts;
 using Almacen_Sistema.Services.Movements.Contracts.Panels;
 using StockMasterControls;

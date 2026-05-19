@@ -10,7 +10,6 @@ namespace Almacen_Sistema.Services.Data.Inventory
     public interface IInventoryRepository
     {
         public Task<List<InventoryRow>?> SelectAllInventoryRows();
-        public Task<bool> UpdateStockMinumInventory(decimal MinumStock);
-        //TODO: Implementacion de metodo para obtener todas las transacciones de un producto en especifico.
+        public Task<bool> UpdateStockMinumInventory(int IdProduct, decimal MinumStock);
     }
 }

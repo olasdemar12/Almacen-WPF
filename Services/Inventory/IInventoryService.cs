@@ -11,6 +11,5 @@ namespace Almacen_Sistema.Services.Inventory
     public interface IInventoryService
     {
         public Task<List<InventoryRow>?> GetInventoryRows();
-        public Task<ServiceResult> UpdateMinumStockProduct(decimal MinumStock);
     }
 }

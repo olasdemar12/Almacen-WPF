@@ -1,4 +1,5 @@
 ﻿using Almacen_Sistema.BaseDirectory;
+using Almacen_Sistema.Services.Documents;
 using Almacen_Sistema.Services.Product.Contracts;
 using Microsoft.Data.Sqlite;
 using Microsoft.VisualBasic;
@@ -13,7 +14,7 @@ using CategoryModel = MVVM.Models.Category.Category;
 
 namespace Almacen_Sistema.Services.Data.CategoryDate
 {
-    public class CategoryRepository : ICategoryRepository, IProductReadCategoryService
+    public class CategoryRepository : ICategoryRepository, IProductReadCategoryService, ICategorysDocumentFilter
     {
         public CategoryRepository() { }
         public async Task<List<CategoryModel>> GetAllCategory()

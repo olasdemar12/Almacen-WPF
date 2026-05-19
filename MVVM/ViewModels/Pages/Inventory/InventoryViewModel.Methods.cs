@@ -1,5 +1,7 @@
 ﻿using Almacen_Sistema.MVVM.Models.Movements;
 using Almacen_Sistema.MVVM.Models.Movements.Inventory;
+using Almacen_Sistema.UI.Panels.Inventory;
+using MaterialDesignThemes.Wpf;
 using MVVM.Models.Category;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages.Inventory
     {
         public async Task LoadInventoryItems()
         {
+            IsBusy = true;
             var inventoryRows = await _inventoryService.GetInventoryRows();
             InventoryItems = new ObservableCollection<InventoryRow>(inventoryRows);
             InventoryItemsView = CollectionViewSource.GetDefaultView(InventoryItems);
@@ -23,6 +26,7 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages.Inventory
             Categories.Add(new Category(0, "Sin Asignar", 0));
             InventoryItemsView.Filter = FilterStocksInventory;
             InventoryItemsView.Refresh();
+            IsBusy = false;
         }
 
         private bool FilterStocksInventory(object obj)
@@ -117,10 +121,13 @@ namespace Almacen_Sistema.MVVM.ViewModels.Pages.Inventory
         {
             if (value is null)
                 return;
+            InventoryItemsView.Refresh();
+            DialogHost.Show(new InventoryInformationControl(value), "DialogsRoot");
 
-            SelectedInventoryRow = null;
-            SelectedProductIndex = -1;
-            InventoryItemsView?.MoveCurrentToPosition(-1);
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                SelectedInventoryRow = null;
+            }));
         }
     }
 }

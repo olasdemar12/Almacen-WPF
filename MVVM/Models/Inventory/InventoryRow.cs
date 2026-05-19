@@ -60,4 +60,22 @@ namespace Almacen_Sistema.MVVM.Models.Movements.Inventory
         private DateTime _lastMovement;
 
     }
+
+    public struct TransactionInventoryProductRow
+    {
+        private DateTime _registerDate;
+        private TypeMovementTransaction _typeMovement;
+        private decimal _amount;
+
+        public DateTime RegisterDate { get => _registerDate; set => _registerDate = value; }
+        public TypeMovementTransaction TypeMovement { get => _typeMovement; set => _typeMovement = value; }
+        public decimal Amount { get => _amount; set => _amount = value; }
+
+        public TransactionInventoryProductRow(DateTime registerDate, TypeMovementTransaction transactionMovement, decimal amount)
+        {
+            RegisterDate = registerDate;
+            TypeMovement = transactionMovement;
+            Amount = amount;
+        }
+    }
 }

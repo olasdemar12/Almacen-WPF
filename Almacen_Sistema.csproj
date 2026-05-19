@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <None Remove="Assets\Panel\Categorys\carpeta.png" />
+    <None Remove="Assets\View\Documents\papel.png" />
     <None Remove="Assets\View\Products\caja.png" />
     <None Remove="Assets\View\Products\quitar-filtro.png" />
     <None Remove="Assets\Window\LoginView\usuario.png" />
@@ -38,6 +39,9 @@
 
   <ItemGroup>
     <Resource Include="Assets\Panel\Categorys\carpeta.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\View\Documents\papel.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\View\Products\caja.png">
